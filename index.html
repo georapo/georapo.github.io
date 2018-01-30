@@ -1,9 +1,31 @@
+<!DOCTYPE html>
 <html>
 <head>
-
+  <title>Vantaa Bingo - Virtual Cache (GC7B8PV)</title>
 </head>
 <body bgcolor="black">
-  Vantaa Bingo
-
+  
+  <div id="board">
+    <img src="img/bingoboard.png">
+  </div>
+  
+  <img src="cromwell.png" id="static_image" />
+  
+  window.onload = function(){
+                var images = new Array('charles.png','cromwell.png');
+		var static_image = document.getElementById('static_image');
+		var image_number = 0;
+			setInterval(
+					function(){
+					 static_image.src = images[image_number];
+					 image_number++;
+					 if(image_number > images.length){
+					 	image_number = 0;
+					 }
+                                    }
+                                    ,4000);
+			
+		}
+  
 </body>
 </html>
