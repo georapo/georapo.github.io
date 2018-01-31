@@ -2,30 +2,92 @@
 <html>
 <head>
   <title>Vantaa Bingo - Virtual Cache (GC7B8PV)</title>
+
+
 </head>
+
 <body bgcolor="black">
   
-  <div id="board">
-    <img src="img/bingoboard.png">
-  </div>
+ <table cols="2" rows="2">
+  <tr>
+  <td>
+   <div id="bingoboard">
+    <img src="img/bingoboard.png" usemap="#bingomap" width="650" height="360">
+
+    <map name="bingomap">
+      <area shape="rect" coords="6,6,67,90" href="#" alt="Kivistö" title="Kivistö" onclick="showInfo(1);">
+      <area shape="rect" coords="68,6,135,90" href="#" alt="Kanniston koulu" title="Kanniston koulu" onclick="showInfo(2);">
+
+    </map>
+    </div>
+  </td>
+  <td>
+
+    <div id="places">
+     <img src="img/vantaa.png" id="place_image" width="560" height="360" />
+    </div>
+  </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td width="540">
+      <div id="place_descr">
+        <span id="grid_index" style="color:white;font-size:larger;"></span><br>
+        <span id="place_description" style="color:white;"></span><br>
+
+      </div>
+
+    </td>
+  </tr>
+  </table>
   
-  <img src="cromwell.png" id="static_image" />
-  
-  window.onload = function(){
-                var images = new Array('charles.png','cromwell.png');
-		var static_image = document.getElementById('static_image');
-		var image_number = 0;
-			setInterval(
-					function(){
-					 static_image.src = images[image_number];
-					 image_number++;
-					 if(image_number > images.length){
-					 	image_number = 0;
-					 }
-                                    }
-                                    ,4000);
-			
-		}
+<script>
+
+ var animate = null;
+
+ function showInfo(idx) {
+     var object_index = idx-1;  
+     clearInterval(animate);
+
+     // place_objects:
+     // 0: kohteen nimi
+     // 1: ruutu
+     // 2: kuvannimi
+     // 3: kohteen kuvien lukumäärä
+     var place_objects = [
+       ['Kivistö', 1, 'kivisto', 2 ],
+       ['Kanniston koulu', 1, 'kannisto', 3 ],
+       ['Köningstedin kartano', 2, 'koningsted', 2 ],
+       ['Lentoasema', 2, 'lentokentta', 4 ]
+     ];
+
+     var place_descr = [
+       ['Kivistön asuntomessualue. Kivistössä järjestettiin Asuntomessut 2015. Alueen keskellä on Tiikerinsilmän aukio. Ota kuva aukiolta'],
+       ['Kanniston monitoimitalo, 2011'],
+       ['Köningstedin kartano, 1816, on arkkitehti Carl Ludwig Engelin suunnittelema.'],
+       ['Lentoasema']
+     ];
+     
+ 
+     document.getElementById("grid_index").innerHTML = "Bingoruutu: " + place_objects[object_index][1];
+     document.getElementById("place_description").innerHTML = place_descr[object_index];
+
+
+     var place_image = document.getElementById('place_image');
+     place_image.src = 'img/' + place_objects[object_index][2] + '_1.jpg';
+   
+ 		var i = 2;
+		animate = setInterval(
+		    function(){
+			 place_image.src = 'img/'+place_objects[object_index][2]+'_'+i+".jpg";	
+		         i = ((i==place_objects[object_index][3]) ? 1 : i+1);
+                    }
+                   ,4000);
+  }
+
+</script>
+
+ 
   
 </body>
 </html>
