@@ -3,26 +3,30 @@
 <head>
   <title>Vantaa Bingo - Virtual Cache (GC7B8PV)</title>
 <style>
-body
-{
-font-family:verdana,arial,courier,serif
+body{
+  background:black;
+  font-family:verdana,arial,courier,serif;
+}
+map area{
+	outline: 5px solid yellow;
 }
 </style>
 
 </head>
 
-<body bgcolor="black">
+<body>
   
  <table cols="2" rows="2">
   <tr>
   <td>
    <div id="bingoboard">
-    <img src="img/bingoboard.PNG" usemap="#bingomap" width="650" height="360">
+    <img class="map" src="img/bingoboard.PNG" usemap="#bingomap" width="650" height="360">
 
     <map name="bingomap">
       <area shape="rect" coords="6,6,67,90" href="#" alt="Kivist&ouml;" title="Kivist&ouml;" onclick="showInfo(1);">
       <area shape="rect" coords="68,6,135,90" href="#" alt="Kanniston koulu" title="Kanniston koulu" onclick="showInfo(2);">
       <area shape="rect" coords="137,6,200,90" href="#" alt="K&ouml;ningstedtin kartano" title="K&ouml;ningstedtin kartano" onclick="showInfo(3);">
+      <area shape="rect" coords="201,6,324,90" href="#" alt="Lentoasema" title="Lentoasema" onclick="showInfo(4);">
 
     </map>
     </div>
@@ -35,9 +39,16 @@ font-family:verdana,arial,courier,serif
   </td>
   </tr>
   <tr>
-    <td>
+    <td width="650">
       <div id="mapcnt">
-       <span id="karttavantaa" style="color:white;font-size:20px;">Klikkaa esittelykohteita yll&auml;olevasta bingoruudukosta! </span>
+       <span id="karttavantaa" style="color:white;font-size:18px;">Klikkaa esittelykohteita yll&auml;olevasta bingoruudukosta!<p>
+	    Yhdessä bingoruudussa on useimmiten monta vaihtoehtoista vierailukohdetta. Voit valita siis ruutua kohden minkätahansa siinä esitellyistä kohteista.
+		Tavoitellun bingosuoran saavuttamiseksi riittää neljässä (4) perättäisessä (vaakaan, pystyyn tai vinottain) ruudussa vierailu ja kuvan ottaminen.
+
+		<p>Bingoruudukossa on käytetty taiteellisia vapauksia, joten kohteet eivät sijaitse maantieteellisesti ja suhteessa toisiinsa juuri kuvan mukaisesti. 
+		Tästä johtuen kohteiden todellisen sijainnin tarkistaminen kartalta on suositeltua bingosuoran suunnittelussa.
+
+	   </span>
       </div>
     </td>
     <td width="540" style="vertical-align:top;">
@@ -69,14 +80,14 @@ font-family:verdana,arial,courier,serif
        ['Kivist&ouml;', 1, 'kivisto', 3, 'e=25492040.71&n=6690021.20&r=0.13' ],
        ['Kanniston monitoimitalo', 1, 'kannisto', 4, 'e=25492291.90&n=6690542.85&r=0.25' ],
        ['K&ouml;ningstedtin kartano', 2, 'koningstedt', 3, 'e=25491634.21&n=6692720.47&r=2' ],
-       ['Lentoasema', 2, 'lentokentta', 4, 'e=25492040.71&n=6690021.20&r=0.13' ]
+       ['Lentoasema', 2, 'lentokentta', 4, 'e=25498216.72&n=6689544.19&r=0.50' ]
      ];
 
      var place_descr = [
        ['Kivist&ouml;n asuntomessualue. Kivist&ouml;ss&auml; j&auml;rjestettiin Asuntomessut 2015. Alueen keskustaa hallitsee Tiikerinsilm&auml;n aukio. Ota kuva aukiolta'],
        ['Kanniston monitoimitalossa toimivat alakoulu, p&auml;iv&auml;koti, nuorisotilat ja hammashoitola. Vantaan kaupunki my&ouml;nsi kohteelle Rakentamisen laatupalkinnon kunniamaininnan ja se oli ehdolla my&ouml;s Vantaan kaupungin World Design Capital 2012 rakennushankkeeksi.'],
        ['K&ouml;ningstedtin kartano, 1816, on arkkitehti Carl Ludwig Engelin suunnittelema. K&ouml;ningstedtin kartano on nyky&auml;&auml;n valtioneuvoston edustuskartano eik&auml; t&auml;st&auml; syyst&auml; kartanon pihalle asti ole p&auml;&auml;sy&auml;. T&auml;st&auml; syyst&auml; riitt&auml;&auml;, ett&auml; otat kuvan kartanolle johtavalta portilta.<p>K&ouml;nigstedtin kartanossa pidettiin Vapaa Aceh -liikeen ja Indonesian hallituksen v&auml;liset Acehin rauhanneuvottelut, joita is&auml;nn&ouml;i presidentti Martti Ahtisaari. K&ouml;nigstedtin kartano oli yksi Matti Kassilan elokuvan Vodkaa, komisario Palmu kuvauspaikoista.<p><a href="http://valtioneuvosto.fi/tietoa/edustustilat/konigstedtin-kartano" target="_new">Lis&auml;tietoa K&ouml;ningstedtin kartanosta</a>'],
-       ['Lentoasema']
+       ['Vantaan lentoaseman kautta kulkee noin 90 prosenttia Suomen kansainvälisestä lentoliikenteestä. Lentoonlähtöjä ja laskeutumisia on yhteensä keskimäärin runsaat 500 päivässä ja matkustajia yli 18 miljoonaa vuodessa.<p>Ota valokuva lentoaseman ulkopuolelta. Aseman sisälle ei tarvitse mennä.']
      ];
      
  
@@ -87,13 +98,13 @@ font-family:verdana,arial,courier,serif
      var place_image = document.getElementById('place_image');
      place_image.src = 'img/' + place_objects[object_index][2] + '_1.jpg';
    
- 		var i = 2;
+ 		var i = 2, max = 1;
 		animate = setInterval(
 		    function(){
-			 place_image.src = 'img/'+place_objects[object_index][2]+'_'+i+".jpg";	
+			     place_image.src = 'img/'+place_objects[object_index][2]+'_'+i+".jpg";	
 		         i = ((i==place_objects[object_index][3]) ? 1 : i+1);
-                    }
-                   ,4000);
+				 max++; if (max == place_objects[object_index][3]*3) clearInterval(animate);
+            } ,4000);
   }
 
 </script>
