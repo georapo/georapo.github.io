@@ -2,7 +2,12 @@
 <html>
 <head>
   <title>Vantaa Bingo - Virtual Cache (GC7B8PV)</title>
-
+<style>
+body
+{
+font-family:verdana,arial,courier,serif
+}
+</style>
 
 </head>
 
@@ -17,6 +22,7 @@
     <map name="bingomap">
       <area shape="rect" coords="6,6,67,90" href="#" alt="Kivist&ouml;" title="Kivist&ouml;" onclick="showInfo(1);">
       <area shape="rect" coords="68,6,135,90" href="#" alt="Kanniston koulu" title="Kanniston koulu" onclick="showInfo(2);">
+      <area shape="rect" coords="137,6,200,90" href="#" alt="K&ouml;ningstedtin kartano" title="K&ouml;ningstedtin kartano" onclick="showInfo(3);">
 
     </map>
     </div>
@@ -29,11 +35,15 @@
   </td>
   </tr>
   <tr>
-    <td> </td>
-    <td width="540">
+    <td>
+      <div id="mapcnt">
+       <span id="karttavantaa" style="color:white;font-size:20px;">Klikkaa esittelykohteita ylläolevasta bingoruudukosta! </span>
+      </div>
+    </td>
+    <td width="540" style="vertical-align:top;">
       <div id="place_descr">
-        <span id="grid_index" style="color:white;font-size:larger;"></span><br>
-        <span id="place_description" style="color:white;"></span><br>
+        <span id="grid_index" style="color:white;font-size:20px;"></span><br><br>
+        <span id="place_description" style="color:white;font-size:18px;"></span><br>
 
       </div>
 
@@ -54,24 +64,25 @@
      // 1: ruutu
      // 2: kuvannimi
      // 3: kohteen kuvien lukumäärä
+     // 4: karttavantaa
      var place_objects = [
-       ['Kivistö', 1, 'kivisto', 2 ],
-       ['Kanniston koulu', 1, 'kannisto', 3 ],
-       ['Köningstedin kartano', 2, 'koningsted', 2 ],
-       ['Lentoasema', 2, 'lentokentta', 4 ]
+       ['Kivistö', 1, 'kivisto', 3, 'e=25492040.71&n=6690021.20&r=0.13' ],
+       ['Kanniston monitoimitalo', 1, 'kannisto', 4, 'e=25492291.90&n=6690542.85&r=0.25' ],
+       ['Köningstedtin kartano', 2, 'koningstedt', 3, 'e=25491619.09&n=6692720.72&r=0.25' ],
+       ['Lentoasema', 2, 'lentokentta', 4, 'e=25492040.71&n=6690021.20&r=0.13' ]
      ];
 
      var place_descr = [
-       ['Kivistön asuntomessualue. Kivistössä järjestettiin Asuntomessut 2015. Alueen keskellä on Tiikerinsilmän aukio. Ota kuva aukiolta'],
-       ['Kanniston monitoimitalo, 2011'],
-       ['Köningstedin kartano, 1816, on arkkitehti Carl Ludwig Engelin suunnittelema.'],
+       ['Kivistön asuntomessualue. Kivistössä järjestettiin Asuntomessut 2015. Alueen keskustaa hallitsee Tiikerinsilmän aukio. Ota kuva aukiolta'],
+       ['Kanniston monitoimitalossa toimivat alakoulu, päiväkoti, nuorisotilat ja hammashoitola. Vantaan kaupunki myönsi kohteelle Rakentamisen laatupalkinnon kunniamaininnan ja se oli ehdolla myös Vantaan kaupungin World Design Capital 2012 rakennushankkeeksi.'],
+       ['Köningstedtin kartano, 1816, on arkkitehti Carl Ludwig Engelin suunnittelema. Köningstedtin kartano on nykyään valtioneuvoston edustuskartano eikä tästä syystä kartanon pihalle asti ole pääsyä. Tästä syystä riittää, että otat kuvan kartanolle johtavalta portilta.<p>Königstedtin kartanossa pidettiin Vapaa Aceh -liikeen ja Indonesian hallituksen väliset Acehin rauhanneuvottelut, joita isännöi presidentti Martti Ahtisaari. Königstedtin kartano oli yksi Matti Kassilan elokuvan Vodkaa, komisario Palmu kuvauspaikoista.<p><a href="http://valtioneuvosto.fi/tietoa/edustustilat/konigstedtin-kartano" target="_new">Lisätietoa Köningstedtin kartanosta</a>'],
        ['Lentoasema']
      ];
      
  
      document.getElementById("grid_index").innerHTML = "Bingoruutu: " + place_objects[object_index][1];
      document.getElementById("place_description").innerHTML = place_descr[object_index];
-
+     document.getElementById("karttavantaa").innerHTML = "<iframe width='646' height='380' style='border:0' frameborder='0' src='https://kartta.vantaa.fi/embed.aspx?&maplink=1&"+place_objects[object_index][4]+"&setlanguage=fi&w=&l=Kaupunkikartta_gd2%2COrtoilmakuva_2017&o=100%2C50'></iframe>";
 
      var place_image = document.getElementById('place_image');
      place_image.src = 'img/' + place_objects[object_index][2] + '_1.jpg';
