@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
   <title>Vantaa Bingo - Virtual Cache (GC7B8PV)</title>
 <style>
 body{
@@ -34,7 +35,10 @@ hr{
       <area shape="rect" coords="420,1,490,82" href="#" alt="Simonkylän huoltoasema" title="Simonkylän huoltoasema" onclick="showInfo(5);">
       <area shape="rect" coords="494,1,552,82" href="#" alt="Leinelä" title="Leinelä" onclick="showInfo(6);">
       <area shape="rect" coords="553,1,625,82" href="#" alt="Koivukylä" title="Koivukylä" onclick="showInfo(7);">
-
+      <area shape="rect" coords="626,1,699,82" href="#" alt="Palmen" title="Palmen" onclick="showInfo(8);">
+      <area shape="rect" coords="1,87,69,167" href="#" alt="Sanomala" title="Sanomala" onclick="showInfo(9);">
+	  <area shape="rect" coords="71,87,142,167" href="#" alt="Viilatehdas" title="Viilatehdas" onclick="showInfo(10);">
+	  
     </map>
    </div>
   </td>
@@ -49,8 +53,7 @@ hr{
       <div id="mapcnt">
        <span id="karttavantaa" style="color:white;font-size:18px;">Klikkaa esittelykohteita yll&auml;olevasta bingoruudukosta!<p>
 	    Yhdessä bingoruudussa on useimmiten monta vaihtoehtoista vierailukohdetta. Voit valita siis ruutua kohden minkätahansa siinä esitellyistä kohteista.
-		Tavoitellun yhden bingosuoran saavuttamiseksi riittää neljässä (4) perättäisessä (vaakaan, pystyyn tai vinottain) ruudussa vierailu ja kuvan ottaminen valitsemasta kohteesta.
-
+		Tavoitellun yhden bingosuoran saavuttamiseksi riittää neljässä (4) perättäisessä (vaakaan, pystyyn tai vinottain) ruudussa vierailu ja kuvan ottaminen ruudun yhdestä kohteesta.
 		<p>Bingoruudukon taustakuvassa on käytetty taiteellisia vapauksia, joten kohteet eivät sijaitse maantieteellisesti ja suhteessa toisiinsa juuri kuvan mukaisesti. 
 		Tästä johtuen kohteiden todellisen sijainnin tarkistaminen kartalta on suositeltua bingosuoraa suunniteltaessa.
 
@@ -65,7 +68,7 @@ hr{
     </td>
   </tr>
   </table>
-  <hr>
+  <hr style="width:100%">
    <center>
     <font style="color:grey;font-size:14px;">Virtual Cache Vantaa Bingo &mdash; <a href="https://coord.info/GC7B8PV">GC7B8PV</a> &mdash; georapo, 2018 </font>
    </center>
@@ -79,19 +82,21 @@ hr{
      clearInterval(animate);
 
      // place_objects:
-     // 0: kohteen nimi
-     // 1: ruutu
-     // 2: kuvannimi
-     // 3: kohteen kuvien lukum&auml;&auml;r&auml;
-     // 4: karttavantaa
+     // 0: ruutu
+     // 1: kuvannimi
+     // 2: kohteen kuvien lukum&auml;&auml;r&auml;
+     // 3: karttavantaa
      var place_objects = [
-       ['Kivist&ouml;', 1, 'kivisto', 3, 'e=25492040.71&n=6690021.20&r=0.13' ],
-       ['Kanniston monitoimitalo', 1, 'kannisto', 4, 'e=25492291.90&n=6690542.85&r=0.25' ],
-       ['K&ouml;ningstedtin kartano', 2, 'koningstedt', 3, 'e=25491634.21&n=6692720.47&r=2' ],
-       ['Lentoasema', 2, 'lentokentta', 4, 'e=25498216.72&n=6689544.19&r=0.50' ],
-       ['Simonkylän huoltoasema', 3, 'simonkhuoltoas', 4, 'e=25501540.25&n=6688538.67&r=0.25' ],
-	   ['Leinelä', 4, 'leinela', 4, 'e=25502138.81&n=6690080.03&r=0.50' ],
-	   ['Koivukylä', 4, 'koivukyla', 3, 'e=25503472.01&n=6690047.84&r=0.50' ]
+       [1, 'kivisto', 3, 'e=25492040.71&n=6690021.20&r=0.13' ],
+       [1, 'kannisto', 4, 'e=25492291.90&n=6690542.85&r=0.25' ],
+       [2, 'koningstedt', 3, 'e=25491634.21&n=6692720.47&r=2' ],
+       [2, 'lentokentta', 4, 'e=25498216.72&n=6689544.19&r=0.50' ],
+       [3, 'simonkhuoltoas', 4, 'e=25501540.25&n=6688538.67&r=0.25' ],
+	   [4, 'leinela', 4, 'e=25502138.81&n=6690080.03&r=0.50' ],
+	   [4, 'koivukyla', 3, 'e=25503425.38&n=6690103.54&r=0.25' ],
+	   [4, 'palmen', 3, 'e=25507937.88&n=6691585.79&r=0.13' ],
+	   [5, 'sanomala', 3, 'e=25491923.88&n=6686173.04&r=1'],
+	   [5, 'viilatehdas', 4, 'e=25492615.38&n=6686777.29&r=0.50']
      ];
 
      var place_descr = [
@@ -101,22 +106,25 @@ hr{
        ['Vantaan lentoaseman kautta kulkee noin 90 prosenttia Suomen kansainvälisestä lentoliikenteestä. Lentoonlähtöjä ja laskeutumisia on yhteensä keskimäärin runsaat 500 päivässä ja matkustajia yli 18 miljoonaa vuodessa.<p>Ota valokuva lentoaseman ulkopuolelta. Aseman sisälle ei tarvitse mennä.'],
        ['Matti Suurosen (1969) suunnittelema Simonkylän huoltoasema on kulttuurihistoriallisesti arvokas rakennuskohde. Huoltoasema, tyyppinimeltään CF-200, on osa Casa Finlandia -sarjaa, jossa rakennusmateriaalina oli lujitemuovi. Vuoden 1973 öljykriisi, joka kolminkertaisti muovin hinnan, koitui näidenkin rakennusten kohtaloksi, talojen valmistus lopahti ja maailmanvalloitus tyssäsi.<p><a href="https://fi.wikipedia.org/wiki/Casa_Finlandia" target="_new">Wikipedia: Casa Finlandia</a>'],
 	   ['Leinelä on profiloitunut Vantaan taidekaupunginosaksi. Alueen ympäristötaideteokset muodostavat kokonaisuuden, jonka teemana on elämän kiertokulku. Teema näkyy paitsi alueen tilataideteoksissa, myös rakennusten kaartelevassa muotokielessä ja alueen kaduissa.'],
-	   ['Koivukylä on saanut nimensä koivumetsän mukaan, jonka tienoille asutus aluksi syntyi. Päärata on alusta asti vaikuttanut Koivukylän kehitykseen, ja yhdessä pääkaupunkiseudulle suuntautuneen maaltamuuton kanssa 1960-luvulta lähtien kaupunginosa on ollut jatkuvassa ja nopeassa kasvussa. 1970-luvulla asutus levisi radan itäpuolelle, kun sinne perustettiin Havukosken lähiöalue. Sen suunnittelussa käytettiin ajan viimeisimpiä lähiösuunnittelun perusteita ja alue saikin kansainvälistä tunnustusta lähiörakentamisen esimerkkialueena. Havukoskea hallitsee kahdeksan 12-kerroksista tornitaloa.']
+	   ['Koivukylä on saanut nimensä koivumetsän mukaan, jonka tienoille asutus aluksi syntyi. Päärata on alusta asti vaikuttanut Koivukylän kehitykseena. 1970-luvulla asutus levisi radan itäpuolelle, kun sinne perustettiin Havukosken lähiöalue. Sen suunnittelussa käytettiin ajan viimeisimpiä lähiösuunnittelun perusteita ja alue saikin kansainvälistä tunnustusta lähiörakentamisen esimerkkialueena. Havukoskea hallitsee kahdeksan 12-kerroksista tornitaloa.'],
+	   ['Palm&#233;nin kyläkauppa (1940-50-luku) on yksi harvoista jäljellä olevista kyläkaupoista. Tunnelmallista ja sympaattista putiikkia pyörittävät veljekset Ingvar ja Stig Palm&#233;n.'],
+	   ['Sanomalan painotalon (1977) on suunnitellut arkkitehti Kalle Vartola. Rakennus on kulttuurihistoriallisesti merkittävä ja sen punatiilinen julkisivu Martinkyläntien suuntaan on määrätty säilytettäväksi Vantaan moderni teollinen rakennusperintö -inventoinnissa vuonna 2012.'],
+	   ['Viilatehdas (1882) on museoviraston suojelema rakennus. Viilatehdas on kulttuurihistoriallisesti tärkeä ja arvokas muistomerkki kosken vesivoimaa hyödyntäneistä teollisuuslaitoksista. ']
      ];
  
-     document.getElementById("grid_index").innerHTML = "Bingoruutu: " + place_objects[object_index][1];
+     document.getElementById("grid_index").innerHTML = "Bingoruutu: " + place_objects[object_index][0];
      document.getElementById("place_description").innerHTML = place_descr[object_index];
-     document.getElementById("karttavantaa").innerHTML = "<iframe width='700' height='380' style='border:0' frameborder='0' src='https://kartta.vantaa.fi/embed.aspx?&maplink=1&"+place_objects[object_index][4]+"&setlanguage=fi&w=&l=Kaupunkikartta_gd2%2COrtoilmakuva_2017&o=100%2C50'></iframe>";
+     document.getElementById("karttavantaa").innerHTML = "<iframe width='700' height='380' style='border:0' frameborder='0' src='https://kartta.vantaa.fi/embed.aspx?&maplink=1&"+place_objects[object_index][3]+"&setlanguage=fi&w=&l=Kaupunkikartta_gd2%2COrtoilmakuva_2017&o=100%2C50'></iframe>";
 
      var place_image = document.getElementById('place_image');
-     place_image.src = 'img/'+place_objects[object_index][2]+'_1.jpg';
+     place_image.src = 'img/'+place_objects[object_index][1]+'_1.jpg';
    
  		var i=2, max=1;
 		animate = setInterval(
 		  function(){
-		    place_image.src = 'img/'+place_objects[object_index][2]+'_'+i+".jpg";	
-		    i = ((i==place_objects[object_index][3])?1:i+1);
-			if (++max == place_objects[object_index][3]*3) clearInterval(animate);
+		    place_image.src = 'img/'+place_objects[object_index][1]+'_'+i+".jpg";	
+		    i = ((i==place_objects[object_index][2])?1:i+1);
+			max=max+1; if (max == place_objects[object_index][2]*3) clearInterval(animate);
                   }, 
                   4000);
   }
