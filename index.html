@@ -32,12 +32,18 @@ hr{
       <area shape="rect" coords="73,1,142,82" href="#" alt="Kanniston koulu" title="Kanniston koulu" onclick="showInfo(2);">
       <area shape="rect" coords="146,1,214,82" href="#" alt="K&ouml;ningstedtin kartano" title="K&ouml;ningstedtin kartano" onclick="showInfo(3);">
       <area shape="rect" coords="215,1,344,82" href="#" alt="Lentoasema" title="Lentoasema" onclick="showInfo(4);">
-      <area shape="rect" coords="420,1,490,82" href="#" alt="Simonkylän huoltoasema" title="Simonkylän huoltoasema" onclick="showInfo(5);">
-      <area shape="rect" coords="494,1,552,82" href="#" alt="Leinelä" title="Leinelä" onclick="showInfo(6);">
-      <area shape="rect" coords="553,1,625,82" href="#" alt="Koivukylä" title="Koivukylä" onclick="showInfo(7);">
-      <area shape="rect" coords="626,1,699,82" href="#" alt="Palmen" title="Palmen" onclick="showInfo(8);">
-      <area shape="rect" coords="1,87,69,167" href="#" alt="Sanomala" title="Sanomala" onclick="showInfo(9);">
-	  <area shape="rect" coords="71,87,142,167" href="#" alt="Viilatehdas" title="Viilatehdas" onclick="showInfo(10);">
+      <area shape="rect" coords="350,1,419,82" href="#" alt="Ilola" title="Ilola" onclick="showInfo(5);">
+      <area shape="rect" coords="420,1,490,82" href="#" alt="Simonkylän huoltoasema" title="Simonkylän huoltoasema" onclick="showInfo(6);">
+      <area shape="rect" coords="494,1,552,82" href="#" alt="Leinelä" title="Leinelä" onclick="showInfo(7);">
+      <area shape="rect" coords="553,1,625,82" href="#" alt="Koivukylä" title="Koivukylä" onclick="showInfo(8);">
+      <area shape="rect" coords="626,1,699,82" href="#" alt="Palmen" title="Palmen" onclick="showInfo(9);">
+      <area shape="rect" coords="1,87,69,167" href="#" alt="Sanomala" title="Sanomala" onclick="showInfo(10);">
+      <area shape="rect" coords="71,87,142,167" href="#" alt="Viilatehdas" title="Viilatehdas" onclick="showInfo(11);">
+      <area shape="rect" coords="146,87,226,167" href="#" alt="Aerola" title="Aerola" onclick="showInfo(12);">
+      <area shape="rect" coords="284,87,344,167" href="#" alt="Johans" title="Johans" onclick="showInfo(13);">
+      <area shape="rect" coords="350,87,420,167" href="#" alt="Tikkurilan kansakoulu" title="Tikkurilan kansakoulu" onclick="showInfo(14);">
+      <area shape="rect" coords="421,87,490,167" href="#" alt="Kielotorni" title="Kielotorni" onclick="showInfo(15);">
+
 	  
     </map>
    </div>
@@ -90,13 +96,19 @@ hr{
        [1, 'kivisto', 3, 'e=25492040.71&n=6690021.20&r=0.13' ],
        [1, 'kannisto', 4, 'e=25492291.90&n=6690542.85&r=0.25' ],
        [2, 'koningstedt', 3, 'e=25491634.21&n=6692720.47&r=2' ],
-       [2, 'lentokentta', 4, 'e=25498216.72&n=6689544.19&r=0.50' ],
+       [2, 'lentokentta', 5, 'e=25498216.72&n=6689544.19&r=0.50' ],
+       [3, 'ilola', 3, 'e=25500799.75&n=6690423.25&r=0.25' ],
        [3, 'simonkhuoltoas', 4, 'e=25501540.25&n=6688538.67&r=0.25' ],
-	   [4, 'leinela', 4, 'e=25502138.81&n=6690080.03&r=0.50' ],
-	   [4, 'koivukyla', 3, 'e=25503425.38&n=6690103.54&r=0.25' ],
-	   [4, 'palmen', 3, 'e=25507937.88&n=6691585.79&r=0.13' ],
-	   [5, 'sanomala', 3, 'e=25491923.88&n=6686173.04&r=1'],
-	   [5, 'viilatehdas', 4, 'e=25492615.38&n=6686777.29&r=0.50']
+       [4, 'leinela', 4, 'e=25502138.81&n=6690080.03&r=0.50' ],
+       [4, 'koivukyla', 4, 'e=25503425.38&n=6690103.54&r=0.25' ],
+       [4, 'palmen', 3, 'e=25507937.88&n=6691585.79&r=0.13' ],
+       [5, 'sanomala', 3, 'e=25491923.88&n=6686173.04&r=1'],
+       [5, 'viilatehdas', 4, 'e=25492615.38&n=6686777.29&r=0.50'],
+       [6, 'aerola', 3, 'e=25498553.07&n=6687525.96&r=0.25'],
+       [6, 'johans', 3, 'e=25500896.42&n=6687637.34&r=0.50'],
+       [7, 'tikkoulu', 2, 'e=25502165.50&n=6687423.40&r=0.13'],
+       [7, 'kielotorni', 2, 'e=25501722.36&n=6686084.12&r=0.25']
+
      ];
 
      var place_descr = [
@@ -104,12 +116,17 @@ hr{
        ['Kanniston monitoimitalossa toimivat alakoulu, p&auml;iv&auml;koti, nuorisotilat ja hammashoitola. Vantaan kaupunki my&ouml;nsi kohteelle Rakentamisen laatupalkinnon kunniamaininnan ja se oli ehdolla my&ouml;s Vantaan kaupungin World Design Capital 2012 rakennushankkeeksi.'],
        ['K&ouml;ningstedtin kartano on nyky&auml;&auml;n valtioneuvoston edustuskartano eik&auml; t&auml;st&auml; syyst&auml; kartanon pihalle asti ole p&auml;&auml;sy&auml;. T&auml;st&auml; syyst&auml; riitt&auml;&auml;, ett&auml; otat kuvan kartanolle johtavalta portilta.<p>K&ouml;ningstedtin kartano, 1816, on arkkitehti Carl Ludwig Engelin suunnittelema. K&ouml;nigstedtin kartanossa pidettiin Vapaa Aceh -liikeen ja Indonesian hallituksen v&auml;liset Acehin rauhanneuvottelut, joita is&auml;nn&ouml;i presidentti Martti Ahtisaari. K&ouml;nigstedtin kartano oli yksi Matti Kassilan elokuvan Vodkaa, komisario Palmu kuvauspaikoista.<p><a href="http://valtioneuvosto.fi/tietoa/edustustilat/konigstedtin-kartano" target="_new">Lis&auml;tietoa K&ouml;ningstedtin kartanosta</a>'],
        ['Vantaan lentoaseman kautta kulkee noin 90 prosenttia Suomen kansainvälisestä lentoliikenteestä. Lentoonlähtöjä ja laskeutumisia on yhteensä keskimäärin runsaat 500 päivässä ja matkustajia yli 18 miljoonaa vuodessa.<p>Ota valokuva lentoaseman ulkopuolelta. Aseman sisälle ei tarvitse mennä.'],
+       ['Ilola on pientalovaltainen asuinalue, joka on rakennettu sotavuosien jälkeisenä jälleenrakennuskautena sekä 1980–1990-luvuilla, jolloin Ilola oli Vantaan nopeimmin kasvavia kaupunginosia.'],
        ['Matti Suurosen (1969) suunnittelema Simonkylän huoltoasema on kulttuurihistoriallisesti arvokas rakennuskohde. Huoltoasema, tyyppinimeltään CF-200, on osa Casa Finlandia -sarjaa, jossa rakennusmateriaalina oli lujitemuovi. Vuoden 1973 öljykriisi, joka kolminkertaisti muovin hinnan, koitui näidenkin rakennusten kohtaloksi, talojen valmistus lopahti ja maailmanvalloitus tyssäsi.<p><a href="https://fi.wikipedia.org/wiki/Casa_Finlandia" target="_new">Wikipedia: Casa Finlandia</a>'],
-	   ['Leinelä on profiloitunut Vantaan taidekaupunginosaksi. Alueen ympäristötaideteokset muodostavat kokonaisuuden, jonka teemana on elämän kiertokulku. Teema näkyy paitsi alueen tilataideteoksissa, myös rakennusten kaartelevassa muotokielessä ja alueen kaduissa.'],
-	   ['Koivukylä on saanut nimensä koivumetsän mukaan, jonka tienoille asutus aluksi syntyi. Päärata on alusta asti vaikuttanut Koivukylän kehitykseena. 1970-luvulla asutus levisi radan itäpuolelle, kun sinne perustettiin Havukosken lähiöalue. Sen suunnittelussa käytettiin ajan viimeisimpiä lähiösuunnittelun perusteita ja alue saikin kansainvälistä tunnustusta lähiörakentamisen esimerkkialueena. Havukoskea hallitsee kahdeksan 12-kerroksista tornitaloa.'],
-	   ['Palm&#233;nin kyläkauppa (1940-50-luku) on yksi harvoista jäljellä olevista kyläkaupoista. Tunnelmallista ja sympaattista putiikkia pyörittävät veljekset Ingvar ja Stig Palm&#233;n.'],
-	   ['Sanomalan painotalon (1977) on suunnitellut arkkitehti Kalle Vartola. Rakennus on kulttuurihistoriallisesti merkittävä ja sen punatiilinen julkisivu Martinkyläntien suuntaan on määrätty säilytettäväksi Vantaan moderni teollinen rakennusperintö -inventoinnissa vuonna 2012.'],
-	   ['Viilatehdas (1882) on museoviraston suojelema rakennus. Viilatehdas on kulttuurihistoriallisesti tärkeä ja arvokas muistomerkki kosken vesivoimaa hyödyntäneistä teollisuuslaitoksista. ']
+       ['Leinelä on profiloitunut Vantaan taidekaupunginosaksi. Alueen ympäristötaideteokset muodostavat kokonaisuuden, jonka teemana on elämän kiertokulku. Teema näkyy paitsi alueen tilataideteoksissa, myös rakennusten kaartelevassa muotokielessä ja alueen kaduissa.'],
+       ['Koivukylä on saanut nimensä koivumetsän mukaan, jonka tienoille asutus aluksi syntyi. Päärata on alusta asti vaikuttanut Koivukylän kehitykseena. 1970-luvulla asutus levisi radan itäpuolelle, kun sinne perustettiin Havukosken lähiöalue. Sen suunnittelussa käytettiin ajan viimeisimpiä lähiösuunnittelun perusteita ja alue saikin kansainvälistä tunnustusta lähiörakentamisen esimerkkialueena. Havukoskea hallitsee kahdeksan 12-kerroksista tornitaloa.'],
+       ['Palm&#233;nin kyläkauppa (1940-50-luku) on yksi harvoista jäljellä olevista kyläkaupoista. Tunnelmallista ja sympaattista putiikkia pyörittävät veljekset Ingvar ja Stig Palm&#233;n.'],
+       ['Sanomalan painotalon (1977) on suunnitellut arkkitehti Kalle Vartola. Rakennus on kulttuurihistoriallisesti merkittävä ja sen punatiilinen julkisivu Martinkyläntien suuntaan on määrätty säilytettäväksi Vantaan moderni teollinen rakennusperintö -inventoinnissa vuonna 2012.'],
+       ['Viilatehdas (1882) on museoviraston suojelema rakennus. Viilatehdas on kulttuurihistoriallisesti tärkeä ja arvokas muistomerkki kosken vesivoimaa hyödyntäneistä teollisuuslaitoksista. '],
+       ['Aerola on Alvar Aallon suunnittelema kahden rivitalon ja sauna-pesutuparakennuksen muodostama Aero Oy:n korjaamohenkilökunnalle suunniteltu ja 1953–1955 rakennettu suojeltu rakennuskokonaisuus.'],
+       ['Johansin päärakennus on tehty ruotsalaisen arkkitehdin Torben A. Grutin 1918 tekemien mallipiirustusten mukaan. Asemakaavassa suojeltu päärakennus tunnetaan myös Velmu-talona ja treenikämppänä. Piha-alueella on useana kesänä järjestetty ilmainen KoisoRock -festivaali.'],
+       ['Tikkurilan eli Oksanmäen vanha kansakoulu, 1926, Emil Svensson. Rakennus on Vantaan vanhin kivikoulu. Nykyään rakennuksessa järjestetään lapsille kulttuuritoimintaa.'],
+       ['Kielotorni on Vantaan korkein asuinrakennus. Talossa on 17 kerrosta ja korkeutta sillä on 55 metriä']
      ];
  
      document.getElementById("grid_index").innerHTML = "Bingoruutu: " + place_objects[object_index][0];
@@ -124,7 +141,7 @@ hr{
 		  function(){
 		    place_image.src = 'img/'+place_objects[object_index][1]+'_'+i+".jpg";	
 		    i = ((i==place_objects[object_index][2])?1:i+1);
-			max=max+1; if (max == place_objects[object_index][2]*3) clearInterval(animate);
+		    max=max+1; if (max == place_objects[object_index][2]*3) clearInterval(animate);
                   }, 
                   4000);
   }
