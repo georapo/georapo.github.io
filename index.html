@@ -10,7 +10,7 @@ body{
 }
 map area{
    outline: 3px solid yellow;
-   cursor:url("virtualhaamu.cur"),pointer;
+   //cursor:url("virtualhaamu.cur"),pointer;
 }
 hr{
    border: 1px solid grey;
@@ -51,7 +51,19 @@ hr{
       <area shape="rect" coords="146,172,216,264" href="#" alt="Jumbo" title="Jumbo" onclick="showInfo(20);">
       <area shape="rect" coords="217,172,340,264" href="#" alt="Flamingo" title="Flamingo" onclick="showInfo(21);">
       <area shape="rect" coords="350,172,417,264" href="#" alt="Bäckby" title="Bäckby" onclick="showInfo(22);">
-	  
+      <area shape="rect" coords="418,172,490,264" href="#" alt="Silkkitehdas" title="Silkkitehdas" onclick="showInfo(23);">
+      <area shape="rect" coords="494,172,550,264" href="#" alt="Metropolia" title="Metropolia" onclick="showInfo(24);">
+      <area shape="rect" coords="551,172,605,226" href="#" alt="Dixi" title="Dixi" onclick="showInfo(25);">
+      <area shape="rect" coords="551,227,605,264" href="#" alt="Kaupunginmuseo" title="Kaupunginmuseo" onclick="showInfo(26);">
+      <area shape="rect" coords="620,172,699,264" href="#" alt="Palokalustovaja" title="Palokalustovaja" onclick="showInfo(27);">
+      <area shape="rect" coords="1,269,70,359" href="#" alt="Myyrmäkitalo" title="Myyrmäkitalo" onclick="showInfo(28);">
+      <area shape="rect" coords="71,269,142,359" href="#" alt="Puu-Ylästö" title="Puu-Ylästö" onclick="showInfo(29);">
+      <area shape="rect" coords="146,269,288,359" href="#" alt="Backas" title="Backas" onclick="showInfo(30);">
+      <area shape="rect" coords="289,269,344,359" href="#" alt="Pyhän Laurin kirkko" title="Pyhän Laurin kirkko" onclick="showInfo(31);">
+      <area shape="rect" coords="350,269,430,359" href="#" alt="Helsingin pitäjän kirkonkylä" title="Helsingin pitäjän kirkonkylä" onclick="showInfo(32);">
+      <area shape="rect" coords="494,269,560,359" href="#" alt="Heureka" title="Heureka" onclick="showInfo(33);">
+      <area shape="rect" coords="561,269,628,359" href="#" alt="Vernissa" title="Vernissa" onclick="showInfo(34);">
+      <area shape="rect" coords="629,269,699,359" href="#" alt="Håkansbölen kartano" title="Håkansbölen kartano" onclick="showInfo(35);">
     </map>
    </div>
   </td>
@@ -66,8 +78,8 @@ hr{
       <div id="mapcnt">
        <span id="karttavantaa" style="color:white;font-size:18px;">Klikkaa esittelykohteita yll&auml;olevasta bingoruudukosta!<p>
 	    Yhdessä bingoruudussa on useimmiten monta vaihtoehtoista vierailukohdetta. Voit valita siis ruutua kohden minkä tahansa siinä esitellyistä kohteista.
-		Tavoitellun yhden bingosuoran saavuttamiseksi riittää neljässä (4) perättäisessä (vaakaan, pystyyn tai vinottain) ruudussa vierailu ja kuvan ottaminen ruudun yhdestä kohteesta.
-		<p>Bingoruudukon taustakuvassa on käytetty taiteellisia vapauksia, joten kohteet eivät sijaitse maantieteellisesti ja suhteessa toisiinsa juuri kuvan mukaisesti. 
+		Tavoitellun minkätahansa yhden bingosuoran saavuttamiseksi riittää neljässä (4) perättäisessä (vaakaan, pystyyn tai vinottain) ruudussa vieraileminen ja valokuvan ottaminen valitsemasta ruudun yhdestä kohteesta.
+		<p>Bingoruudukon taustakuvassa on käytetty runsaasti taiteellisia vapauksia, joten kohteet eivät sijaitse maantieteellisesti ja suhteessa toisiinsa juuri kuvan mukaisesti. 
 		Tästä johtuen kohteiden todellisen sijainnin tarkistaminen kartalta on suositeltua bingosuoraa suunniteltaessa.
 
 	   </span>
@@ -94,11 +106,6 @@ hr{
      var object_index = idx-1;  
      clearInterval(animate);
 
-     // place_objects:
-     // 0: ruutu
-     // 1: kuvannimi
-     // 2: kohteen kuvien lukum&auml;&auml;r&auml;
-     // 3: karttavantaa
      var place_objects = [
        [1, 'kivisto', 3, 'e=25492040.71&n=6690021.20&r=0.13' ],
        [1, 'kannisto', 4, 'e=25492291.90&n=6690542.85&r=0.25' ],
@@ -121,8 +128,20 @@ hr{
        [9, 'ovrenybacka', 3, 'e=25493076.39&n=6686075.53&r=0.25'],
        [10, 'jumbo', 3, 'e=25498051.16&n=6686534.55&r=1'],
        [10, 'flamingo', 3, 'e=25498283.66&n=6686437.80&r=0.25'],
-       [11, 'backby', 3, 'e=25500572.98&n=6686397.57&r=0.25']
-
+       [11, 'backby', 3, 'e=25500572.98&n=6686397.57&r=0.25'],
+       [11, 'silkkitehdas', 3, 'e=25502029.15&n=6686244.85&r=0.25'],
+       [12, 'metropolia', 2, 'e=25502411.52&n=6686929.72&r=0.25'],
+       [12, 'dixi', 2, 'e=25502434.67&n=6686716.44&r=0.25'],
+       [12, 'museo', 3, 'e=25502386.18&n=6686486.42&r=0.13'],
+       [12, 'palokalustovaja', 2, 'e=25507574.34&n=6685564.68&r=0.13'],
+       [13, 'myyrmakitalo', 2, 'e=25491886.98&n=6683198.46&r=0.25'],
+       [13, 'puuylasto', 3, 'e=25495014.74&n=6685008.82&r=0.25'],
+       [14, 'backas', 3, 'e=25497482.19&n=6685852.70&r=0.50'],
+       [14, 'pyhalauri', 4, 'e=25499208.53&n=6685621.49&r=0.25'],
+       [15, 'helsinginpitaja', 3, 'e=25499249.96&n=6685829.30&r=0.25'],
+       [16, 'heureka', 4, 'e=25502252.27&n=6686166.84&r=0.50'],
+       [16, 'vernissa', 3, 'e=25502424.84&n=6686354.28&r=0.13'],
+       [16, 'hakansbole', 3, 'e=25506310.59&n=6684689.31&r=0.13']
      ];
 
      var place_descr = [
@@ -147,8 +166,20 @@ hr{
        ['Kotiseututalo Övre Nybackan talonpoikaismiljöön historia ulottuu 1500-luvulle saakka.<p><a href="https://www.ovrenybacka.fi/historiaa">www.ovrenybacka.fi</a>'],
        ['Kauppakeskus Jumbo valmistui 1999. Laajennusosa avattiin 2005. Pinta-alaa on yhteensä 85000 m<sup>2</sup>.'],
        ['Viihdekeskus Flamingo avattiin 2008. Rakennuksesta löytyy hotelli, sisävesipuisto, kylpylä, elokuvateatteri, keilahalli, useita ravintoloita ja muita liikkeitä.'],
-       ['Bäckbyn eli Viertolan kartano on rakennettu 1880-luvulla. Vuonna 1911 toimintansa rakennuksessa aloitti Tikkurilan kaakelitehdas. Nykyään rakennus toimii mm. juhla- ja kokouspaikkana.']
-
+       ['Bäckbyn eli Viertolan kartano on rakennettu 1880-luvulla. Vuonna 1911 toimintansa rakennuksessa aloitti Tikkurilan kaakelitehdas. Nykyään rakennus toimii mm. juhla- ja kokouspaikkana.'],
+       ['Silkkitehtaan tuotanto muistetaan parhaiten 1970-luvun lämpöpuvuista. Laskuvarjokankaasta valmistetut vaatteet yleistyivät nopeasti katukuvassa ja asuja alettiinkin kutsua leikkisästi Tikkurilan kansallispuvuksi. Historiallinen Silkkitehtaan kortteli on peruskorjauksen kohteena ja syntyvään uudistuneeseen kapunkikortteliin tulee sijoittumaan niin työpaikkoja, koteja kuin ravintola- ja palvelutiloja.'],
+       ['Tikkurilan Metropolia/Laurea ammattikorkeakoulu on rakennettu 2005.'],
+       ['Dixi on Tikkurilan toimisto-, liike- ja matkakeskus. Dixin ensimmäinen osa avattiin 2015.'],
+       ['Kaupunginmuseo sijaitsee arkkitehti Carl Albert Edelfeltin suunnittelemassa Tikkurilan vanhassa asemarakennuksessa, joka valmistui vuonna 1862 Suomen ensimmäisen junaradan varteen.'],
+       ['Sotungin palokalustovaja on rakennettu 1920-luvulla.'],
+       ['Myyrmäkitalo on kulttuuri- ja monitoimikeskus, jonka tiloissa toimii mm. taidemuseo sekä kirjasto.'],
+       ['Puu-Ylästö on vanhan monimuotoisen omakotitaloalueen keskelle rakennettu uudempi puurakenteinen pientaloalue.'],
+       ['Backaksen kartanon alue on valtakunnallisesti merkittävä rakennettu kulttuuriympäristö.'],
+       ['Vantaan Pyhän Laurin kirkko on keskiaikainen harmaakivikirkko ja pääkaupunkiseudun vanhin rakennus, joka on rakennettu alunperin n. vuonna 1450.'],
+       ['Helsingin pitäjän kirkonkylä on Museoviraston määrittämä valtakunnallisesti merkittävä rakennettu kulttuuriympäristö. Alueella sijaitseva Kyrkoby skola on Suomen vanhin yhä käytössä oleva koulu.'],
+       ['Heurekan tiedekeskus jakaa oivaltamisen ilon lähes 300 000 kävijän kanssa vuosittain ja kuuluu viiden suosituimman vapaa-ajankeskuksen joukkoon Suomessa. Tiedekeskuksen avajaiset olivat vuonna 1989.'],
+       ['Kulttuurikeskus Vernissa sijaitsee tärkeässä kulttuurimaisemassa Keravanjoen rannalla.'],
+       ['Håkansbölen kartanon hirsirunkoinen päärakennus on arkkitehti Armas Lindgrenin suunnittelema vuodelta 1908. Päärakennusta ympäröi kartanonpuisto.']
      ];
  
      document.getElementById("grid_index").innerHTML = "Bingoruutu: " + place_objects[object_index][0];
