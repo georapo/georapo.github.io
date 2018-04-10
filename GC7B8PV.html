@@ -89,7 +89,7 @@ select{
     </td>
     <td width="540" style="vertical-align:top;">
       <div id="place_descr">
-       <select id="grdidx" name="grdidx" onchange="changePlace();" >
+       <select id="grdidx" name="grdidx" onchange="changePlace(); this.size=1; this.blur();" onfocus="this.size=8;" onblur="this.size=1;">
           <option value="g0">Esittelykohteet:</option>
           <option value="g1">Bingoruutu 1: Kivistö</option>
           <option value="g2">Bingoruutu 1: Kanniston koulu</option>
@@ -101,10 +101,33 @@ select{
           <option value="g8">Bingoruutu 4: Koivukylä</option>
           <option value="g9">Bingoruutu 4: Palmén</option>
           <option value="g10">Bingoruutu 5: Sanomala</option>
-          
-        </select><p>
-             
- 
+          <option value="g11">Bingoruutu 5: Viilatehdas</option>
+          <option value="g12">Bingoruutu 6: Aerola</option>
+          <option value="g13">Bingoruutu 6: Johans</option>
+          <option value="g14">Bingoruutu 7: Tikkurilan kansakoulu</option>
+          <option value="g15">Bingoruutu 7: Kielotorni</option>
+          <option value="g16">Bingoruutu 8: Kaupungintalo</option>
+          <option value="g17">Bingoruutu 8: Kuusijärvi</option>
+          <option value="g18">Bingoruutu 9: Martintorni</option>
+          <option value="g19">Bingoruutu 9: Övre Nybacka</option>
+          <option value="g20">Bingoruutu 10: Jumbo</option>
+          <option value="g21">Bingoruutu 10: Flamingo</option>
+          <option value="g22">Bingoruutu 11: Bäckby</option>
+          <option value="g23">Bingoruutu 11: Silkkitehdas</option>
+          <option value="g24">Bingoruutu 12: Metropolia/Laurea</option>
+          <option value="g25">Bingoruutu 12: Dixi</option>
+          <option value="g26">Bingoruutu 12: Kaupunginmuseo</option>
+          <option value="g27">Bingoruutu 12: Palokalustovaja</option>
+          <option value="g28">Bingoruutu 13: Myyrmäkitalo</option>
+          <option value="g29">Bingoruutu 13: Puu-Ylästö</option>
+          <option value="g30">Bingoruutu 14: Backas</option>
+          <option value="g31">Bingoruutu 14: Pyhän Laurin kirkko</option>
+          <option value="g32">Bingoruutu 15: Helsingin pitäjän kirkonkylä</option>
+          <option value="g33">Bingoruutu 16: Heureka</option>
+          <option value="g34">Bingoruutu 16: Vernissa</option>
+          <option value="g35">Bingoruutu 16: Håkansbölen kartano</option>
+        </select>
+		<p>
         <span id="place_description" style="color:white;font-size:18px;"></span><br>
       </div>
     </td>
@@ -171,10 +194,10 @@ select{
      var place_descr = [
        ['Kivist&ouml;n asuntomessualue. Kivist&ouml;ss&auml; j&auml;rjestettiin Asuntomessut 2015. Alueen keskustaa hallitsee Tiikerinsilm&auml;n aukio. Ota kuva aukiolta.'],
        ['Kanniston monitoimitalossa toimivat alakoulu, p&auml;iv&auml;koti, nuorisotilat ja hammashoitola. Vantaan kaupunki my&ouml;nsi kohteelle Rakentamisen laatupalkinnon kunniamaininnan ja se oli ehdolla my&ouml;s Vantaan kaupungin World Design Capital 2012 rakennushankkeeksi.'],
-       ['K&ouml;ningstedtin kartano on nyky&auml;&auml;n valtioneuvoston edustuskartano eik&auml; t&auml;st&auml; syyst&auml; kartanon pihalle asti ole p&auml;&auml;sy&auml;. T&auml;st&auml; syyst&auml; riitt&auml;&auml;, ett&auml; otat kuvan kartanolle johtavalta portilta.<p>K&ouml;ningstedtin kartano, 1816, on arkkitehti Carl Ludwig Engelin suunnittelema. K&ouml;nigstedtin kartanossa pidettiin Vapaa Aceh -liikeen ja Indonesian hallituksen v&auml;liset Acehin rauhanneuvottelut, joita is&auml;nn&ouml;i presidentti Martti Ahtisaari. K&ouml;nigstedtin kartano oli yksi Matti Kassilan elokuvan Vodkaa, komisario Palmu kuvauspaikoista.<p><a href="http://valtioneuvosto.fi/tietoa/edustustilat/konigstedtin-kartano" target="_new">Lis&auml;tietoa K&ouml;ningstedtin kartanosta</a>'],
+       ['K&ouml;ningstedtin kartano on nyky&auml;&auml;n valtioneuvoston edustuskartano eik&auml; t&auml;st&auml; syyst&auml; kartanon pihalle asti ole p&auml;&auml;sy&auml;. T&auml;st&auml; syyst&auml; riitt&auml;&auml;, ett&auml; otat kuvan kartanolle johtavalta portilta.<p>K&ouml;ningstedtin kartano, 1816, on arkkitehti Carl Ludwig Engelin suunnittelema. K&ouml;nigstedtin kartanossa pidettiin Vapaa Aceh -liikeen ja Indonesian hallituksen v&auml;liset Acehin rauhanneuvottelut, joita is&auml;nn&ouml;i presidentti Martti Ahtisaari. K&ouml;nigstedtin kartano oli yksi Matti Kassilan elokuvan Vodkaa, komisario Palmu kuvauspaikoista.<p>'],
        ['Vantaan lentoaseman kautta kulkee noin 90 prosenttia Suomen kansainvälisestä lentoliikenteestä. Lentoonlähtöjä ja laskeutumisia on yhteensä keskimäärin runsaat 500 päivässä ja matkustajia yli 18 miljoonaa vuodessa.<p>Ota valokuva lentoaseman ulkopuolelta. Aseman sisälle ei tarvitse mennä.'],
        ['Ilola on pientalovaltainen asuinalue, joka on rakennettu sotavuosien jälkeisenä jälleenrakennuskautena sekä 1980–1990-luvuilla, jolloin Ilola oli Vantaan nopeimmin kasvavia kaupunginosia.'],
-       ['Matti Suurosen (1969) suunnittelema Simonkylän huoltoasema on kulttuurihistoriallisesti arvokas rakennuskohde. Huoltoasema, tyyppinimeltään CF-200, on osa Casa Finlandia -sarjaa, jossa rakennusmateriaalina oli lujitemuovi. Vuoden 1973 öljykriisi, joka kolminkertaisti muovin hinnan, koitui näidenkin rakennusten kohtaloksi, talojen valmistus lopahti ja maailmanvalloitus tyssäsi.<p><a href="https://fi.wikipedia.org/wiki/Casa_Finlandia" target="_new">Wikipedia: Casa Finlandia</a>'],
+       ['Matti Suurosen (1969) suunnittelema Simonkylän huoltoasema on kulttuurihistoriallisesti arvokas rakennuskohde. Huoltoasema, tyyppinimeltään CF-200, on osa Casa Finlandia -sarjaa, jossa rakennusmateriaalina oli lujitemuovi. Vuoden 1973 öljykriisi, joka kolminkertaisti muovin hinnan, koitui näidenkin rakennusten kohtaloksi, talojen valmistus lopahti ja maailmanvalloitus tyssäsi.'],
        ['Leinelä on profiloitunut Vantaan taidekaupunginosaksi. Alueen ympäristötaideteokset muodostavat kokonaisuuden, jonka teemana on elämän kiertokulku. Teema näkyy paitsi alueen tilataideteoksissa, myös rakennusten kaartelevassa muotokielessä ja alueen kaduissa.'],
        ['Koivukylä on saanut nimensä koivumetsän mukaan, jonka tienoille asutus aluksi syntyi. Päärata on alusta asti vaikuttanut Koivukylän kehitykseena. 1970-luvulla asutus levisi radan itäpuolelle, kun sinne perustettiin Havukosken lähiöalue. Sen suunnittelussa käytettiin ajan viimeisimpiä lähiösuunnittelun perusteita ja alue saikin kansainvälistä tunnustusta lähiörakentamisen esimerkkialueena. Havukoskea hallitsee kahdeksan 12-kerroksista tornitaloa.'],
        ['Palm&#233;nin kyläkauppa (1940-50-luku) on yksi harvoista jäljellä olevista kyläkaupoista. Tunnelmallista ja sympaattista putiikkia pyörittävät veljekset Ingvar ja Stig Palm&#233;n.'],
@@ -187,7 +210,7 @@ select{
        ['Kaupungintalo on vuonna 1957 valmistunut, arkkitehtien Eija ja Olli Saijonmaan suunnittelema rakennus. Rakennuksen julkisivu ja sisätilatkin suurelta osin ovat suojeltu.'],
        ['Kuusijärven ulkoilukeskuksessa sijaitsee Vantaan suurin ja suosituin uimaranta. Talvikaudella Kuusijärvelle houkuttelee mm. avantouinti ja hiihtomahdollisuudet.'],
        ['Martintorni on Martinlaaksossa sijaitseva 15-kerroksinen tornitalo. Martintorni rakennettiin vuosina 2010–2012 Martinlaakson ostarin päälle.'],
-       ['Kotiseututalo Övre Nybackan talonpoikaismiljöön historia ulottuu 1500-luvulle saakka.<p><a href="https://www.ovrenybacka.fi/historiaa">www.ovrenybacka.fi</a>'],
+       ['Kotiseututalo Övre Nybackan talonpoikaismiljöön historia ulottuu 1500-luvulle saakka.'],
        ['Kauppakeskus Jumbo valmistui 1999. Laajennusosa avattiin 2005. Pinta-alaa on yhteensä 85000 m<sup>2</sup>.'],
        ['Viihdekeskus Flamingo avattiin 2008. Rakennuksesta löytyy hotelli, sisävesipuisto, kylpylä, elokuvateatteri, keilahalli, useita ravintoloita ja muita liikkeitä.'],
        ['Bäckbyn eli Viertolan kartano on rakennettu 1880-luvulla. Vuonna 1911 toimintansa rakennuksessa aloitti Tikkurilan kaakelitehdas. Nykyään rakennus toimii mm. juhla- ja kokouspaikkana.'],
@@ -207,7 +230,6 @@ select{
      ];
  
      document.getElementById("grdidx").options[idx].selected='selected';
-
      document.getElementById("place_description").innerHTML = place_descr[object_index];
      document.getElementById("karttavantaa").innerHTML = "<iframe width='700' height='380' style='border:0' frameborder='0' src='https://kartta.vantaa.fi/embed.aspx?&maplink=1&"+place_objects[object_index][3]+"&setlanguage=fi&w=&l=Kaupunkikartta_gd2%2COrtoilmakuva_2017&o=100%2C50'></iframe>";
 
