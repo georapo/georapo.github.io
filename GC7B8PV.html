@@ -15,6 +15,11 @@ map area{
 hr{
    border: 1px solid grey;
 }
+select{
+   background-color: black;
+   color: white;
+   font-size: 18px;
+}
 </style>
 </head>
 
@@ -27,41 +32,41 @@ hr{
     <span style="float:right;font-size:8px;color:white">Kuva: Juuso Salakka</span>
 
     <map name="bingomap">
-      <area shape="rect" coords="1,1,72,82" href="#" alt="Kivist&ouml;" title="Kivist&ouml;" onclick="showInfo(1);">
-      <area shape="rect" coords="73,1,142,82" href="#" alt="Kanniston koulu" title="Kanniston koulu" onclick="showInfo(2);">
-      <area shape="rect" coords="146,1,214,82" href="#" alt="K&ouml;ningstedtin kartano" title="K&ouml;ningstedtin kartano" onclick="showInfo(3);">
-      <area shape="rect" coords="215,1,344,82" href="#" alt="Lentoasema" title="Lentoasema" onclick="showInfo(4);">
-      <area shape="rect" coords="350,1,419,82" href="#" alt="Ilola" title="Ilola" onclick="showInfo(5);">
-      <area shape="rect" coords="420,1,490,82" href="#" alt="Simonkylän huoltoasema" title="Simonkylän huoltoasema" onclick="showInfo(6);">
-      <area shape="rect" coords="494,1,552,82" href="#" alt="Leinelä" title="Leinelä" onclick="showInfo(7);">
-      <area shape="rect" coords="553,1,625,82" href="#" alt="Koivukylä" title="Koivukylä" onclick="showInfo(8);">
-      <area shape="rect" coords="626,1,699,82" href="#" alt="Palmen" title="Palmen" onclick="showInfo(9);">
-      <area shape="rect" coords="1,87,69,167" href="#" alt="Sanomala" title="Sanomala" onclick="showInfo(10);">
-      <area shape="rect" coords="71,87,142,167" href="#" alt="Viilatehdas" title="Viilatehdas" onclick="showInfo(11);">
-      <area shape="rect" coords="146,87,226,167" href="#" alt="Aerola" title="Aerola" onclick="showInfo(12);">
-      <area shape="rect" coords="284,87,344,167" href="#" alt="Johans" title="Johans" onclick="showInfo(13);">
-      <area shape="rect" coords="350,87,420,167" href="#" alt="Tikkurilan kansakoulu" title="Tikkurilan kansakoulu" onclick="showInfo(14);">
-      <area shape="rect" coords="421,87,490,167" href="#" alt="Kielotorni" title="Kielotorni" onclick="showInfo(15);">
-      <area shape="rect" coords="494,87,570,167" href="#" alt="Kaupungintalo" title="Kaupungintalo" onclick="showInfo(16);">
-      <area shape="rect" coords="624,87,699,167" href="#" alt="Kuusijärvi" title="Kuusijärvi" onclick="showInfo(17);">
-      <area shape="rect" coords="1,172,70,264" href="#" alt="Martintorni" title="Martintorni" onclick="showInfo(18);">
-      <area shape="rect" coords="71,172,142,264" href="#" alt="Övre Nybacka" title="Övre Nybacka" onclick="showInfo(19);">
-      <area shape="rect" coords="146,172,216,264" href="#" alt="Jumbo" title="Jumbo" onclick="showInfo(20);">
-      <area shape="rect" coords="217,172,340,264" href="#" alt="Flamingo" title="Flamingo" onclick="showInfo(21);">
-      <area shape="rect" coords="350,172,417,264" href="#" alt="Bäckby" title="Bäckby" onclick="showInfo(22);">
-      <area shape="rect" coords="418,172,490,264" href="#" alt="Silkkitehdas" title="Silkkitehdas" onclick="showInfo(23);">
-      <area shape="rect" coords="494,172,550,264" href="#" alt="Metropolia" title="Metropolia" onclick="showInfo(24);">
-      <area shape="rect" coords="551,172,605,226" href="#" alt="Dixi" title="Dixi" onclick="showInfo(25);">
-      <area shape="rect" coords="551,227,605,264" href="#" alt="Kaupunginmuseo" title="Kaupunginmuseo" onclick="showInfo(26);">
-      <area shape="rect" coords="620,172,699,264" href="#" alt="Palokalustovaja" title="Palokalustovaja" onclick="showInfo(27);">
-      <area shape="rect" coords="1,269,70,359" href="#" alt="Myyrmäkitalo" title="Myyrmäkitalo" onclick="showInfo(28);">
-      <area shape="rect" coords="71,269,142,359" href="#" alt="Puu-Ylästö" title="Puu-Ylästö" onclick="showInfo(29);">
-      <area shape="rect" coords="146,269,288,359" href="#" alt="Backas" title="Backas" onclick="showInfo(30);">
-      <area shape="rect" coords="289,269,344,359" href="#" alt="Pyhän Laurin kirkko" title="Pyhän Laurin kirkko" onclick="showInfo(31);">
-      <area shape="rect" coords="350,269,430,359" href="#" alt="Helsingin pitäjän kirkonkylä" title="Helsingin pitäjän kirkonkylä" onclick="showInfo(32);">
-      <area shape="rect" coords="494,269,560,359" href="#" alt="Heureka" title="Heureka" onclick="showInfo(33);">
-      <area shape="rect" coords="561,269,628,359" href="#" alt="Vernissa" title="Vernissa" onclick="showInfo(34);">
-      <area shape="rect" coords="629,269,699,359" href="#" alt="Håkansbölen kartano" title="Håkansbölen kartano" onclick="showInfo(35);">
+      <area id="g1" shape="rect" coords="1,1,72,82" href="#" alt="Kivist&ouml;" title="Kivist&ouml;" onclick="showInfo(1);">
+      <area id="g2" shape="rect" coords="73,1,142,82" href="#" alt="Kanniston koulu" title="Kanniston koulu" onclick="showInfo(2);">
+      <area id="g3" shape="rect" coords="146,1,214,82" href="#" alt="K&ouml;ningstedtin kartano" title="K&ouml;ningstedtin kartano" onclick="showInfo(3);">
+      <area id="g4" shape="rect" coords="215,1,344,82" href="#" alt="Lentoasema" title="Lentoasema" onclick="showInfo(4);">
+      <area id="g5" shape="rect" coords="350,1,419,82" href="#" alt="Ilola" title="Ilola" onclick="showInfo(5);">
+      <area id="g6" shape="rect" coords="420,1,490,82" href="#" alt="Simonkylän huoltoasema" title="Simonkylän huoltoasema" onclick="showInfo(6);">
+      <area id="g7" shape="rect" coords="494,1,552,82" href="#" alt="Leinelä" title="Leinelä" onclick="showInfo(7);">
+      <area id="g8" shape="rect" coords="553,1,625,82" href="#" alt="Koivukylä" title="Koivukylä" onclick="showInfo(8);">
+      <area id="g9" shape="rect" coords="626,1,699,82" href="#" alt="Palmen" title="Palmen" onclick="showInfo(9);">
+      <area id="g10" shape="rect" coords="1,87,69,167" href="#" alt="Sanomala" title="Sanomala" onclick="showInfo(10);">
+      <area id="g11" shape="rect" coords="71,87,142,167" href="#" alt="Viilatehdas" title="Viilatehdas" onclick="showInfo(11);">
+      <area id="g12" shape="rect" coords="146,87,226,167" href="#" alt="Aerola" title="Aerola" onclick="showInfo(12);">
+      <area id="g13" shape="rect" coords="284,87,344,167" href="#" alt="Johans" title="Johans" onclick="showInfo(13);">
+      <area id="g14" shape="rect" coords="350,87,420,167" href="#" alt="Tikkurilan kansakoulu" title="Tikkurilan kansakoulu" onclick="showInfo(14);">
+      <area id="g15" shape="rect" coords="421,87,490,167" href="#" alt="Kielotorni" title="Kielotorni" onclick="showInfo(15);">
+      <area id="g16" shape="rect" coords="494,87,570,167" href="#" alt="Kaupungintalo" title="Kaupungintalo" onclick="showInfo(16);">
+      <area id="g17" shape="rect" coords="624,87,699,167" href="#" alt="Kuusijärvi" title="Kuusijärvi" onclick="showInfo(17);">
+      <area id="g18" shape="rect" coords="1,172,70,264" href="#" alt="Martintorni" title="Martintorni" onclick="showInfo(18);">
+      <area id="g19" shape="rect" coords="71,172,142,264" href="#" alt="Övre Nybacka" title="Övre Nybacka" onclick="showInfo(19);">
+      <area id="g20" shape="rect" coords="146,172,216,264" href="#" alt="Jumbo" title="Jumbo" onclick="showInfo(20);">
+      <area id="g21" shape="rect" coords="217,172,340,264" href="#" alt="Flamingo" title="Flamingo" onclick="showInfo(21);">
+      <area id="g22" shape="rect" coords="350,172,417,264" href="#" alt="Bäckby" title="Bäckby" onclick="showInfo(22);">
+      <area id="g23" shape="rect" coords="418,172,490,264" href="#" alt="Silkkitehdas" title="Silkkitehdas" onclick="showInfo(23);">
+      <area id="g24" shape="rect" coords="494,172,550,264" href="#" alt="Metropolia" title="Metropolia" onclick="showInfo(24);">
+      <area id="g25" shape="rect" coords="551,172,605,226" href="#" alt="Dixi" title="Dixi" onclick="showInfo(25);">
+      <area id="g26" shape="rect" coords="551,227,605,264" href="#" alt="Kaupunginmuseo" title="Kaupunginmuseo" onclick="showInfo(26);">
+      <area id="g27" shape="rect" coords="620,172,699,264" href="#" alt="Palokalustovaja" title="Palokalustovaja" onclick="showInfo(27);">
+      <area id="g28" shape="rect" coords="1,269,70,359" href="#" alt="Myyrmäkitalo" title="Myyrmäkitalo" onclick="showInfo(28);">
+      <area id="g29" shape="rect" coords="71,269,142,359" href="#" alt="Puu-Ylästö" title="Puu-Ylästö" onclick="showInfo(29);">
+      <area id="g30" shape="rect" coords="146,269,288,359" href="#" alt="Backas" title="Backas" onclick="showInfo(30);">
+      <area id="g31" shape="rect" coords="289,269,344,359" href="#" alt="Pyhän Laurin kirkko" title="Pyhän Laurin kirkko" onclick="showInfo(31);">
+      <area id="g32" shape="rect" coords="350,269,430,359" href="#" alt="Helsingin pitäjän kirkonkylä" title="Helsingin pitäjän kirkonkylä" onclick="showInfo(32);">
+      <area id="g33" shape="rect" coords="494,269,560,359" href="#" alt="Heureka" title="Heureka" onclick="showInfo(33);">
+      <area id="g34" shape="rect" coords="561,269,628,359" href="#" alt="Vernissa" title="Vernissa" onclick="showInfo(34);">
+      <area id="g35" shape="rect" coords="629,269,699,359" href="#" alt="Håkansbölen kartano" title="Håkansbölen kartano" onclick="showInfo(35);">
     </map>
    </div>
   </td>
@@ -74,7 +79,7 @@ hr{
   <tr>
     <td width="700">
       <div id="mapcnt">
-       <span id="karttavantaa" style="color:white;font-size:18px;">Klikkaa esittelykohteita yll&auml;olevasta bingoruudukosta!<p>
+       <span id="karttavantaa" style="color:white;font-size:18px;">Klikkaa esittelykohteita yll&auml;olevasta bingoruudukosta tai oikealla olevasta alasvetovalikosta!<p>
 	    Yhdessä bingoruudussa on useimmiten monta vaihtoehtoista vierailukohdetta. Voit valita siis ruutua kohden minkä tahansa siinä esitellyistä kohteista.
 		Tavoitellun yhden bingosuoran saavuttamiseksi riittää neljässä (4) perättäisessä (vaakaan, pystyyn tai vinottain) ruudussa vieraileminen ja valokuvan ottaminen valitsemasta ruudun yhdestä kohteesta.
 		<p>Bingoruudukon taustakuvassa on käytetty runsaasti taiteellisia vapauksia, joten kohteet eivät sijaitse maantieteellisesti ja suhteessa toisiinsa juuri kuvan mukaisesti. 
@@ -84,7 +89,22 @@ hr{
     </td>
     <td width="540" style="vertical-align:top;">
       <div id="place_descr">
-        <span id="grid_index" style="color:white;font-size:20px;"></span><br><br>
+       <select id="grdidx" name="grdidx" onchange="changePlace();" >
+          <option value="g0">Esittelykohteet:</option>
+          <option value="g1">Bingoruutu 1: Kivistö</option>
+          <option value="g2">Bingoruutu 1: Kanniston koulu</option>
+          <option value="g3">Bingoruutu 2: Köningstedtin kartano</option>
+          <option value="g4">Bingoruutu 2: Lentoasema</option>
+          <option value="g5">Bingoruutu 3: Ilola</option>
+          <option value="g6">Bingoruutu 3: Simonkylän huoltoasema</option>
+          <option value="g7">Bingoruutu 4: Leinelä</option>
+          <option value="g8">Bingoruutu 4: Koivukylä</option>
+          <option value="g9">Bingoruutu 4: Palmén</option>
+          <option value="g10">Bingoruutu 5: Sanomala</option>
+          
+        </select><p>
+             
+ 
         <span id="place_description" style="color:white;font-size:18px;"></span><br>
       </div>
     </td>
@@ -98,6 +118,13 @@ hr{
 <script>
 
  var animate = null;
+
+ function changePlace() {
+   var k = document.getElementById("grdidx").options[document.getElementById("grdidx").selectedIndex].value; 
+   document.getElementById(k).click();
+   document.getElementById(k).focus();
+ }
+
 
  function showInfo(idx) {
      var object_index = idx-1;  
@@ -179,7 +206,8 @@ hr{
        ['Håkansbölen kartanon hirsirunkoinen päärakennus on arkkitehti Armas Lindgrenin suunnittelema vuodelta 1908. Päärakennusta ympäröi kartanonpuisto.']
      ];
  
-     document.getElementById("grid_index").innerHTML = "Bingoruutu: " + place_objects[object_index][0];
+     document.getElementById("grdidx").options[idx].selected='selected';
+
      document.getElementById("place_description").innerHTML = place_descr[object_index];
      document.getElementById("karttavantaa").innerHTML = "<iframe width='700' height='380' style='border:0' frameborder='0' src='https://kartta.vantaa.fi/embed.aspx?&maplink=1&"+place_objects[object_index][3]+"&setlanguage=fi&w=&l=Kaupunkikartta_gd2%2COrtoilmakuva_2017&o=100%2C50'></iframe>";
 
