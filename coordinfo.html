@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+body
+{
+  background-image: url("bgimage.png");
+}
+
+#main_body
+{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 150%;
+}​
+</style>
+
+<script type="text/javascript">
+    function goToPage() {
+        var page = document.getElementById('page').value;
+        window.location = "http://coord.info/GC" + page;
+    }
+</script>
+</head>
+<body>
+
+<div id="main_body">
+
+<label>coord.info/GC </label><input type="text" id="page" size="7"  />
+<input id="gosubmit" type="submit" value="  Go!  " style="height:30px;" onclick="goToPage();" />
+</div>
+
+<script>
+window.onload = function() {
+  
+  var input = document.getElementById("page");
+  input.focus();
+  input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();     // Cancel the default action, if needed
+    document.getElementById("gosubmit").click();
+  }
+});
+};
+</script>
+</body></html>
