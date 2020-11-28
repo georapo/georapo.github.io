@@ -38,6 +38,7 @@ window.onload = function() {
   
   var input = document.getElementById("page");
   input.focus();
+  input.click();
   input.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
     event.preventDefault();     // Cancel the default action, if needed
