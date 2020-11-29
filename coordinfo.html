@@ -14,13 +14,15 @@ body
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 150%;
+  font-size: 180%;
 }​
 </style>
 
 <script type="text/javascript">
     function goToPage() {
-        var page = document.getElementById('page').value;
+        var page = document.getElementById('page').value.trim().toUpperCase();
+		page = page.startsWith("GC") ? page.substr(2) : page;
+		
         window.location = "http://coord.info/GC" + page;
     }
 </script>
@@ -29,7 +31,7 @@ body
 
 <div id="main_body">
 
-<label>coord.info/GC </label><input type="text" id="page" size="7" autofocus: true; />
+<label>coord.info/GC </label><input type="text" id="page" size="7" style="height:25px;" autofocus: true; />
 <input id="gosubmit" type="submit" value="  Go!  " style="height:30px;" onclick="goToPage();" />
 </div>
 
@@ -44,6 +46,8 @@ window.onload = function() {
     event.preventDefault();     // Cancel the default action, if needed
     document.getElementById("gosubmit").click();
   }
+  
+  input.click();
 });
 };
 </script>
