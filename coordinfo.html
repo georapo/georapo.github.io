@@ -31,7 +31,7 @@ body
 
 <div id="main_body">
 
-<label>coord.info/GC </label><input type="text" id="page" size="7" style="height:25px;" autofocus: true; />
+<label>coord.info/GC </label><input type="text" id="page" size="7" style="height:25px;" onfocus="document.getElementById('page').click();" />
 <input id="gosubmit" type="submit" value="  Go!  " style="height:30px;" onclick="goToPage();" />
 </div>
 
@@ -39,7 +39,7 @@ body
 window.onload = function() {
   
   var input = document.getElementById("page");
-  input.focus();
+  
   
   input.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
@@ -47,11 +47,10 @@ window.onload = function() {
     document.getElementById("gosubmit").click();
   }
   
-  input.prompt();
+  input.focus();
+  
 });
 };
 </script>
-
-
 
 </body></html>
