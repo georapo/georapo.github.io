@@ -35,11 +35,13 @@ window.onload = function() {
   var input = document.getElementById("page");
   input.focus();
   
+ <!-- 
   input.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
     event.preventDefault();     // Cancel the default action, if needed
     document.getElementById("gosubmit").click();
-  }
+  } 
+  -->
    
 });
 };
@@ -50,5 +52,5 @@ window.onload = function() {
 <label>coord.info/GC </label><input type="text" id="page" size="7" style="height:25px;" autofocus: true; />
 <input id="gosubmit" type="submit" value="  Go!  " style="height:30px;" onclick="goToPage();" />
 </div>
-<p onload="prompt("a");" />
+
 </body></html>
