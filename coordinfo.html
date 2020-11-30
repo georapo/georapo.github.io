@@ -24,27 +24,18 @@ body
 		page = page.startsWith("GC") ? page.substr(2) : page;
 		
         window.location = "http://coord.info/GC" + page;
-    }
+    };
 </script>
 </head>
 <body>
 
 <script>
 window.onload = function() {
-  
   var input = document.getElementById("page");
   input.focus();
-  
- <!-- 
-  input.addEventListener("keyup", function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault();     // Cancel the default action, if needed
-    document.getElementById("gosubmit").click();
-  } 
-  -->
-   
-});
-};
+  input.click(); 
+ };
+
 </script>
 
 <div id="main_body">
