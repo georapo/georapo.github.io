@@ -29,28 +29,26 @@ body
 </head>
 <body>
 
-<div id="main_body">
-
-<label>coord.info/GC </label><input type="text" id="page" size="7" style="height:25px;" onfocus="document.getElementById('page').click();" autofocus />
-<input id="gosubmit" type="submit" value="  Go!  " style="height:30px;" onclick="goToPage();" />
-</div>
-
 <script>
 window.onload = function() {
   
   var input = document.getElementById("page");
-  
+  input.focus();
   
   input.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
     event.preventDefault();     // Cancel the default action, if needed
     document.getElementById("gosubmit").click();
   }
-  
-  input.focus();
-  
+   
 });
 };
 </script>
+
+<div id="main_body">
+
+<label>coord.info/GC </label><input type="text" id="page" size="7" style="height:25px;" onfocus="document.getElementById('page').click();" autofocus: true; />
+<input id="gosubmit" type="submit" value="  Go!  " style="height:30px;" onclick="goToPage();" />
+</div>
 
 </body></html>
