@@ -34,19 +34,18 @@ window.onload = function() {
   input.focus();
     
   input.addEventListener("keyup", function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault();     // Cancel the default action, if needed
-    document.getElementById("gosubmit").click();
-  } 
-  
-});
+    if (event.keyCode === 13) {
+      event.preventDefault();     // Cancel the default action, if needed
+      document.getElementById("gosubmit").click();
+    } 
+  });
 };
  
 </script>
 
 <div id="main_body">
- <label>coord.info/GC </label><input type="text" id="page" size="7" style="height:25px;" onfocus="this.click();" autofocus: true; />
- <input id="gosubmit" type="submit" value="  Go!  " style="height:30px;" onclick="goToPage();" />
+ <label>coord.info/GC </label><input type="text" id="page" size="9" style="height:30px;" autofocus: true; />
+ <input id="gosubmit" type="submit" value="   Go!   " style="height:30px;" onclick="goToPage();" />
 </div>
 
 </body></html>
