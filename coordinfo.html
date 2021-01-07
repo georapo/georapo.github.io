@@ -19,12 +19,20 @@ body
 </style>
 
 <script type="text/javascript">
-    function goToPage() {
-        var page = document.getElementById('page').value.trim().toUpperCase();
+
+    function parsePage() {
+	    var page = document.getElementById('page').value.trim().toUpperCase();
 		page = page.startsWith("GC") ? page.substr(2) : page;
-		
-        window.location = "http://coord.info/GC" + page;
+	    return page;
+	}
+	
+    function goToPage_gccom() {
+          window.location = "http://coord.info/GC" + parsePage();
     };
+	
+	function goToPage_gcfi() {
+	        window.location = "https://www.geocache.fi/caches/cachetieto.php?wp=GC" + parsePage();
+ 	}
 </script>
 </head>
 <body>
@@ -45,7 +53,11 @@ window.onload = function() {
 
 <div id="main_body">
  <label>coord.info/GC </label><input type="text" id="page" size="10" style="height:30px;" autofocus: true; />
- <input id="gosubmit" type="submit" value=">>> Go! >>>" style="height:30px;" onclick="goToPage();" />
+ <input id="gosubmit" type="submit" value=">>> Go! >>>" style="height:30px;" onclick="goToPage_gccom();" />
+ <br><br>
+ <label>geocache.fi </label><input type="text" id="pagefi" size="10" style="height:30px;">
+ <input id="gosubmit" type="submit" value=" geocache.fi " style="height:30px;" onclick="goToPage_gcfi();" />
+ 
 </div>
 
 </body></html>
