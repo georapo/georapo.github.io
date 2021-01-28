@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "https://www.w3.org/TR/html4/loose.dtd">
 <head>
 
-<SCRIPT src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.0/proj4.min.js"></SCRIPT>
+<SCRIPT src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></SCRIPT>
 
 <SCRIPT language="JavaScript" type="text/javascript">
 
@@ -10,26 +10,25 @@ function move_to_karttapaikka() {
  /* https://www.geocache.fi/kpmaplink.html?kla=63.43025&klo=21.78187&kwp=GC907EP */
  
  /* poimitaan välitetyt url-parametrit */
- var queryString = location.search;   console.log(queryString);
+ var queryString = window.location.search;    
  var urlParams = new URLSearchParams(queryString);
  var kla = urlParams.get('kla');
  var klo = urlParams.get('klo');
  var kwp = urlParams.get('kwp');
  
-
- var source = new Proj4.Proj('EPSG:3857'); // koordinaatit tunnetaan WGS84:ssa eli EPSG:3857
- var dest = new Proj4.Proj('EPSG:3067');   // koordinaatit muunnetaan karttapaikan käyttämään ETRS-TM35FIN
- var p = new Proj4.Point(kla, klo);   
- Proj4.transform(source, dest, p);   
+ proj4.defs('EPSG:3067','+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
  
- 
- var kp_url = "https://asiointi.maanmittauslaitos.fi/karttapaikka/?lang=fi&share=customMarker&n="+p.x+"&e="+p.y+"&title="+kwp+"&desc=&zoom=11&layers=%5B%7B%22id%22:2,%22opacity%22:100%7D%5D";
- 
- 
+ var source = new proj4.Proj('EPSG:4326');  /* koordinaatit muunnetaan WGS84:sta...   */
+ var dest = new proj4.Proj('EPSG:3067');    /* ...karttapaikan käyttämään ETRS-TM35FIN:iin */
+ var p = new proj4.toPoint([klo, kla]);   
+ var res = proj4(source, dest, p);   
+  
+ var kp_url = "https://asiointi.maanmittauslaitos.fi/karttapaikka/?lang=fi&share=customMarker&n="+res.y+"&e="+res.x+"&title="+kwp+"&desc=&zoom=11&layers=%5B%7B%22id%22:2,%22opacity%22:100%7D%5D";
+  
  window.location.href = kp_url;  /* kiva kun kävit. Sitten mentiin */
 }
  
-<script>
+</script>
 </head>
 <body onLoad="move_to_karttapaikka()";>
 </body>
