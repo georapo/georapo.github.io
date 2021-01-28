@@ -10,7 +10,7 @@ function move_to_karttapaikka() {
  /* https://www.geocache.fi/kpmaplink.html?kla=63.43025&klo=21.78187&kwp=GC907EP */
  
  /* poimitaan välitetyt url-parametrit */
- var queryString = window.location.search;   console.log(queryString);
+ var queryString = location.search;   console.log(queryString);
  var urlParams = new URLSearchParams(queryString);
  var kla = urlParams.get('kla');
  var klo = urlParams.get('klo');
