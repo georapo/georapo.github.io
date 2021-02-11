@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "https://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0052)https://www.geocache.fi/kartta/include/omakartta.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="description" content="Suomalainen geokätkösivusto - Suomen geokätköt">
+<meta name="title" content="Geocache.fi Suomen geokätköt">
+<meta name="keywords" content="geokätkö, geokätköily, geokätköt">
+<meta property="og:title" content="Geocache.fi - Suomalainen geokätköilysivusto">
+<meta property="og:site_name" content="Geocache.fi">
+<meta property="og:image" content="https://www.geocache.fi/images/geocachefi.jpg">
+<meta property="og:url" content="https://www.geocache.fi/">
+<meta property="og:description" content="Suomen geokätköt">
+<meta property="fb:page_id" content="526033597430613">
+<!-- TradeDoubler site verification 1551299 -->
+<meta name="google-site-verification" content="7phy0TWtFZ_d684WuOEPmUPRypV11Mtm9rWXclV69Lk">
+<title>Geocache.fi - Geokätköilysivusto: Suomen geokätköt
+</title>
+
+<link rel="search" type="application/opensearchdescription+xml" title="Geocache.fi" href="https://www.geocache.fi/other/gce_haku.xml">
+<link rel="shortcut icon" href="https://www.geocache.fi/favicon.ico">
+
+<script language="JavaScript" type="text/javascript" src="./javascript.php"></script>
+
+<script language="JavaScript" type="text/javascript">
+
+<!--
+var limit="999:01";
+var update='';
+var parselimit = '';
+var paivita = '999';
+var valmis = '';
+
+function tulosta(mita){
+  if (valmis){
+  if(document.layers){
+    document.layers['ajastus'].innerHTML=mita;
+  } else if(document.all){
+    document.all.ajastus.innerHTML=mita;
+  } else if(!document.all && document.getElementById){
+    document.getElementById('ajastus').innerHTML=mita;
+  }
+  }
+}
+
+function checkclick(apu){
+  if (apu < 999){
+    clearTimeout(update);
+    var limit = apu + ':00';
+    parselimit = apu*60;
+    paivita = parseInt(apu);
+    update=setTimeout("beginrefresh()",1000);
+    } else { 
+    clearTimeout(update);
+    tulosta ('[Pois päältä]');
+    }
+}
+
+if (document.images){
+  parselimit=limit.split(":");
+  parselimit=parselimit[0]*60+parselimit[1]*1;
+}
+
+function beginrefresh(){
+  parselimit = parseInt(parselimit);
+
+
+  if (parselimit > 990){
+    clearTimeout(update);
+    return;
+  }
+  update=setTimeout('beginrefresh()',1000);
+  if (!document.images){
+    return;
+    }
+  if (parselimit==1){
+    //    window.location.reload();
+    clearTimeout(update);
+
+    
+      
+    location.href = 'https://www.geocache.fi/kartta/include/omakartta.php?refresh=' + paivita;
+
+
+  }  else {
+    parselimit-=1;
+    curmin=Math.floor(parselimit/60);
+    cursec=parselimit%60;
+    if (cursec < 10){
+      cursec = '0' + cursec;
+    }
+    if (curmin < 10){
+      curmin = '0' + curmin;
+    }
+    curtime= "[" + curmin +":"+cursec+"]";
+    tulosta(curtime);
+  }
+  
+}
+
+// -->
+</script><link rel="stylesheet" href="./style(1).php">
+
+<script src="./MathJax.js.download" defer=""></script><link rel="stylesheet" href="./style_navi_.php">
+<meta name="wot-verification" content="ad916e61c6f5f15f1eb7"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><body bgcolor="#ffffff" text="#000000" alink="#FF0000" vlink="#000000" link="#000000"><div id="MathJax_Message" style="display: none;"></div><div id="WzTtDiV" style="visibility: hidden; position: absolute; overflow: hidden; padding: 0px; width: 1599px; left: -1600px; top: 0px;"></div><script type="text/javascript" src="./wz_tooltip.php"></script><script language="JavaScript" type="text/javascript">
+<!--
+beginrefresh();
+valmis = 1;
+-->
+</script>
+
+
+<center><script language="JavaScript">
+<!--
+
+  function delall(suffix) {
+  check=confirm("Haluatko varmasti poistaa valitsemasi pikavalinnat?");
+  if(check) window.location.href=suffix;
+}
+
+
+function Nimike(UusiNimiJS,UusiNroJS) {
+  var person = prompt("Anna uusi nimi", UusiNimiJS);
+    
+  if (person != null) {
+    document.getElementById("UusiNimi").value=person;
+    document.getElementById("UusiNro").value=UusiNroJS;
+    document.getElementById("formis").submit();
+  }
+
+  return false;
+
+  }
+
+
+function ConfirmDelete()
+{
+  var x = confirm("Haluatko varmasti tuhota valitsemasi pikavalinnat?");
+  if (x){
+    document.getElementById("formis").submit();
+ 
+  }
+
+}
+-->
+</script>
+
+<table border="0" cellpadding="2" cellspacing="0"><tbody><tr><td colspan="5"><table border="0" cellpadding="2" cellspacing="0" width="100%"><tbody><tr bgcolor="#C3DDE0"><td><b>Omakartta</b></td><td align="right"><b></b></td></tr></tbody></table></td></tr><tr><td><img src="./empty.gif" border="0" width="1" height="5"></td></tr><tr><td valign="top" align="center"><table class="runkoborder"><form method="post" name="formus" id="formus" action="https://www.geocache.fi/kartta/include/omakartta.php"></form><tbody><tr><th colspan="2">Pikavalinnat</th></tr><tr style="background: #FFFFFF" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;0 km löydetyt (suodatettu)&#39;,&#39;p=542157&amp;q=6531225&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[1]" value="p=542157&amp;q=6531225"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=542157&amp;q=6531225&amp;pikasiirtyma=1" target="_top">0 km löydetyt (suodatettu)</a> [122 kätköä]</td></tr><tr style="background: #F0F9FA" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#F0F9FA&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Hanko&#39;,&#39;p=527470&amp;q=7344106&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[2]" value="p=527470&amp;q=7344106"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=527470&amp;q=7344106&amp;pikasiirtyma=1" target="_top">Hanko</a> [75 kätköä]</td></tr><tr style="background: #FFFFFF" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Iisalmi-Ranua&#39;,&#39;p=225131&amp;q=5347733&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[3]" value="p=225131&amp;q=5347733"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=225131&amp;q=5347733&amp;pikasiirtyma=1" target="_top">Iisalmi-Ranua</a> [1500 kätköä]</td></tr><tr style="background: #F0F9FA" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#F0F9FA&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Jigidi ratkaisemattomat&#39;,&#39;p=685209&amp;q=7289050&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[4]" value="p=685209&amp;q=7289050"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=685209&amp;q=7289050&amp;pikasiirtyma=1" target="_top">Jigidi ratkaisemattomat</a> [766 kätköä]</td></tr><tr style="background: #FFFFFF" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Kirkkoja&#39;,&#39;p=202593&amp;q=7005169&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[5]" value="p=202593&amp;q=7005169"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=202593&amp;q=7005169&amp;pikasiirtyma=1" target="_top">Kirkkoja</a> [255 kätköä]</td></tr><tr style="background: #F0F9FA" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#F0F9FA&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Kokkola-Pyhäjoki&#39;,&#39;p=522552&amp;q=5907870&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[6]" value="p=522552&amp;q=5907870"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=522552&amp;q=5907870&amp;pikasiirtyma=1" target="_top">Kokkola-Pyhäjoki</a> [325 kätköä]</td></tr><tr style="background: #FFFFFF" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Kuntien vanhimmat 11-20&#39;,&#39;p=468589&amp;q=7721983&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[7]" value="p=468589&amp;q=7721983"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=468589&amp;q=7721983&amp;pikasiirtyma=1" target="_top">Kuntien vanhimmat 11-20</a> [206 kätköä]</td></tr><tr style="background: #F0F9FA" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#F0F9FA&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Kuntien vanhimmat&#39;,&#39;p=220701&amp;q=6932369&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[8]" value="p=220701&amp;q=6932369"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=220701&amp;q=6932369&amp;pikasiirtyma=1" target="_top">Kuntien vanhimmat</a> [202 kätköä]</td></tr><tr style="background: #FFFFFF" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Laavut löytämättä&#39;,&#39;p=406279&amp;q=7569127&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[9]" value="p=406279&amp;q=7569127"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=406279&amp;q=7569127&amp;pikasiirtyma=1" target="_top">Laavut löytämättä</a> [885 kätköä]</td></tr><tr style="background: #F0F9FA" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#F0F9FA&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Oldies but goldies löytämättä&#39;,&#39;p=779840&amp;q=7461626&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[10]" value="p=779840&amp;q=7461626"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=779840&amp;q=7461626&amp;pikasiirtyma=1" target="_top">Oldies but goldies löytämättä</a> [170 kätköä]</td></tr><tr style="background: #FFFFFF" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Posio-Rautavaara&#39;,&#39;p=586659&amp;q=5355893&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[11]" value="p=586659&amp;q=5355893"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=586659&amp;q=5355893&amp;pikasiirtyma=1" target="_top">Posio-Rautavaara</a> [2000 kätköä]</td></tr><tr style="background: #F0F9FA" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#F0F9FA&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Raahe-Hailuoto-Reisjärvi&#39;,&#39;p=852783&amp;q=5907984&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[12]" value="p=852783&amp;q=5907984"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=852783&amp;q=5907984&amp;pikasiirtyma=1" target="_top">Raahe-Hailuoto-Reisjärvi</a> [792 kätköä]</td></tr><tr style="background: #FFFFFF" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Ranua-Kittilä&#39;,&#39;p=538090&amp;q=5531238&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[13]" value="p=538090&amp;q=5531238"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=538090&amp;q=5531238&amp;pikasiirtyma=1" target="_top">Ranua-Kittilä</a> [1000 kätköä]</td></tr><tr style="background: #F0F9FA" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#F0F9FA&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Ritarit&#39;,&#39;p=722216&amp;q=7492926&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[14]" value="p=722216&amp;q=7492926"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=722216&amp;q=7492926&amp;pikasiirtyma=1" target="_top">Ritarit</a> [0 kätköä]</td></tr><tr style="background: #FFFFFF" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Satakunta&#39;,&#39;p=366441&amp;q=5634512&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[15]" value="p=366441&amp;q=5634512"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=366441&amp;q=5634512&amp;pikasiirtyma=1" target="_top">Satakunta</a> [1500 kätköä]</td></tr><tr style="background: #F0F9FA" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#F0F9FA&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Utö&#39;,&#39;p=626332&amp;q=6001774&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[16]" value="p=626332&amp;q=6001774"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=626332&amp;q=6001774&amp;pikasiirtyma=1" target="_top">Utö</a> [18 kätköä]</td></tr><tr style="background: #FFFFFF" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Virtuaalit löytämättä&#39;,&#39;p=915258&amp;q=7347596&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[17]" value="p=915258&amp;q=7347596"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=915258&amp;q=7347596&amp;pikasiirtyma=1" target="_top">Virtuaalit löytämättä</a> [103 kätköä]</td></tr><tr style="background: #F0F9FA" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#F0F9FA&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;Värikäst4 200metrin kaari&#39;,&#39;p=877872&amp;q=6379943&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[18]" value="p=877872&amp;q=6379943"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=877872&amp;q=6379943&amp;pikasiirtyma=1" target="_top">Värikäst4 200metrin kaari</a> [1 kätköä]</td></tr><tr style="background: #FFFFFF" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;kunnat, alle 3 eri tyyppiä, ilman tradeja&#39;,&#39;p=495939&amp;q=7346364&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[19]" value="p=495939&amp;q=7346364"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=495939&amp;q=7346364&amp;pikasiirtyma=1" target="_top">kunnat, alle 3 eri tyyppiä, ilman tradeja</a> [1907 kätköä]</td></tr><tr style="background: #F0F9FA" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#F0F9FA&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;pika pitkävkl&#39;,&#39;p=956875&amp;q=3952928&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[20]" value="p=956875&amp;q=3952928"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=956875&amp;q=3952928&amp;pikasiirtyma=1" target="_top">pika pitkävkl</a> [50 kätköä]</td></tr><tr style="background: #FFFFFF" onmouseover="this.style.backgroundColor=&#39;#BFFFBF&#39;;" onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;;"><td nowrap=""><button class="minimalbutton" onclick="Nimike(&#39;reunimmaiset&#39;,&#39;p=770031&amp;q=6129098&#39;); return false;">Nimi</button> <input type="checkbox" name="delete[21]" value="p=770031&amp;q=6129098"></td><td nowrap=""><a href="https://www.geocache.fi/kartta/?p=770031&amp;q=6129098&amp;pikasiirtyma=1" target="_top">reunimmaiset</a> [117 kätköä]</td></tr><tr><th colspan="2" align="center"><input type="hidden" name="acti" value="DelPika"><input type="hidden" name="UusiNimi" id="UusiNimi" value=""><input type="hidden" name="UusiNro" id="UusiNro" value=""><input type="submit" value="Tuhoa valitut" onclick="ConfirmDelete(); return false;"></th></tr><tr><td colspan="2">
+Määrätiedot näkyvät aina sekä päivittyvät<br>automaattisesti vain <a href="https://www.geocache.fi/terms/userlevels.php" target="_blank">Geocache.fi:n jäsenillä</a></td></tr></tbody></table></td><td>&nbsp;</td><td valign="top" align="center"><table class="runkoborder" width="300"><tbody><tr><th>Ohjeita</th></tr><tr><td><b>Pikavalinnat:</b><br>Voit tallettaa uuden pikavalinnan (tai korvata olemassaolevan) tekemällä karttahaun. Tämän jälkeen Kartta -välilehden alalaidassa ylimmällä rivillä on painike "-&gt; Pika"<p></p></td></tr></tbody></table></td></tr><tr><td><img src="./empty.gif" border="0" width="1" height="5"></td></tr><tr><td colspan="3" align="center"><table class="runkoborder" width="300"><tbody><tr><th>Kätköluettelon tuonti tiedostosta</th></tr><tr><td><iframe src="./upload.html" width="500" height="300" border="0" frameborder="0"></iframe></td></tr></tbody></table></td></tr><tr><td><img src="./empty.gif" border="0" width="1" height="5"></td></tr><tr bgcolor="#C3DDE0"><td colspan="5">Tässä osuudessa tehdyt muutokset päivittyvät esim. hakulomakkeelle vasta <a href="https://www.geocache.fi/kartta/" target="_top">ladattuasi koko karttasivun uudelleen</a></td></tr></tbody></table> <script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./ga.js.download" type="text/javascript"></script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-4886144-2");
+pageTracker._trackPageview();
+</script>
+    </center></body></html>
