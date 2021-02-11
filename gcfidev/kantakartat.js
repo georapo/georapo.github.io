@@ -1,5 +1,6 @@
 /* kantakartat.js  */
 /* kantakartat -laajennos geocache.fi/kartta -sivulle */
+var kantakartatDefs;
 
 var script = document.createElement('script');
   script.type = 'text/javascript';

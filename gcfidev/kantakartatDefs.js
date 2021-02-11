@@ -1,6 +1,6 @@
 /* kuntien extentit ovat aina samassa kuin Map.View eli EPSG:3857 WGS 84 / Pseudo-Mercator */ 
 
-var kantakartatDefs = [
+kantakartatDefs = [
 ['Vantaa', 2754528, 8451886, 2804662, 8489725, 'https://gis.vantaa.fi/geoserver/wms?', 'gis:kantakartta', '3857', '1.3.0'],
 ['Helsinki', 2756797, 8379567, 2815220, 8471882, 'https://kartta.hel.fi/ws/geoserver/avoindata/wms?', 'avoindata:Kantakartta', '3857', '1.3.0'],
 ['Espoo', 2725041, 8411363, 2768861, 8483987, 'https://kartat.espoo.fi/teklaogcweb/wms.ashx?', 'Karttayhdistelma', '3857', '1.1.1'],
@@ -14,7 +14,6 @@ var kantakartatDefs = [
 ['Lahti', 2782343, 8548108, 2921185, 8661937, 'https://kartta.lahti.fi/teklaogcweb/WMS.ashx?', 'Kantakartta', '3857', '1.1.1'],
 ['Kokkola', 2508794, 9129065, 2793684, 9380544, 'https://kartta.kokkola.fi/TeklaOgcWeb/WMS.ashx?', 'Kantakartta', '3857', '1.1.1'],
 ['Lappeenranta', 3084376, 8547874, 3206227, 8692566, 'https://kartta.lappeenranta.fi/TeklaOGCWeb/WMS.ashx?', 'maastokartta', '3857', '1.1.1'],
-//['Porvoo', 2830117, 8441532, 2887198, 8516881, 'https://kartta.porvoo.fi/porvoo_ows/?', 'korkeustiedot,Pohjakartta', '3067', '1.3.0'],  // ei julkaisulupaa
 ['Nokia', 2575235, 8701092, 2628807, 8758557, 'http://192.89.47.210/arcgis/services/nokia/Nokia_kantakartta/MapServer/WmsServer?', '1,2,10,11,13,15,17,19,20,22,25,26,28,29,31,32,50,51,60,64,66', '3878', '1.3.0'],
 ['Hämeenlinna', 2643837, 8568644, 2814156, 8701992, 'https://kartta.hameenlinna.fi/teklaogcweb/wms.ashx?', 'Kantakartta', '3879', '1.1.1'],
 ['Kauniainen',2739683, 8441122, 2761440, 8454215, 'https://kartat.kauniainen.fi/TeklaOGCweb/WMS.ashx?', 'Kantakartta_ilman_kiinteistoja', '3857', '1.1.1'],
@@ -27,7 +26,6 @@ var kantakartatDefs = [
 ['Hanko', 2530243, 8340329, 2596257, 8389016, 'https://map.hanko.fi/wms/ows.ashx?', 'pohjakartta_mapset', '3878', '1.3.0'],  // tsekkaa extent- louhi ows. sama kuin porvoo
 ['Uusikaupunki', 2338555, 8503407, 2407759, 8647388, 'https://kartta.uki.fi/TeklaOGCWeb/WMS.ashx?', 'KantakartanMaastotiedot', '3857', '1.1.1'], 
 ['Huittinen', 2432262, 8592887, 2633832, 8774682, 'https://paikkatieto.karttatiimi.fi/huittinen/wms?', 'huittinen_kantakkartta', '3877', '1.3.0'],
-//['Turku', 2393808, 8441796, 2580867, 8606257, 'https://opaskartta.turku.fi/TeklaOGCWeb/WMS.ashx?', 'Turun kantakartta 1:1000', '3857', '1.1.1'],  // tausta läpinäkymätön. liian iso extent, menee saloon asti  oli 3857
 ['Turku', 2458289, 8469305, 2511373, 8569112, 'https://opaskartta.turku.fi/TeklaOGCWeb/WMS.ashx?', 'Maastokartta', '3857', '1.1.1'],
 ['Salo', 2525105, 8396710, 2650988, 8535915, 'https://kartta.salo.fi/TeklaOGCWeb/wms.ashx?', 'Maastokartta', '3857', '1.1.1']  // tausta läpinäkymätön 
 
