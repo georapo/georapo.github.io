@@ -1,10 +1,9 @@
 /* kantakartat.js  */
 /* kantakartat -laajennos geocache.fi/kartta -sivulle */
-var kantakartatDefs;
 
 var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src = 'https://georapo.github.io/gcfidev/kantakartatDefs.js';  /* includataan varsinaiset kuntakohtaiset wms-layereiden määrittelyt */
+  script.src = 'https://georapo.github.io/gcfidev/kantakartatDefs.js';  
   document.head.appendChild(script);
 	
 var maxOpacity = 1.0;
