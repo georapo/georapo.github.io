@@ -1,6 +1,6 @@
 /* kantakartat.js  */
 /* kantakartat -laajennos geocache.fi/kartta -sivulle */
-kantakartatDefs = [
+/* kantakartatDefs = [
 ['Vantaa', 2754528, 8451886, 2804662, 8489725, 'https://gis.vantaa.fi/geoserver/wms?', 'gis:kantakartta', '3857', '1.3.0'],
 ['Helsinki', 2756797, 8379567, 2815220, 8471882, 'https://kartta.hel.fi/ws/geoserver/avoindata/wms?', 'avoindata:Kantakartta', '3857', '1.3.0'],
 ['Espoo', 2725041, 8411363, 2768861, 8483987, 'https://kartat.espoo.fi/teklaogcweb/wms.ashx?', 'Karttayhdistelma', '3857', '1.1.1'],
@@ -29,13 +29,13 @@ kantakartatDefs = [
 ['Turku', 2458289, 8469305, 2511373, 8569112, 'https://opaskartta.turku.fi/TeklaOGCWeb/WMS.ashx?', 'Maastokartta', '3857', '1.1.1'],
 ['Salo', 2525105, 8396710, 2650988, 8535915, 'https://kartta.salo.fi/TeklaOGCWeb/wms.ashx?', 'Maastokartta', '3857', '1.1.1']  // tausta läpinäkymätön 
 
-];
+]; */
 
-/*
+
 var script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = 'https://georapo.github.io/gcfidev/kantakartatDefs.js';  
-  document.head.appendChild(script);  */
+  document.head.appendChild(script);  
 	
 var maxOpacity = 1.0;
 var minOpacity = 0.0;
