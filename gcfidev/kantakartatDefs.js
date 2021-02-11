@@ -1,5 +1,6 @@
 /* kuntien extentit ovat aina samassa kuin Map.View eli EPSG:3857 WGS 84 / Pseudo-Mercator */ 
 
+
 kantakartatDefs = [
 ['Vantaa', 2754528, 8451886, 2804662, 8489725, 'https://gis.vantaa.fi/geoserver/wms?', 'gis:kantakartta', '3857', '1.3.0'],
 ['Helsinki', 2756797, 8379567, 2815220, 8471882, 'https://kartta.hel.fi/ws/geoserver/avoindata/wms?', 'avoindata:Kantakartta', '3857', '1.3.0'],
@@ -28,5 +29,4 @@ kantakartatDefs = [
 ['Huittinen', 2432262, 8592887, 2633832, 8774682, 'https://paikkatieto.karttatiimi.fi/huittinen/wms?', 'huittinen_kantakkartta', '3877', '1.3.0'],
 ['Turku', 2458289, 8469305, 2511373, 8569112, 'https://opaskartta.turku.fi/TeklaOGCWeb/WMS.ashx?', 'Maastokartta', '3857', '1.1.1'],
 ['Salo', 2525105, 8396710, 2650988, 8535915, 'https://kartta.salo.fi/TeklaOGCWeb/wms.ashx?', 'Maastokartta', '3857', '1.1.1']  // tausta läpinäkymätön 
-
 ];

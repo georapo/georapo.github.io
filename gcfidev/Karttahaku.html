@@ -127,6 +127,8 @@
   var graticuleLayer;
   var kuntarajatLayer;
 
+  var kantakartatDefs;
+
   var vectorSource = new ol.source.Vector();
   var circleSource = new ol.source.Vector();
   var pointSource = new ol.source.Vector();
@@ -142,7 +144,6 @@
   var pointId = 0;
   var selectedFeatures;
 
-  var kantakartatDefs;
 
 
 function mapInit()
@@ -1009,11 +1010,12 @@ function getDms(val, firstlen, decimals) {
 <script src="https://geocache.fi/kartta/include/jquery-latest.js"></script>
 <script src="https://geocache.fi/kartta/include/jquery-ui.min.js"></script>
 
+<script src="https://georapo.github.io/gcfidev/kantakartatDefs.js"></script>
 
 
 <script type="text/javascript">
   var $j = jQuery.noConflict();
-$j(document).ready(function(){
+    $j(document).ready(function(){
     $j("#tabs").tabs();
 
   mapInit(); 
