@@ -3,7 +3,7 @@
 
 var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src = './kantakartatDefs.js';  /* includataan varsinaiset kuntakohtaiset wms-layereiden määrittelyt */
+  script.src = 'kantakartatDefs.js';  /* includataan varsinaiset kuntakohtaiset wms-layereiden määrittelyt */
   document.head.appendChild(script);
 	
 var maxOpacity = 1.0;
