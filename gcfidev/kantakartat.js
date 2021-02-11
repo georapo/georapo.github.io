@@ -37,12 +37,13 @@ var script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = 'https://georapo.github.io/gcfidev/kantakartatDefs.js';  
   document.head.appendChild(script);  
+	*/
 	
 var maxOpacity = 1.0;
 var minOpacity = 0.0;
 var glbCurrentOpacity = maxOpacity;  
 var baselayersArray = ['OSM','PERUS','ORTO','TAUSTA','MAPANT','TRAILMAP'];
-var currentKunta;   */
+var currentKunta;   
 
 
 function kantakarttaZoomLevel() {
