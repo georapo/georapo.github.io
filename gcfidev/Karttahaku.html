@@ -248,6 +248,14 @@ function mapInit()
 		             isBaseLayer: false,
     });
 	
+	var ortokarttaLayerGroup = new ol.layer.Group({ /* kuntien ortot */
+              layers: [],
+	          id: 'ORTOGROUP',
+		      opacity: 1.0,
+			  visible: true,
+		      isBaseLayer: true,
+    }),
+  
 	
     circleLayer.setZIndex(100);
     pointLayer.setZIndex(200);
@@ -303,16 +311,6 @@ function mapInit()
 		  isBaseLayer: true,
           id: "ORTO"
         }),  
-
-		
-        new ol.layer.Group({ /* kuntien ortot */
-              layers: [],
-	          id: 'ORTOGROUP',
-		      opacity: 1.0,
-			  visible: true,
-		      isBaseLayer: true,
-        }),
-  
  			
 
         new ol.layer.Tile({
@@ -408,6 +406,7 @@ function mapInit()
         graticuleLayer,
         kuntarajatLayer,
 		kantakarttaLayerGroup,   /* kantakartat */
+		ortokarttaLayerGroup,
 
 	 ], 
 	 
