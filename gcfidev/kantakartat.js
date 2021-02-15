@@ -100,9 +100,34 @@ function kantakarttaZoomlevelListener() {
 	}
 }
 
+function installOrtokartat() {
+  var orLayers = []; 
+  map.getLayers().forEach(function(layer) {
+    if (layer.get('id') == 'ORTOGROUP') {
+      for(var i = 0; i < ortokartatDefs.length; i++) {   
+        var ll = new ol.layer.Tile({  
+			  extent: [ortokartatDefs[i][1], ortokartatDefs[i][2], ortokartatDefs[i][3], ortokartatDefs[i][4]],
+		      source: new ol.source.TileWMS({
+			    url: ortokartatDefs[i][5],
+			    //projection: (ortokartatDefs[i][7].includes('CRS') ? 'CRS:84' : 'EPSG:'+ortokartatDefs[i][7]),
+                params: {
+				  'LAYERS': ortokartatDefs[i][6],	
+				  //'VERSION': ortokartatDefs[i][8],
+                  'FORMAT': 'image/png',
+				  'TRANSPARENT': 'true',
+	            }
+              }),
+		      maxResolution: 1.0,
+	    }); 
+	    orLayers = layer.getLayers(); 
+	    orLayers.push(ll);  
+      }
+    }
+  });
+}
+
 function installKantakartat() {
   var kkLayers = []; 
-  
   map.getLayers().forEach(function(layer) {
     if (layer.get('id') == 'KANTAKARTTAGROUP') {
       for(var i = 0; i < kantakartatDefs.length; i++) {   
@@ -125,6 +150,8 @@ function installKantakartat() {
       }
     }
   });
+  
+  installOrtokartat();
 }
 
 /* todo:
