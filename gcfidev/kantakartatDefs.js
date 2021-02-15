@@ -1,6 +1,5 @@
 /* kuntien extentit ovat aina samassa kuin Map.View eli EPSG:3857 WGS 84 / Pseudo-Mercator */ 
 
-
 kantakartatDefs = [
 ['Vantaa', 2754528, 8451886, 2804662, 8489725, 'https://gis.vantaa.fi/geoserver/wms?', 'gis:kantakartta', '3857', '1.3.0'],
 ['Helsinki', 2756797, 8379567, 2815220, 8471882, 'https://kartta.hel.fi/ws/geoserver/avoindata/wms?', 'avoindata:Kantakartta', '3857', '1.3.0'],
@@ -21,7 +20,7 @@ kantakartatDefs = [
 ['Kangasala', 2650514, 8697654, 2752740, 8779465, 'https://paikkatietopalvelu.pirnet.fi/arcgis/services/kangasala/kantakartta/MapServer/WmsServer?', 'Maanpinnan_korkeus_pisteet,Korkeuskayrat_pisteet,kkt,Maanpinta_viivat,Maanpinta_pisteet,Vesistot_alueet,Vesistot_viivat,Vesistot_pisteet,Kasvillisuus_viivat,Kasvillisuus_pisteet,Rautatieliikenneverkot_viivat,Rautatieliikenneverkot_pisteet,Nimisto_pisteet,Katu_tie,Kadun_tien_nimi_pieni_teksti,Rakennuksen_nimi,Jarven_lammen_nimi,Tieliikenneverkot_viivat,Tieliikenneverkot_pisteet,Rakenteet_viivat,Rakenteet_pisteet,Pintamerkit_viivat,Pintamerkit_pisteet,Korkeuskayrat,Rakennukset_alueet,Rakennukset_viivat,Rakennukset_tekstit_pisteet', '3878', '1.3.0'],
 ['Hyvinkää', 2701283, 8511904, 2803414, 8573448, 'https://kartta.hyvinkaa.fi/ows/ows.ashx?', 'Kantakartta_php', '3857', '1.3.0'],
 ['Rovaniemi', 2735119, 9893286, 3049040, 10219022, 'https://kartta.rovaniemi.fi/teklaogcweb/WMS.ashx?', 'Pohjakartta', '3067', '1.1.1'],  // tausta läpinäkymätön
-['Loviisa', 2854231, 2854231, 2976683, 8550440, 'https://kartta.loviisa.fi/TeklaOGCWeb/WMS.ashx?', 'Pohjakartta', '3067', '1.1.1'],
+['Loviisa', 2854231, 2854231, 2976683, 8550440, 'https://kartta.loviisa.fi/TeklaOGCWeb/WMS.ashx?', 'Pohjakartta', '3067', '1.1.1'], //liian iso extent
 ['Kajaani', 3003114, 9375427, 3108904, 9427680, 'https://kartta.kajaani.fi/teklaOGCweb/wms.ashx?', 'Kantakartta', '3857', '1.1.1'],
 ['Seinäjoki', 2480078, 8929397, 2612948, 9125655,'https://kartat.seinajoki.fi/teklaogcweb/wms.ashx?', 'Kantakartta', '3857', '1.1.1'], // tausta läpinäkymätön
 ['Hanko', 2530243, 8340329, 2596257, 8389016, 'https://map.hanko.fi/wms/ows.ashx?', 'pohjakartta_mapset', '3878', '1.3.0'],  // tsekkaa extent- louhi ows. sama kuin porvoo
@@ -30,3 +29,10 @@ kantakartatDefs = [
 ['Turku', 2458289, 8469305, 2511373, 8569112, 'https://opaskartta.turku.fi/TeklaOGCWeb/WMS.ashx?', 'Maastokartta', '3857', '1.1.1'],
 ['Salo', 2525105, 8396710, 2650988, 8535915, 'https://kartta.salo.fi/TeklaOGCWeb/wms.ashx?', 'Maastokartta', '3857', '1.1.1']  // tausta läpinäkymätön 
 ];
+
+
+ortokartatDefs = [
+['Vantaan kaupunki', 2752693, 8451669, 2805202, 8490065, 'https://gis.vantaa.fi/geoserver/wms?', 'taustakartta:ortokuva_2019' ]
+
+];
+

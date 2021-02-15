@@ -138,6 +138,8 @@ function installKantakartat() {
  
  ohjeeseen mukan olevien kuntien autogenerointi 
  
+ attributions -> ohjesivulle dynaaminen frameElement
+ 
  ohjeeseen:
  liikennemerkkien sijotukset eivät kartalla näy, mutta katuvalotolpat ja ... 
  */

@@ -238,14 +238,16 @@ function mapInit()
             visible: false,
             id: "KUNTARAJA"
             });
- 	 
+ 	
+	
 	var kantakarttaLayerGroup = new ol.layer.Group({
                      layers: [],
                      id: 'KANTAKARTTAGROUP',
 					 opacity: 1.0,
 					 visible: true,
 		             isBaseLayer: false,
-        });
+    });
+	
 	
     circleLayer.setZIndex(100);
     pointLayer.setZIndex(200);
@@ -259,6 +261,7 @@ function mapInit()
       tipLabel: "Vaihda koko näytön näkymä päälle/pois"
 	  });
 
+	  
     map = new ol.Map({
       layers: [
         new ol.layer.Tile({
@@ -270,19 +273,11 @@ function mapInit()
 			isBaseLayer: true,
             id: "OSM"
           }),
-          /*new ol.layer.Tile({
-            preload: 0, // default value
-            source: new ol.source.BingMaps({
-              key: 'Your Bing Maps Key from http://www.bingmapsportal.com/ here',
-              imagerySet: 'AerialWithLabels'
-            }),
-            visible: true,
-            id: "BING"
-          }),*/
+ 		  
         new ol.layer.Tile({
-        source: new ol.source.TileWMS({
+          source: new ol.source.TileWMS({
             url: 'http://tiles.kartat.kapsi.fi/peruskartta?',
-	      attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>',
+	        attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>',
             crossOrigin: 'anonymous',
             params: {
                 'FORMAT': 'image/png'
@@ -294,52 +289,31 @@ function mapInit()
           id: "PERUS"
         }),
 
-/*        new ol.layer.Tile({
-        source: new ol.source.TileWMS({
+		new ol.layer.Tile({
+          source: new ol.source.TileWMS({
             url: 'http://tiles.kartat.kapsi.fi/ortokuva?',
-	      attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>',
+	        attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>',
             crossOrigin: 'anonymous',
             params: {
                 'FORMAT': 'image/png'
             },
             serverType: 'mapserver'
           }),
-            visible: false,
-			isBaseLayer: true,
-            id: "ORTO"
-        }),  */
-    new ol.layer.Group({ /* orto + vantaa*/
-      layers: [
+          visible: false,
+		  isBaseLayer: true,
+          id: "ORTO"
+        }),  
 
-        new ol.layer.Tile({
-        source: new ol.source.TileWMS({
-            url: 'http://tiles.kartat.kapsi.fi/ortokuva?',
-	      attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>',
-            crossOrigin: 'anonymous',
-            params: {
-                'FORMAT': 'image/png'
-            },
-            serverType: 'mapserver'
-          }),
+		
+        new ol.layer.Group({ /* kuntien ortot */
+              layers: [],
+	          id: 'ORTOGROUP',
+		      opacity: 1.0,
+			  visible: false,
+		      isBaseLayer: true
         }),
-
-   /*     new ol.layer.Tile({
-        source: new ol.source.TileWMS({
-		    extent: [2754528, 8451886, 2804662, 8489725],
-            url: 'https://gis.vantaa.fi/geoserver/wms?SERVICE=WMS&VERSION=1.3.0&LAYERS=taustakartta:ortokuva_2019',
-            params: {
-                'FORMAT': 'image/png'
-            },
-          }),
-		  maxResolution: 1.0,
-        }), */
-		 
-      ],
-            visible: false,
-            id: "ORTO"
-    }),
-
-			
+  
+ 			
 
         new ol.layer.Tile({
         source: new ol.source.TileWMS({
@@ -498,7 +472,7 @@ function mapInit()
           /*}
         })*/
         }
-    });
+      });
   
     pointLayer.set('selectable', true);
 
@@ -1010,8 +984,7 @@ function getDms(val, firstlen, decimals) {
 <script src="https://geocache.fi/kartta/include/jquery-latest.js"></script>
 <script src="https://geocache.fi/kartta/include/jquery-ui.min.js"></script>
 
-<script src="https://georapo.github.io/gcfidev/kantakartatDefs.js"></script>
-
+<script src="https://georapo.github.io/gcfidev/kantakartatDefs.js"></script>  
 
 <script type="text/javascript">
   var $j = jQuery.noConflict();
