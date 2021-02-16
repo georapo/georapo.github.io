@@ -117,7 +117,7 @@ function installOrtokartat() {
 				  'TRANSPARENT': 'false',
 	            }
               }),
-		      maxResolution: 1.0,
+		      maxResolution: 2.0,
 	    }); 
 	    orLayers = layer.getLayers(); 
 	    orLayers.push(ll);  
