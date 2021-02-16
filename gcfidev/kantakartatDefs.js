@@ -32,7 +32,7 @@ kantakartatDefs = [
 
 
 ortokartatDefs = [
-['Vantaan kaupunki', 2752693, 8451669, 2805202, 8490065, 'https://gis.vantaa.fi/geoserver/wms?', 'taustakartta:ortokuva_2019' ]
+['Vantaan kaupunki', 2752693, 8451669, 2805202, 8490065, 'https://gis.vantaa.fi/geoserver/wms?', 'taustakartta:ortokuva_2019', '3857', '1.3.0']
 
 ];
 
