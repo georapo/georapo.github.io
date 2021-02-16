@@ -103,13 +103,7 @@ function kantakarttaZoomlevelListener() {
 	if(document.getElementById("TASOT").value == 'ORTO') {
 			map.getLayers().forEach(function(layer) {
                if (layer.get('id') == 'ORTOGROUP') {
-			        /* if (kantakarttaAvailable() && kantakarttaZoomLevel()) { 
-					   layer.setVisible(true);
-					} else {
-                       layer.setVisible(false);
-                    }	*/
-                       layer.setVisible((kantakarttaAvailable() && kantakarttaZoomLevel()) ? true : false);
-					
+                    layer.setVisible((kantakarttaAvailable() && kantakarttaZoomLevel()) ? true : false);
 			   }		
             });
     } 
