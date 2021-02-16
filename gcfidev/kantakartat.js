@@ -13,7 +13,7 @@ var script = document.createElement('script');
 var maxOpacity = 1.0;
 var minOpacity = 0.0;
 var glbCurrentOpacity = maxOpacity;  
-var baselayersArray = ['OSM','PERUS','ORTO','TAUSTA','MAPANT','TRAILMAP'];
+var baselayersArray = ['OSM','PERUS','ORTO','ORTOGROUP','TAUSTA','MAPANT','TRAILMAP'];
 var currentKunta;   
 
 
