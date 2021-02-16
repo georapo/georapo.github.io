@@ -173,10 +173,13 @@ function installKantakartat() {
  
  piirto: metreinä kantakarttalevelillä  DONE
  
- ohjeeseen mukan olevien kuntien autogenerointi 
+ ohjeeseen mukana olevien kuntien autogenerointi 
  
  attributions -> ohjesivulle dynaaminen frameElement
  attribution lennosta oikeaan alakulmaan?
+ 
+ "kuntarajat, graticulet, kelkkareitit" tilan swappaus kantakarttojen kanssa
+ 
  
  ohjeeseen:
  liikennemerkkien sijotukset eivät kartalla näy, mutta katuvalotolpat ja ... 

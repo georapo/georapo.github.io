@@ -35,6 +35,7 @@ kantakartatDefs = [
 ortokartatDefs = [
 ['Helsinki', 2756797, 8401521, 2815220, 8471882, 'https://kartta.hel.fi/ws/geoserver/avoindata/wms?', 'avoindata:Ortoilmakuva', '3857', '1.3.0'],
 ['Vantaan kaupunki', 2752693, 8451669, 2805202, 8490065, 'https://gis.vantaa.fi/geoserver/wms?', 'taustakartta:ortokuva_2019', '3857', '1.3.0'],
-['Turku', 2340886, 8332655, 2580867, 8606257, 'https://opaskartta.turku.fi/TeklaOGCWeb/WMS.ashx?', 'Ilmakuva', '3857', '1.1.1']
+['Turku', 2340886, 8332655, 2580867, 8606257, 'https://opaskartta.turku.fi/TeklaOGCWeb/WMS.ashx?', 'Ilmakuva', '3857', '1.1.1'],
+['Espoo', 2725057, 8409362, 2772886, 8492083, 'https://kartat.espoo.fi/teklaogcweb/wms.ashx?', 'Ortokartta', '3857', '1.1.1']
 ];
 
