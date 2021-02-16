@@ -128,7 +128,7 @@ function installOrtokartat() {
 				  'LAYERS': ortokartatDefs[i][6],	
 				  'VERSION': ortokartatDefs[i][8],
                   'FORMAT': 'image/png',
-				  'TRANSPARENT': 'false',
+				  'TRANSPARENT': 'true',
 	            }
               }),
 		      maxResolution: 2.0,
