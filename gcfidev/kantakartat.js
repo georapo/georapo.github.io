@@ -103,11 +103,13 @@ function kantakarttaZoomlevelListener() {
 	if(document.getElementById("TASOT").value == 'ORTO') {
 			map.getLayers().forEach(function(layer) {
                if (layer.get('id') == 'ORTOGROUP') {
-			        if (kantakarttaAvailable() && kantakarttaZoomLevel()) { 
+			        /* if (kantakarttaAvailable() && kantakarttaZoomLevel()) { 
 					   layer.setVisible(true);
 					} else {
                        layer.setVisible(false);
-                    }					
+                    }	*/
+                       layer.setVisible((kantakarttaAvailable() && kantakarttaZoomLevel()) ? true : false);
+					
 			   }		
             });
     } 
@@ -131,7 +133,7 @@ function installOrtokartat() {
 				  'TRANSPARENT': 'true',
 	            }
               }),
-		      maxResolution: 2.0,
+		      maxResolution: 1.0,
 	    }); 
 	    orLayers = layer.getLayers(); 
 	    orLayers.push(ll);  
@@ -180,6 +182,7 @@ function installKantakartat() {
  ohjeeseen mukan olevien kuntien autogenerointi 
  
  attributions -> ohjesivulle dynaaminen frameElement
+ attribution lennosta oikeaan alakulmaan?
  
  ohjeeseen:
  liikennemerkkien sijotukset eivät kartalla näy, mutta katuvalotolpat ja ... 
