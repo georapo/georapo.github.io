@@ -100,19 +100,7 @@ function kantakarttaZoomlevelListener() {
 	}
 	
 	/* jos orto valittuna selectlististä ja ollaan kuntaorto extentissä, niin otetaan ortogroup käyttöön */
-	var l = document.getElementById("TASOT").value;
-	if(l == 'ORTO') {
-
-/*	if (kantakarttaAvailable() && kantakarttaZoomLevel()) {
-			map.getLayers().forEach(function(layer) {
-               if (layer.get('id') == 'ORTOGROUP') {
-			        layer.setVisible(true);
-			   }		
-            });
-        } 
-	} */
-
-	
+	if(document.getElementById("TASOT").value == 'ORTO') {
 			map.getLayers().forEach(function(layer) {
                if (layer.get('id') == 'ORTOGROUP') {
 			        if (kantakarttaAvailable() && kantakarttaZoomLevel()) { 
