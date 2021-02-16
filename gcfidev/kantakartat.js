@@ -98,6 +98,20 @@ function kantakarttaZoomlevelListener() {
 	  kkCbx.setAttribute('title', '');
       swapKantakarttaWidgetColors('grey');
 	}
+	
+	/* jos orto valittuna selectlististä ja ollaan kuntaorto extentissä, niin otetaan ortogroup käyttöön */
+	var l = document.getElementById("TASOT").value;
+	if(l.get('id') == 'ORTO') {
+	   	if (kantakarttaAvailable() && kantakarttaZoomLevel()) {
+			map.getLayers().forEach(function(layer) {
+               if (layer.get('id') == 'ORTOGROUP') {
+			        layer.setVisible(true);
+			   }		
+            });
+
+        }
+	}
+	
 }
 
 function installOrtokartat() {
