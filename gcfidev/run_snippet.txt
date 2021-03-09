@@ -1,0 +1,123 @@
+var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://georapo.github.io/gcfidev/kantakartatDefs.js';  
+  document.head.appendChild(script); 
+  
+var script2 = document.createElement('script');
+  script2.type = 'text/javascript';
+  script2.src = 'https://georapo.github.io/gcfidev/kantakartat.js';  
+  document.head.appendChild(script2); 
+
+var kantakarttaLayerGroup = new ol.layer.Group({
+                     layers: [],
+                     id: 'KANTAKARTTAGROUP',
+					 opacity: 1.0,
+					 visible: true,
+		             isBaseLayer: false,
+    });
+	
+ var ortokarttaLayerGroup = new ol.layer.Group({ /* kuntien ortot */
+              layers: [],
+	          id: 'ORTOGROUP',
+		      opacity: 1.0,
+			  visible: false,
+		      isBaseLayer: true,
+    });
+
+  
+map.addLayer(kantakarttaLayerGroup); 
+map.addLayer(ortokarttaLayerGroup);
+
+map.on("moveend", function(e) {
+        kantakarttaZoomlevelListener();
+	});
+
+const sleep = milliseconds => { 
+            return new Promise(resolve => setTimeout(resolve, milliseconds)); 
+        }; 
+sleep(2000).then(() => { 
+  installKantakartat();
+});         
+
+	
+var parent = document.getElementById('fragment-1');
+var element = parent.getElementsByTagName("TH")[2];
+element.innerHTML="<input type='checkbox' name='kantakartat' id='kantakartat' value='1' checked onclick='switchKantakartta(this);' title=''><span id='kantakarttalbl'>Kantakartta</span> <a id='opa1' title='lisää kantakartan läpinäkyvyyttä' href='javascript: changeOpacity(-0.1);'>&lt;&lt;</a><input id='opacity' type='text' value='100 %' size='3' disabled='true' /> <a id='opa2' title='lisää kantakartan peittävyyttä' href='javascript: changeOpacity(0.1);'>&gt;&gt;</a>";
+var element2 = parent.getElementsByTagName("TH")[0];
+element2.innerHTML="Reitti: <input type='text' name='reitinpituus' id='reitinpituus' size='3' style='background-color: #FFF; text-align:right;width:30px;border:0px;padding:0px;' value='0'><span id='pituusyksikko'> km</span><input type='button' name='reittipois' id='reittipois' value='Tyhjennä' style='padding:0px;' onclick='javascript:clearRoute();' disabled=''><input type='checkbox' name='piirto' id='piirto' value='' onclick='enableRoute(this)'><label for='piirto'>Lisää pisteitä</label>";
+
+function showHideLayers()
+{
+    var overlayLayersArray = ['KELKKA','KUNTARAJA','GRATICULE','ROUTE','VECTOR','CIRCLE','POINT','KANTAKARTTAGROUP'];
+    map.getLayers().forEach(function(layer) {
+        if (!overlayLayersArray.includes(layer.get('id'))) {
+            layer.setVisible((layer.get('id') == document.getElementById("TASOT").value) ? true : false );
+        }
+    });
+}
+
+var RouteLen = function() {
+  var pituus; 
+  if(routeSource.getFeatures().length > 0) {
+     if (dealingWithKantakartat()) {
+//    pituus = (ol.Sphere.getLength(routeSource.getFeatures()[0].getGeometry())/1000).toFixed(2);
+       pituus = (ol.Sphere.getLength(routeSource.getFeatures()[0].getGeometry())).toFixed(1);  /* kantakartat */
+	   document.getElementById('pituusyksikko').innerHTML =" m";
+	 } else {
+  	    pituus = (ol.Sphere.getLength(routeSource.getFeatures()[0].getGeometry())/1000).toFixed(2);
+        document.getElementById('pituusyksikko').innerHTML =" km";       
+     }	   
+  } else {
+      pituus = 0;
+  }
+  document.getElementById("reitinpituus").value =pituus;
+  if (pituus == 0){
+    document.getElementById("reittipois").disabled=true;
+  } else {
+    document.getElementById("reittipois").disabled=false;
+  }
+}
+
+function ddToDms(lat, lng) {
+  var lat = lat;
+  var lng = lng;
+  var latResult, lngResult, dmsResult;
+  
+  /* jos zoomattu kantakarttatasolle käsitellään naatteja neljällä desimaalilla */
+  var decimals = (map.getView().getResolution() <= 1.0) ? 4 : 3;
+  
+  lat = parseFloat(lat);
+  lng = parseFloat(lng);
+  latResult = (lat >= 0)? 'N ' : 'S ';
+  latResult += getDms(lat, 2, decimals);
+  lngResult = (lng >= 0)? 'E ' : 'W ';
+  lngResult += getDms(lng, 3, decimals);
+  dmsResult = latResult + '<br>' + lngResult;
+  return dmsResult;
+}
+function getDms(val, firstlen, decimals) {
+  var nolla="00000000000000";
+  var valDeg, valMin, valSec, result, XX;
+  val = Math.abs(val);
+  valDeg = Math.floor(val);
+  XX =  valDeg.toString();
+  pitu= firstlen - strlen(XX);
+  XX =  nolla.substring(0,pitu) +  XX;
+  result = XX + '\xB0 '; //  "�";                                                                                                                                                                 
+  valMin = Math.floor((val - valDeg) * 60);
+  var XX =  valMin.toString();
+  pitu= 2 - strlen(XX);
+  XX =  nolla.substring(0,pitu) +  XX;
+  result += XX + ".";
+  
+  //valSec = Math.round((val - valDeg - valMin / 60)*60*1000);
+  valSec = Math.round((val - valDeg - valMin / 60)*60* (10**decimals));
+  var XX =  valSec.toString();
+    
+  //pitu= 3 - strlen(XX);  
+  pitu= decimals - strlen(XX);  
+  
+  XX =  nolla.substring(0,pitu) +  XX;
+  result += XX;
+  return result;
+}
