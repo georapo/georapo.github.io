@@ -21,7 +21,7 @@ var style_SuomenMaakuntajako_2021_4500k_1 = function(feature, resolution){
         labelText = String("");
     }
     var style = [ new ol.style.Style({
-        stroke: new ol.style.Stroke({color: 'rgba(97,47,0,0.7514980392156863)', lineDash: null, lineCap: 'round', lineJoin: 'round', width: 0}),
+        stroke: new ol.style.Stroke({color: 'rgba(97,47,0,0.55)', lineDash: null, lineCap: 'round', lineJoin: 'round', width: 0}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth)
