@@ -1,7 +1,7 @@
 var size = 0;
 var placement = 'point';
 
-var style_SuomenKuntajako_2021_4500k_2 = function(feature, resolution){
+var style_BM86ANZwaypoints_3 = function(feature, resolution){
     var context = {
         feature: feature,
         variables: {}
@@ -9,19 +9,20 @@ var style_SuomenKuntajako_2021_4500k_2 = function(feature, resolution){
     var value = ""
     var labelText = "";
     size = 0;
-    var labelFont = "15.600000000000001px \'Goudy Old Style\', sans-serif";
-    var labelFill = "#331800";
+    var labelFont = "10px, sans-serif";
+    var labelFill = "#000000";
     var bufferColor = "";
     var bufferWidth = 0;
     var textAlign = "left";
     var offsetX = 8;
     var offsetY = 3;
     var placement = 'point';
-    if (feature.get("NAMEFIN") !== null) {
-        labelText = String(feature.get("NAMEFIN"));
+    if ("" !== null) {
+        labelText = String("");
     }
     var style = [ new ol.style.Style({
-        stroke: new ol.style.Stroke({color: 'rgba(139,67,0,0.7294117647058823)', lineDash: [10,5,1,5], lineCap: 'round', lineJoin: 'round', width: 0}),
+        image: new ol.style.Circle({radius: 4.0 + size,
+            stroke: new ol.style.Stroke({color: 'rgba(35,35,35,0.8)', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 0}), fill: new ol.style.Fill({color: 'rgba(227,26,28,0.5741176470588235)'})}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth)
