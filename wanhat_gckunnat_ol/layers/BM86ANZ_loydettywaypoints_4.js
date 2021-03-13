@@ -209,6 +209,7 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC6HY0A", "urlname": "Isosillantien kivisilta", "wanhatkunnat_field_1": "Tiukka – liitetty 1973 Kristiinankaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 21.454166666666666, 62.3025 ] } },
 { "type": "Feature", "properties": { "name": "GC3ZVF3", "urlname": "Kadonneet kunnat: Särkisalo", "wanhatkunnat_field_1": "Särkisalo – liitetty Saloon 2009" }, "geometry": { "type": "Point", "coordinates": [ 22.992867, 60.1531 ] } },
 { "type": "Feature", "properties": { "name": "GC6W807", "urlname": "Kylmäluoma_gate", "wanhatkunnat_field_1": null }, "geometry": { "type": "Point", "coordinates": [ 28.931067, 65.5761 ] } },
-{ "type": "Feature", "properties": { "name": "GC6CMZK", "urlname": "Tuurin pysäkki", "wanhatkunnat_field_1": "Töysä – liitetty Alavuden kaupunkiin 2013" }, "geometry": { "type": "Point", "coordinates": [ 23.723383, 62.605283 ] } }
+{ "type": "Feature", "properties": { "name": "GC6CMZK", "urlname": "Tuurin pysäkki", "wanhatkunnat_field_1": "Töysä – liitetty Alavuden kaupunkiin 2013" }, "geometry": { "type": "Point", "coordinates": [ 23.723383, 62.605283 ] } },
+{ "type": "Feature", "properties": { "name": "GC6QPMM", "urlname": "4l3ksin TB-stoppi", "wanhatkunnat_field_1": "Honkajoki – liitetty 2021 Kankaanpään kaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 22.228167, 62.008167 ] } }
 ]
 }
