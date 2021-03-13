@@ -1,7 +1,7 @@
 var size = 0;
 var placement = 'point';
 
-var style_BM86ANZ_loydettywaypoints_4 = function(feature, resolution){
+var style_BM86ANZwaypoints_3 = function(feature, resolution){
     var context = {
         feature: feature,
         variables: {}
@@ -22,7 +22,7 @@ var style_BM86ANZ_loydettywaypoints_4 = function(feature, resolution){
     }
     var style = [ new ol.style.Style({
         image: new ol.style.Circle({radius: 4.0 + size,
-            stroke: new ol.style.Stroke({color: 'rgba(35,35,35,0.9)', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 0}), fill: new ol.style.Fill({color: 'rgba(6,157,8,0.9)'})}),
+            stroke: new ol.style.Stroke({color: 'rgba(35,35,35,0.8)', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 0}), fill: new ol.style.Fill({color: 'rgba(227,26,28,0.5741176470588235)'})}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth)
