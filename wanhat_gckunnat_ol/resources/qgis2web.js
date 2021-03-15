@@ -107,7 +107,7 @@ var onPointerMove = function(evt) {
         clusteredFeatures = feature.get("features");
         var clusterFeature;
         if (typeof clusteredFeatures !== "undefined") {
-            if (doPopup) {
+            if (doPopup) {  
                 for(var n=0; n<clusteredFeatures.length; n++) {
                     clusterFeature = clusteredFeatures[n];
                     currentFeatureKeys = clusterFeature.getKeys();
@@ -136,24 +136,36 @@ var onPointerMove = function(evt) {
             }
         } else {
             currentFeatureKeys = currentFeature.getKeys();
-            if (doPopup) {
+            if (doPopup) {  
                 popupText += '<li><table>';
                 for (var i=0; i<currentFeatureKeys.length; i++) {
                     if (currentFeatureKeys[i] != 'geometry') {
                         popupField = '';
                         if (layer.get('fieldLabels')[currentFeatureKeys[i]] == "inline label") {
                             popupField += '<th>' + layer.get('fieldAliases')[currentFeatureKeys[i]] + ':</th><td>';
-                        } else {
+                        } else {  
                             popupField += '<td colspan="2">';
                         }
                         if (layer.get('fieldLabels')[currentFeatureKeys[i]] == "header label") {
                             popupField += '<strong>' + layer.get('fieldAliases')[currentFeatureKeys[i]] + ':</strong><br />';
                         }
                         if (layer.get('fieldImages')[currentFeatureKeys[i]] != "ExternalResource") {
-                            popupField += (currentFeature.get(currentFeatureKeys[i]) != null ? autolinker.link(currentFeature.get(currentFeatureKeys[i]).toLocaleString()) + '</td>' : '');
-                        } else {
+							
+							//console.log(currentFeature.get(currentFeatureKeys[i]));
+							
+							/* if (currentFeature.get(currentFeatureKeys[i]).includes(" – ")) {
+							   	var strKuntanimi = currentFeature.get(currentFeatureKeys[i]).slice(0, currentFeature.get(currentFeatureKeys[i]).indexOf(" – "));
+								popupField +=   https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Alastaro.vaakuna.svg/20px-Alastaro.vaakuna.svg.png
+								
+								popupField += autolinker.link(tmpCurrentField.toLocaleString()) + '</td>';
+							} else {  */
+							  
+                              popupField += (currentFeature.get(currentFeatureKeys[i]) != null ? autolinker.link(currentFeature.get(currentFeatureKeys[i]).toLocaleString()) + '</td>' : '');
+							//}
+                        } else {   
+						  
                             popupField += (currentFeature.get(currentFeatureKeys[i]) != null ? '<img src="images/' + currentFeature.get(currentFeatureKeys[i]).replace(/[\\\/:]/g, '_').trim()  + '" /></td>' : '');
-                        }
+                        }  
                         popupText += '<tr>' + popupField + '</tr>';
                     }
                 }
@@ -251,6 +263,7 @@ var onSingleClick = function(evt) {
             var clusterFeature;
             if (typeof clusteredFeatures !== "undefined") {
                 if (doPopup) {
+					
                     for(var n=0; n<clusteredFeatures.length; n++) {
                         clusterFeature = clusteredFeatures[n];
                         currentFeatureKeys = clusterFeature.getKeys();
@@ -279,7 +292,7 @@ var onSingleClick = function(evt) {
                 }
             } else {
                 currentFeatureKeys = currentFeature.getKeys();
-                if (doPopup) {
+                if (doPopup) {  
                     popupText += '<li><table>';
                     for (var i=0; i<currentFeatureKeys.length; i++) {
                         if (currentFeatureKeys[i] != 'geometry') {
