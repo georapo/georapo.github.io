@@ -5,6 +5,7 @@ var wms_layers = [];
             'title': 'OSM Stamen Watercolor',
             'type': 'base',
             'opacity': 1.000000,
+			maxZoom: 13,
             
             
             source: new ol.source.XYZ({
