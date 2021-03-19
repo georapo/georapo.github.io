@@ -1,8 +1,8 @@
 var wms_layers = [];
 
 
-        var lyr_OSMStamenWatercolor_0 = new ol.layer.Tile({
-            'title': 'OSM Stamen Watercolor',
+        var wanhatkartat_0 = new ol.layer.Tile({
+            'title': 'Wanhat kartat',
             'type': 'base',
             'opacity': 1.000000,
             
@@ -47,14 +47,14 @@ var lyr_BM86ANZ_loydettywaypoints_4 = new ol.layer.Vector({
 lyr_BM86ANZwaypoints_3.setVisible(true);
 lyr_BM86ANZ_loydettywaypoints_4.setVisible(true);
 
-var layersList = [lyr_OSMStamenWatercolor_0,lyr_BM86ANZwaypoints_3,lyr_BM86ANZ_loydettywaypoints_4];
+var layersList = [lyr_wanhatkartat_0,lyr_BM86ANZwaypoints_3,lyr_BM86ANZ_loydettywaypoints_4];
 
-lyr_BM86ANZwaypoints_3.set('fieldAliases', {'ele': 'ele', 'time': 'time', 'magvar': 'magvar', 'geoidheight': 'geoidheight', 'name': 'name', 'cmt': 'cmt', 'desc': 'desc', 'src': 'src', 'url': 'url', 'urlname': 'urlname', 'sym': 'sym', 'type': 'type', 'fix': 'fix', 'sat': 'sat', 'hdop': 'hdop', 'vdop': 'vdop', 'pdop': 'pdop', 'ageofdgpsdata': 'ageofdgpsdata', 'dgpsid': 'dgpsid', 'wanhatkunnat_field_1': 'wanhatkunnat_field_1', });
-lyr_BM86ANZ_loydettywaypoints_4.set('fieldAliases', {'ele': 'ele', 'time': 'time', 'magvar': 'magvar', 'geoidheight': 'geoidheight', 'name': 'name', 'cmt': 'cmt', 'desc': 'desc', 'src': 'src', 'url': 'url', 'urlname': 'urlname', 'sym': 'sym', 'type': 'type', 'fix': 'fix', 'sat': 'sat', 'hdop': 'hdop', 'vdop': 'vdop', 'pdop': 'pdop', 'ageofdgpsdata': 'ageofdgpsdata', 'dgpsid': 'dgpsid', 'wanhatkunnat_field_1': 'wanhatkunnat_field_1', });
-lyr_BM86ANZwaypoints_3.set('fieldImages', {'ele': 'Hidden', 'time': 'Hidden', 'magvar': 'Hidden', 'geoidheight': 'Hidden', 'name': 'Hidden', 'cmt': 'Hidden', 'desc': 'Hidden', 'src': 'Hidden', 'url': 'Hidden', 'urlname': 'Hidden', 'sym': 'Hidden', 'type': 'Hidden', 'fix': 'Hidden', 'sat': 'Hidden', 'hdop': 'Hidden', 'vdop': 'Hidden', 'pdop': 'Hidden', 'ageofdgpsdata': 'Hidden', 'dgpsid': 'Hidden', 'wanhatkunnat_field_1': 'TextEdit', });
-lyr_BM86ANZ_loydettywaypoints_4.set('fieldImages', {'ele': 'Hidden', 'time': 'Hidden', 'magvar': 'Hidden', 'geoidheight': 'Hidden', 'name': 'TextEdit', 'cmt': 'Hidden', 'desc': 'Hidden', 'src': 'Hidden', 'url': 'Hidden', 'urlname': 'TextEdit', 'sym': 'Hidden', 'type': 'Hidden', 'fix': 'Hidden', 'sat': 'Hidden', 'hdop': 'Hidden', 'vdop': 'Hidden', 'pdop': 'Hidden', 'ageofdgpsdata': 'Hidden', 'dgpsid': 'Hidden', 'wanhatkunnat_field_1': 'TextEdit', });
-lyr_BM86ANZwaypoints_3.set('fieldLabels', {'wanhatkunnat_field_1': 'no label', });
-lyr_BM86ANZ_loydettywaypoints_4.set('fieldLabels', {'name': 'no label', 'urlname': 'no label', 'wanhatkunnat_field_1': 'no label', });
+lyr_BM86ANZwaypoints_3.set('fieldAliases', {'ele': 'ele', 'time': 'time', 'magvar': 'magvar', 'geoidheight': 'geoidheight', 'name': 'name', 'cmt': 'cmt', 'desc': 'desc', 'src': 'src', 'url': 'url', 'urlname': 'urlname', 'sym': 'sym', 'type': 'type', 'fix': 'fix', 'sat': 'sat', 'hdop': 'hdop', 'vdop': 'vdop', 'pdop': 'pdop', 'ageofdgpsdata': 'ageofdgpsdata', 'dgpsid': 'dgpsid', 'wanhatkartat_field_1': 'wanhatkartat_field_1', });
+lyr_BM86ANZ_loydettywaypoints_4.set('fieldAliases', {'ele': 'ele', 'time': 'time', 'magvar': 'magvar', 'geoidheight': 'geoidheight', 'name': 'name', 'cmt': 'cmt', 'desc': 'desc', 'src': 'src', 'url': 'url', 'urlname': 'urlname', 'sym': 'sym', 'type': 'type', 'fix': 'fix', 'sat': 'sat', 'hdop': 'hdop', 'vdop': 'vdop', 'pdop': 'pdop', 'ageofdgpsdata': 'ageofdgpsdata', 'dgpsid': 'dgpsid', 'wanhatkartat_field_1': 'wanhatkartat_field_1', });
+lyr_BM86ANZwaypoints_3.set('fieldImages', {'ele': 'Hidden', 'time': 'Hidden', 'magvar': 'Hidden', 'geoidheight': 'Hidden', 'name': 'Hidden', 'cmt': 'Hidden', 'desc': 'Hidden', 'src': 'Hidden', 'url': 'Hidden', 'urlname': 'Hidden', 'sym': 'Hidden', 'type': 'Hidden', 'fix': 'Hidden', 'sat': 'Hidden', 'hdop': 'Hidden', 'vdop': 'Hidden', 'pdop': 'Hidden', 'ageofdgpsdata': 'Hidden', 'dgpsid': 'Hidden', 'wanhatkartat_field_1': 'TextEdit', });
+lyr_BM86ANZ_loydettywaypoints_4.set('fieldImages', {'ele': 'Hidden', 'time': 'Hidden', 'magvar': 'Hidden', 'geoidheight': 'Hidden', 'name': 'TextEdit', 'cmt': 'Hidden', 'desc': 'Hidden', 'src': 'Hidden', 'url': 'Hidden', 'urlname': 'TextEdit', 'sym': 'Hidden', 'type': 'Hidden', 'fix': 'Hidden', 'sat': 'Hidden', 'hdop': 'Hidden', 'vdop': 'Hidden', 'pdop': 'Hidden', 'ageofdgpsdata': 'Hidden', 'dgpsid': 'Hidden', 'wanhatkartat_field_1': 'TextEdit', });
+lyr_BM86ANZwaypoints_3.set('fieldLabels', {'wanhatkartat_field_1': 'no label', });
+lyr_BM86ANZ_loydettywaypoints_4.set('fieldLabels', {'name': 'no label', 'urlname': 'no label', 'wanhatkartat_field_1': 'no label', });
 lyr_BM86ANZ_loydettywaypoints_4.on('precompose', function(evt) {
     evt.context.globalCompositeOperation = 'normal';
 });
