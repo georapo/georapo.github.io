@@ -47,7 +47,7 @@ var lyr_BM86ANZ_loydettywaypoints_4 = new ol.layer.Vector({
 lyr_BM86ANZwaypoints_3.setVisible(true);
 lyr_BM86ANZ_loydettywaypoints_4.setVisible(true);
 
-var layersList = [lyr_wanhatkartat_0,lyr_BM86ANZwaypoints_3,lyr_BM86ANZ_loydettywaypoints_4];
+var layersList = [wanhatkartat_0,lyr_BM86ANZwaypoints_3,lyr_BM86ANZ_loydettywaypoints_4];
 
 lyr_BM86ANZwaypoints_3.set('fieldAliases', {'ele': 'ele', 'time': 'time', 'magvar': 'magvar', 'geoidheight': 'geoidheight', 'name': 'name', 'cmt': 'cmt', 'desc': 'desc', 'src': 'src', 'url': 'url', 'urlname': 'urlname', 'sym': 'sym', 'type': 'type', 'fix': 'fix', 'sat': 'sat', 'hdop': 'hdop', 'vdop': 'vdop', 'pdop': 'pdop', 'ageofdgpsdata': 'ageofdgpsdata', 'dgpsid': 'dgpsid', 'wanhatkartat_field_1': 'wanhatkartat_field_1', });
 lyr_BM86ANZ_loydettywaypoints_4.set('fieldAliases', {'ele': 'ele', 'time': 'time', 'magvar': 'magvar', 'geoidheight': 'geoidheight', 'name': 'name', 'cmt': 'cmt', 'desc': 'desc', 'src': 'src', 'url': 'url', 'urlname': 'urlname', 'sym': 'sym', 'type': 'type', 'fix': 'fix', 'sat': 'sat', 'hdop': 'hdop', 'vdop': 'vdop', 'pdop': 'pdop', 'ageofdgpsdata': 'ageofdgpsdata', 'dgpsid': 'dgpsid', 'wanhatkartat_field_1': 'wanhatkartat_field_1', });
