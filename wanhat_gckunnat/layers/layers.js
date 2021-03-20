@@ -63,5 +63,5 @@ var loydetyt_kpl = features_BM86ANZ_loydettywaypoints_4.length;
 var loytamatta_kpl = features_BM86ANZwaypoints_3.length;
 var yhteensa = loydetyt_kpl + loytamatta_kpl;
 
-document.getElementById('tilanne_meter').innerHTML = "<label for='tilanne'>Tilanne (georapo):<label>  <meter id='tilanne' value='" + loydetyt_kpl + "' min='0' max='" + yhteensa + "'></meter><font color='green'>  " + loydetyt_kpl.toString() + "</font><font color='grey'>/" + yhteensa.toString() + "</font>";
+document.getElementById('tilanne_meter').innerHTML = "<label for='tilanne'>Tilanne (georapo):<label>  <meter id='tilanne' value='" + loydetyt_kpl + "' min='0' max='" + yhteensa + "'></meter><font color='green'>  " + loydetyt_kpl.toString() + "</font><font color='grey'> / " + yhteensa.toString() + "</font>";
 
