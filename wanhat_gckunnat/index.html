@@ -10,10 +10,12 @@
         <link rel="stylesheet" href="resources/fontawesome-all.min.css">
         <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
         <link rel="stylesheet" href="./resources/qgis2web.css">
+		<link rel="stylesheet" href="https://viglino.github.io/ol-ext/dist/ol-ext.css">
+		
 <style>
 .search-layer {
   top: 65px;
-  left: .5em;
+  left: .5em;0
 }
 .ol-touch .search-layer {
   top: 80px;
@@ -83,6 +85,7 @@
 		  
 		</div>
 		
+			
 		
 		<script src="resources/qgis2web_expressions.js"></script>
         <script src="resources/polyfills.js"></script>
@@ -96,8 +99,16 @@
         <script src="./layers/layers.js" type="text/javascript"></script> 
         <script src="./resources/Autolinker.min.js"></script>
         <script src="./resources/qgis2web.js"></script>		
+		<script src="https://viglino.github.io/ol-ext/dist/ol-ext.js"></script>
 		
-		
+		<script>
+           // Swipe Control
+            var ctrl = new ol.control.Swipe();
+            map.addControl(ctrl);
+            ctrl.addLayer(lyr_wanhatkartat_0);   //vasen 
+            ctrl.addLayer(taustakartta_mml, true);   //oikea
+	        ctrl.set('position', 0.9);
+	    </script>
 
     </body>
 </html>

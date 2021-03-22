@@ -1,7 +1,7 @@
 var wms_layers = [];
 
 
-        var lyr_wanhatkartat_0 = new ol.layer.Tile({
+ var lyr_wanhatkartat_0 = new ol.layer.Tile({
             'title': 'Wanhat kartat',
             'type': 'base',
             'opacity': 1.000000,
@@ -10,9 +10,26 @@ var wms_layers = [];
                 attributions: ' ',
                 url: 'https://georapo.github.io/xyz_wanhat/{z}/{x}/{y}.jpg'
             })
-        });
+ });
 
+var taustakartta_mml = new ol.layer.Tile({
+	   source: new ol.source.TileWMS({
+            url: 'http://tiles.kartat.kapsi.fi/taustakartta?',
+	        crossOrigin: 'anonymous',
+            params: {
+                'FORMAT': 'image/png'
+            },
+            serverType: 'mapserver'
+       }),
+            visible: true,
+            id: "TAUSTA"
+        });
 		
+var osm = new ol.layer.Tile({
+      source: new ol.source.OSM() 
+    });
+
+ 
 		
 var format_BM86ANZwaypoints_3 = new ol.format.GeoJSON();
 var features_BM86ANZwaypoints_3 = format_BM86ANZwaypoints_3.readFeatures(json_BM86ANZwaypoints_3, 
@@ -43,11 +60,11 @@ var lyr_BM86ANZ_loydettywaypoints_4 = new ol.layer.Vector({
                 interactive: true,
                 title: '<img src="styles/legend/BM86ANZ_loydettywaypoints_4.png" /> BM86ANZ_loydetty waypoints'
             });
-
+0
 lyr_BM86ANZwaypoints_3.setVisible(true);
 lyr_BM86ANZ_loydettywaypoints_4.setVisible(true);
 
-var layersList = [lyr_wanhatkartat_0,lyr_BM86ANZwaypoints_3,lyr_BM86ANZ_loydettywaypoints_4];
+var layersList = [taustakartta_mml,lyr_wanhatkartat_0,lyr_BM86ANZwaypoints_3,lyr_BM86ANZ_loydettywaypoints_4];
 
 lyr_BM86ANZwaypoints_3.set('fieldAliases', {'ele': 'ele', 'time': 'time', 'magvar': 'magvar', 'geoidheight': 'geoidheight', 'name': 'name', 'cmt': 'cmt', 'desc': 'desc', 'src': 'src', 'url': 'url', 'urlname': 'urlname', 'sym': 'sym', 'type': 'type', 'fix': 'fix', 'sat': 'sat', 'hdop': 'hdop', 'vdop': 'vdop', 'pdop': 'pdop', 'ageofdgpsdata': 'ageofdgpsdata', 'dgpsid': 'dgpsid', 'wanhatkartat_field_1': 'wanhatkartat_field_1', });
 lyr_BM86ANZ_loydettywaypoints_4.set('fieldAliases', {'ele': 'ele', 'time': 'time', 'magvar': 'magvar', 'geoidheight': 'geoidheight', 'name': 'name', 'cmt': 'cmt', 'desc': 'desc', 'src': 'src', 'url': 'url', 'urlname': 'urlname', 'sym': 'sym', 'type': 'type', 'fix': 'fix', 'sat': 'sat', 'hdop': 'hdop', 'vdop': 'vdop', 'pdop': 'pdop', 'ageofdgpsdata': 'ageofdgpsdata', 'dgpsid': 'dgpsid', 'wanhatkartat_field_1': 'wanhatkartat_field_1', });
