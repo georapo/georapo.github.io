@@ -25,11 +25,6 @@ var taustakartta_mml = new ol.layer.Tile({
             id: "TAUSTA"
         });
 		
-var osm = new ol.layer.Tile({
-      source: new ol.source.OSM() 
-    });
-
- 
 		
 var format_BM86ANZwaypoints_3 = new ol.format.GeoJSON();
 var features_BM86ANZwaypoints_3 = format_BM86ANZwaypoints_3.readFeatures(json_BM86ANZwaypoints_3, 
@@ -60,7 +55,7 @@ var lyr_BM86ANZ_loydettywaypoints_4 = new ol.layer.Vector({
                 interactive: true,
                 title: '<img src="styles/legend/BM86ANZ_loydettywaypoints_4.png" /> BM86ANZ_loydetty waypoints'
             });
-0
+
 lyr_BM86ANZwaypoints_3.setVisible(true);
 lyr_BM86ANZ_loydettywaypoints_4.setVisible(true);
 
