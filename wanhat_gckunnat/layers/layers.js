@@ -14,7 +14,7 @@ var wms_layers = [];
 
 var taustakartta_mml = new ol.layer.Tile({
 	   source: new ol.source.TileWMS({
-            url: 'http://tiles.kartat.kapsi.fi/taustakartta?',
+            url: 'https://tiles.kartat.kapsi.fi/taustakartta?',
 	        crossOrigin: 'anonymous',
             params: {
                 'FORMAT': 'image/png'
