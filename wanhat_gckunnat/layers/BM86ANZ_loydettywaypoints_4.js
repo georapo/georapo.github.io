@@ -212,6 +212,12 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC6CMZK", "urlname": "Tuurin pysäkki", "wanhatkunnat_field_1": "Töysä – liitetty Alavuden kaupunkiin 2013" }, "geometry": { "type": "Point", "coordinates": [ 23.723383, 62.605283 ] } },
 { "type": "Feature", "properties": { "name": "GC6QPMM", "urlname": "4l3ksin TB-stoppi", "wanhatkunnat_field_1": "Honkajoki – liitetty 2021 Kankaanpään kaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 22.228167, 62.008167 ] } },
 { "type": "Feature", "properties": { "name": "GC5MD4T", "urlname": "Welcome to Renko!", "wanhatkunnat_field_1": "Renko – yhdistyi Hämeenlinnaan 2009" }, "geometry": { "type": "Point", "coordinates": [24.28318, 60.89342 ] } },
-{ "type": "Feature", "properties": { "name": "GC7GYE7", "urlname": "Suonpää - Vorssa Alphabet S", "wanhatkunnat_field_1": "Koijärvi – jaettu 1969 Forssan ja Urjalan kesken" }, "geometry": { "type": "Point", "coordinates": [ 23.74543, 60.95508 ] } }
+{ "type": "Feature", "properties": { "name": "GC7GYE7", "urlname": "Suonpää - Vorssa Alphabet S", "wanhatkunnat_field_1": "Koijärvi – jaettu 1969 Forssan ja Urjalan kesken" }, "geometry": { "type": "Point", "coordinates": [ 23.74543, 60.95508 ] } },
+{ "type": "Feature", "properties": { "name": "GC2JKKY", "urlname": "Kiikan kirkko", "wanhatkunnat_field_1": "Kiikka – yhdistetty Keikyän kanssa Äetsäksi vuonna 1981. Äetsä yhdistyi 2009 Sastamalaksi" }, "geometry": { "type": "Point", "coordinates": [ 22.77505, 61.3213 ] } },
+{ "type": "Feature", "properties": { "name": "GC2JKM8", "urlname": "Keikyän kirkko", "wanhatkunnat_field_1": "Keikyä – yhdistetty Kiikan kanssa Äetsäksi vuonna 1981. Äetsä yhdistyi 2009 Sastamalaksi" }, "geometry": { "type": "Point", "coordinates": [ 22.702767, 61.271133 ] } },
+{ "type": "Feature", "properties": { "name": "GC8AQ5Z", "urlname": "Kauvatsa", "wanhatkunnat_field_1": "Kauvatsa – liitetty 1969 Kokemäkeen" }, "geometry": { "type": "Point", "coordinates": [ 22.504017, 61.3374 ] } },
+{ "type": "Feature", "properties": { "name": "GC94WGK", "urlname": "Kiikoisten kirkko", "wanhatkunnat_field_1": "Kiikoinen – liitetty Sastamalaan 2013" }, "geometry": { "type": "Point", "coordinates": [ 22.559833, 61.464583 ] } },
+{ "type": "Feature", "properties": { "name": "GCZJ3Q", "urlname": "Suoniemen kirkko", "wanhatkunnat_field_1": "Suoniemi – liitetty 1973 Nokiaan" }, "geometry": { "type": "Point", "coordinates": [ 23.214467, 61.440817 ] } },
+{ "type": "Feature", "properties": { "name": "GC83MDK", "urlname": "Kadonneet kunnat - Tottijärvi", "wanhatkunnat_field_1": "Tottijärvi – liitetty 1976 Nokiaan" }, "geometry": { "type": "Point", "coordinates": [ 23.34345, 61.3981 ] } }
 ]
 }
