@@ -210,6 +210,9 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC3ZVF3", "urlname": "Kadonneet kunnat: Särkisalo", "wanhatkunnat_field_1": "Särkisalo – liitetty Saloon 2009" }, "geometry": { "type": "Point", "coordinates": [ 22.992867, 60.1531 ] } },
 { "type": "Feature", "properties": { "name": "GC6W807", "urlname": "Kylmäluoma_gate", "wanhatkunnat_field_1": "Jokijärvi – lakkautettu 1884, liitetty Taivalkoskeen" }, "geometry": { "type": "Point", "coordinates": [ 28.931067, 65.5761 ] } },
 { "type": "Feature", "properties": { "name": "GC6CMZK", "urlname": "Tuurin pysäkki", "wanhatkunnat_field_1": "Töysä – liitetty Alavuden kaupunkiin 2013" }, "geometry": { "type": "Point", "coordinates": [ 23.723383, 62.605283 ] } },
-{ "type": "Feature", "properties": { "name": "GC6QPMM", "urlname": "4l3ksin TB-stoppi", "wanhatkunnat_field_1": "Honkajoki – liitetty 2021 Kankaanpään kaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 22.228167, 62.008167 ] } }
+{ "type": "Feature", "properties": { "name": "GC6QPMM", "urlname": "4l3ksin TB-stoppi", "wanhatkunnat_field_1": "Honkajoki – liitetty 2021 Kankaanpään kaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 22.228167, 62.008167 ] } },
+{ "type": "Feature", "properties": { "name": "GC5MD4T", "urlname": "Welcome to Renko!", "wanhatkunnat_field_1": "Renko – yhdistyi Hämeenlinnaan 2009" }, "geometry": { "type": "Point", "coordinates": [24.28318, 60.89342 ] } },
+{ "type": "Feature", "properties": {  "name": "GC7GYE7", "urlname": "Suonpää - Vorssa Alphabet S", "wanhatkunnat_field_1": "Koijärvi – jaettu 1969 Forssan ja Urjalan kesken" }, "geometry": { "type": "Point", "coordinates": [ 23.74543, 60.95508 ] } }
+
 ]
 }
