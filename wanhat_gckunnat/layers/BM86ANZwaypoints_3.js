@@ -52,6 +52,6 @@ var json_BM86ANZwaypoints_3 = {
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Yli-Ii – muodosti uuden Oulun kaupungin Oulun, Haukiputaan, Kiimingin ja Oulunsalon kanssa 2013" }, "geometry": { "type": "Point", "coordinates": [ 25.841933, 65.3724 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Ylihärmä – liitetty Kauhavaan 2009" }, "geometry": { "type": "Point", "coordinates": [ 22.79205, 63.141917 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Ylikiiminki – liitetty Ouluun 2009" }, "geometry": { "type": "Point", "coordinates": [ 26.1261, 65.0299 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Haapasaari – liitetty 1974 Kotkaan" }, "geometry": { "type": "Point", "coordinates": [ 26.9659, 60.3701 ] } }
+{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Haapasaari – liitetty 1974 Kotkaan " }, "geometry": { "type": "Point", "coordinates": [ 26.9659, 60.3701 ] } }
 ]
 }
