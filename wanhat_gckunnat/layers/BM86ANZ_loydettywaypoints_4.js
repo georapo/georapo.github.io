@@ -218,6 +218,9 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC8AQ5Z", "urlname": "Kauvatsa", "wanhatkunnat_field_1": "Kauvatsa – liitetty 1969 Kokemäkeen" }, "geometry": { "type": "Point", "coordinates": [ 22.504017, 61.3374 ] } },
 { "type": "Feature", "properties": { "name": "GC94WGK", "urlname": "Kiikoisten kirkko", "wanhatkunnat_field_1": "Kiikoinen – liitetty Sastamalaan 2013" }, "geometry": { "type": "Point", "coordinates": [ 22.559833, 61.464583 ] } },
 { "type": "Feature", "properties": { "name": "GCZJ3Q", "urlname": "Suoniemen kirkko", "wanhatkunnat_field_1": "Suoniemi – liitetty 1973 Nokiaan" }, "geometry": { "type": "Point", "coordinates": [ 23.214467, 61.440817 ] } },
-{ "type": "Feature", "properties": { "name": "GC83MDK", "urlname": "Kadonneet kunnat - Tottijärvi", "wanhatkunnat_field_1": "Tottijärvi – liitetty 1976 Nokiaan" }, "geometry": { "type": "Point", "coordinates": [ 23.34345, 61.3981 ] } }
+{ "type": "Feature", "properties": { "name": "GC83MDK", "urlname": "Kadonneet kunnat - Tottijärvi", "wanhatkunnat_field_1": "Tottijärvi – liitetty 1976 Nokiaan" }, "geometry": { "type": "Point", "coordinates": [ 23.34345, 61.3981 ] } },
+{ "type": "Feature", "properties": { "name": "GCJTWN", "urlname": "Church of Two Times", "wanhatkunnat_field_1": "Kakskerta – liitetty 1968 Turkuun" }, "geometry": { "type": "Point", "coordinates": [ 22.218833, 60.370133 ] } },
+{ "type": "Feature", "properties": { "name": "GC8M22Y", "urlname": "Maarian asema", "wanhatkunnat_field_1": "Maaria – liitetty 1967 Turkuun" }, "geometry": { "type": "Point", "coordinates": [ 22.362416666666668, 60.538283333333332 ] } },
+{ "type": "Feature", "properties": { "name": "GC4GHZZ", "urlname": "Paattisten kirkko", "wanhatkunnat_field_1": "Paattinen – liitetty 1973 Turkuun" }, "geometry": { "type": "Point", "coordinates": [ 22.382683, 60.59085 ] } }
 ]
 }
