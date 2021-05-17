@@ -221,6 +221,10 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC83MDK", "urlname": "Kadonneet kunnat - Tottijärvi", "wanhatkunnat_field_1": "Tottijärvi – liitetty 1976 Nokiaan" }, "geometry": { "type": "Point", "coordinates": [ 23.34345, 61.3981 ] } },
 { "type": "Feature", "properties": { "name": "GCJTWN", "urlname": "Church of Two Times", "wanhatkunnat_field_1": "Kakskerta – liitetty 1968 Turkuun" }, "geometry": { "type": "Point", "coordinates": [ 22.218833, 60.370133 ] } },
 { "type": "Feature", "properties": { "name": "GC8M22Y", "urlname": "Maarian asema", "wanhatkunnat_field_1": "Maaria – liitetty 1967 Turkuun" }, "geometry": { "type": "Point", "coordinates": [ 22.362416666666668, 60.538283333333332 ] } },
-{ "type": "Feature", "properties": { "name": "GC4GHZZ", "urlname": "Paattisten kirkko", "wanhatkunnat_field_1": "Paattinen – liitetty 1973 Turkuun" }, "geometry": { "type": "Point", "coordinates": [ 22.382683, 60.59085 ] } }
+{ "type": "Feature", "properties": { "name": "GC4GHZZ", "urlname": "Paattisten kirkko", "wanhatkunnat_field_1": "Paattinen – liitetty 1973 Turkuun" }, "geometry": { "type": "Point", "coordinates": [ 22.382683, 60.59085 ] } },
+{ "type": "Feature", "properties": { "name": "GC8FYWP", "urlname": "0 km Leivonmäki", "wanhatkunnat_field_1": "Leivonmäki – yhdistyi Joutsaan 2008" }, "geometry": { "type": "Point", "coordinates": [ 26.123283, 61.91305 ] } },
+{ "type": "Feature", "properties": { "name": "GC3WRVV", "urlname": "Onkimaisema Keiteleelle", "wanhatkunnat_field_1": "Sumiainen – liitetty Äänekosken kaupunkiin 2007" }, "geometry": { "type": "Point", "coordinates": [ 26.047683, 62.6521 ] } },
+{ "type": "Feature", "properties": { "name": "GC3NPAD", "urlname": "0 km: Konginkangas", "wanhatkunnat_field_1": "Konginkangas – liitetty Äänekoskeen 1993" }, "geometry": { "type": "Point", "coordinates": [ 25.806017, 62.7792 ] } }
+
 ]
 }
