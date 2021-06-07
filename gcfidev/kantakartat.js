@@ -165,24 +165,9 @@ function installKantakartat() {
 }
 
 /* todo:
-
- ortokuvan autoswitchaus parempaan. https://gis.vantaa.fi/geoserver/wms?request=GetCapabilities
- taustakartta:ortokuva_2019
  
- ylöjärvi löytyy
+ ohjeeseen mukana olevien kuntien js-autogenerointi 
  
- piirto: metreinä kantakarttalevelillä  DONE
- 
- ohjeeseen mukana olevien kuntien autogenerointi 
- 
- attributions -> ohjesivulle dynaaminen frameElement
- attribution lennosta oikeaan alakulmaan?
- 
- "kuntarajat, graticulet, kelkkareitit" tilan swappaus kantakarttojen kanssa
- 
- 
- ohjeeseen:
- liikennemerkkien sijotukset eivät kartalla näy, mutta katuvalotolpat ja ... 
  */
  
 
