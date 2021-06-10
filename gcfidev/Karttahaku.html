@@ -710,6 +710,75 @@ function printCache(viesti,infotxt,kuva,location,vaaka,pysty,siva,sipy){
 }
 
 
+function highlight_favorites() {
+  var highlightSource = new ol.source.Vector();
+  var highlightLayer = new ol.layer.Vector({
+       source: highlightSource,
+       projection: 'EPSG:3857',
+       id: "HILIGHT"
+  });
+
+  var features = vectorSource.getFeatures();   
+  // tässä tehdään vaikeamman kautta eli vectorSourcesta (kätköikonitkarttataso) väkisin kaivetaan haluttu tieto, 
+  // eli nyt kaivetaan viesti -osiosta kätkön favopisteet ja prosentti. 
+  // Fiksumpaa olisi luoda highlighttaso samassa yhteydessä, kuin vectorsource, jos käyttäjä on vähintään Turbo.
+  for(var i=0; i<features.length; i++) {
+    var geom = features[i].getGeometry();
+    var txt = features[i].N.viesti;
+    var f1 = txt.indexOf("<b>");
+    var f2 = txt.indexOf("</b>", f1);
+    var favpist = parseInt(txt.substring(f1+3, f2)); // favopisteet yhteensä
+    var f3 = txt.indexOf("</div>", f2);
+    var favpros = Math.trunc(parseFloat(txt.substring(f2+8, f3-1)));  // favoprosentti
+    var koko = 1;
+    var opac="0.35";
+    var vari="255,255,0";
+
+	// korostuscirclen koko ja väri pitää saada käyttäjän asetuksista eli ei ihan näin:
+    if (favpros >= 20) { koko=10; opac="0.55" }   
+    if (favpros >= 20) vari="255,255,0";
+    if (favpros >= 35) vari="255,175,0";
+    if (favpros >= 50) vari="255,0,0";
+
+    if (favpist >= 20) koko=12;
+    if (favpist >= 40) koko=15;
+    if (favpist >= 60) koko=18;
+
+    var reunaopac = "0.0";
+    var reunavari = vari;
+    var reunalev = 1;
+    if (favpist >= 100) {
+          reunaopac = "1.0";
+          reunavari="255,0,0";
+          reunalev = (favpist >= 200 ? 2 : 1);
+    }
+
+    var hlStyle = new ol.style.Style({
+       image: new ol.style.Circle({
+           radius: koko,
+           fill: new ol.style.Fill({
+             color: "rgba("+vari+","+opac+")"
+	       }),
+           stroke: new ol.style.Stroke({
+	         color: "rgba("+reunavari+","+reunaopac+")",
+	         width: reunalev
+	       })
+	   })
+    });
+
+    var hlFeature = new ol.Feature({
+        geometry: new ol.geom.Point(geom.getCoordinates())
+    });
+
+    hlFeature.setStyle(hlStyle);
+    highlightSource.addFeature(hlFeature);
+  };
+
+  highlightLayer.setZIndex(50);
+  highlightLayer.setVisible(true);
+  map.addLayer(highlightLayer);
+}
+
 
 // =====================================================================================================================================
 
@@ -1110,6 +1179,10 @@ printCache("keskipiste","","/images/crosshair.gif",sija,17,17,8,8);
 	    $j("#valilehti3").effect("highlight", {"color":"#00ff00"}, 400);
 	  });
   });
+  
+  /* Highlight favotut */
+  highlight_favorites();
+  
 </script> 
 
 
