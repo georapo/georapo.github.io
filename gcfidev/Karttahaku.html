@@ -256,6 +256,12 @@ function mapInit()
 		      isBaseLayer: true,
     });
   
+  var highlightSource = new ol.source.Vector();
+  var highlightLayer = new ol.layer.Vector({
+       source: highlightSource,
+       projection: 'EPSG:3857',
+       id: "HILIGHT"
+  });
 	
     circleLayer.setZIndex(100);
     pointLayer.setZIndex(200);
@@ -476,6 +482,10 @@ function mapInit()
       });
   
     pointLayer.set('selectable', true);
+	
+	highlightLayer.setZIndex(50);
+    highlightLayer.setVisible(true);
+    map.addLayer(highlightLayer);
 
     map.render();
 
@@ -1113,13 +1123,7 @@ printCache("keskipiste","","/images/crosshair.gif",sija,17,17,8,8);
   });
 
   
-function highlight_favorites() {
-  var highlightSource = new ol.source.Vector();
-  var highlightLayer = new ol.layer.Vector({
-       source: highlightSource,
-       projection: 'EPSG:3857',
-       id: "HILIGHT"
-  });
+  
 
   var features = vectorSource.getFeatures();   
   // tässä tehdään vaikeamman kautta eli vectorSourcesta (kätköikonitkarttataso) väkisin kaivetaan haluttu tieto, 
@@ -1177,12 +1181,8 @@ function highlight_favorites() {
     highlightSource.addFeature(hlFeature);
   };
 
-  highlightLayer.setZIndex(50);
-  highlightLayer.setVisible(true);
-  map.addLayer(highlightLayer);
-}
 
-highlight_favorites();
+
   
 </script> 
 
