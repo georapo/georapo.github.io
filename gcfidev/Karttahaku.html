@@ -134,7 +134,7 @@
   var pointSource = new ol.source.Vector();
   var routeSource = new ol.source.Vector();
   
-  var highlightSource = new ol.source.Vector();
+  var highlightSource = new ol.source.Vector();  //HIGHLIGHT
 
       
 
@@ -259,7 +259,7 @@ function mapInit()
 		      isBaseLayer: true,
     });
   
-  var highlightLayer = new ol.layer.Vector({
+  var highlightLayer = new ol.layer.Vector({  //HIGHLIGHT
        source: highlightSource,
        projection: 'EPSG:3857',
        id: "HILIGHT",
@@ -273,7 +273,7 @@ function mapInit()
     graticuleLayer.setZIndex(500);
     kuntarajatLayer.setZIndex(600);
 	
-	highlightLayer.setZIndex(50);
+	highlightLayer.setZIndex(50);  //HIGHLIGHT
     
 	
     var scaleLineControl = new ol.control.ScaleLine();
@@ -420,18 +420,15 @@ function mapInit()
         kuntarajatLayer,
 		ortokarttaLayerGroup,
 		kantakarttaLayerGroup,   /* kantakartat */
-		
 			
-        highlightLayer,
-
-
+        highlightLayer,  //HIGHLIGHT
 	 ], 
 	 
      overlays: [overlay],
      target: 'map',
      renderer: 'canvas',
 
-	    
+   
 	  interactions: ol.interaction.defaults({
 		pinchRotate:false
 		}),
@@ -1128,8 +1125,9 @@ printCache("keskipiste","","/images/crosshair.gif",sija,17,17,8,8);
 	    $j("#valilehti3").effect("highlight", {"color":"#00ff00"}, 400);
 	  });
   
-  
-
+  //
+  //HIGHLIGHT
+  //
   var features = vectorSource.getFeatures();   
   // tässä tehdään vaikeamman kautta eli vectorSourcesta (kätköikonitkarttataso) väkisin kaivetaan haluttu tieto, 
   // eli nyt kaivetaan viesti -osiosta kätkön favopisteet ja prosentti. 
