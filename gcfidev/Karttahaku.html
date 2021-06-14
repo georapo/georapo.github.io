@@ -133,6 +133,9 @@
   var circleSource = new ol.source.Vector();
   var pointSource = new ol.source.Vector();
   var routeSource = new ol.source.Vector();
+  
+  var highlightSource = new ol.source.Vector();
+
       
 
   var select = null;  // ref to currently selected interaction
@@ -256,7 +259,6 @@ function mapInit()
 		      isBaseLayer: true,
     });
   
-  var highlightSource = new ol.source.Vector();
   var highlightLayer = new ol.layer.Vector({
        source: highlightSource,
        projection: 'EPSG:3857',
