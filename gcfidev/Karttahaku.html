@@ -483,9 +483,7 @@ function mapInit()
   
     pointLayer.set('selectable', true);
 	
-	highlightLayer.setZIndex(50);
-    highlightLayer.setVisible(true);
-    map.addLayer(highlightLayer);
+	
 
     map.render();
 
@@ -1177,7 +1175,11 @@ printCache("keskipiste","","/images/crosshair.gif",sija,17,17,8,8);
 
     hlFeature.setStyle(hlStyle);
     highlightSource.addFeature(hlFeature);
+	
   };
+	highlightLayer.setZIndex(50);
+    highlightLayer.setVisible(true);
+    map.addLayer(highlightLayer);
 
 
 });
