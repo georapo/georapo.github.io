@@ -519,12 +519,12 @@ function mapInit()
           {
             content.innerHTML = feature.getProperties().infotxt;
             //overlay.setPosition(e.coordinate);
-			overlay.setPosition(feature.getGeometry().getCoordinates());  //puhekupla kätkön kohdalle, eikä klikattuun pisteeseen
+			overlay.setPosition(feature.getGeometry().getCoordinates());  //puhekupla kätkön kohdalle klikatun pisteen sijaan
           }
           if(layer == kuntarajatLayer) {
                   document.getElementById("message").innerHTML = viesti + '<br>' + feature.get('NAMEFIN');
           }
-        }, { hitTolerance: 10 })   //touchscreeneille pelivaraa kätköikoniin etusormella osumiseen
+        }, { hitTolerance: 12 })   //touchscreeneille pelivaraa kätköikoniin etusormella osumiseen
     });
 
     pointSource.on("addfeature", function(e) {
