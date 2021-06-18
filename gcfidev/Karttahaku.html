@@ -518,12 +518,13 @@ function mapInit()
           if(layer == vectorLayer)
           {
             content.innerHTML = feature.getProperties().infotxt;
-            overlay.setPosition(e.coordinate);
+            //overlay.setPosition(e.coordinate);
+			overlay.setPosition(feature.getGeometry().getCoordinates());  //puhekupla kätkön kohdalle, eikä klikattuun pisteeseen
           }
-              if(layer == kuntarajatLayer) {
+          if(layer == kuntarajatLayer) {
                   document.getElementById("message").innerHTML = viesti + '<br>' + feature.get('NAMEFIN');
-              }
-        }, { hitTolerance: 10 })
+          }
+        }, { hitTolerance: 10 })   //touchscreeneille pelivaraa kätköikoniin etusormella osumiseen
     });
 
     pointSource.on("addfeature", function(e) {
