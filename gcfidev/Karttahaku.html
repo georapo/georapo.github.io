@@ -523,7 +523,7 @@ function mapInit()
               if(layer == kuntarajatLayer) {
                   document.getElementById("message").innerHTML = viesti + '<br>' + feature.get('NAMEFIN');
               }
-        })
+        }, { hitTolerance: 10 })
     });
 
     pointSource.on("addfeature", function(e) {
@@ -722,7 +722,7 @@ function printCache(viesti,infotxt,kuva,location,vaaka,pysty,siva,sipy,hlite){
   if (hlite !== undefined) {
       highlightLayerVisibility = true;
 	  var koko = hlite[0];
-	  var vari = hlite[1];  // nyt väri välitetään oletuksena rgb:nä. Jos hex olisi parempi?, niin muunnosfunkkari tähän kohtaan
+	  var vari = hlite[1];  
 	  var opac=0.55;
 	  
       var hlStyle = new ol.style.Style({
