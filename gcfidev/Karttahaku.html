@@ -515,11 +515,12 @@ function mapInit()
 	  document.getElementById("clicklat").style.color="#000000";
 	  document.getElementById("clicklon").style.color="#000000";
 	
-	  map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+	    map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
           if(layer == vectorLayer) {
-            content.innerHTML = feature.getProperties().infotxt;
+		    var lahinFeature = layer.getSource().getClosestFeatureToCoordinate(e.coordinate); //jos monta kätköä lähekkäin, valitaan lähin
+            content.innerHTML = lahinFeature.getProperties().infotxt;  
             //overlay.setPosition(e.coordinate);
-			overlay.setPosition(feature.getGeometry().getCoordinates());  //puhekupla kätkön kohdalle klikatun pisteen sijaan
+			overlay.setPosition(lahinFeature.getGeometry().getCoordinates());  //puhekupla kätkön kohdalle klikatun pisteen sijaan
           }
           if(layer == kuntarajatLayer) {
                   document.getElementById("message").innerHTML = viesti + '<br>' + feature.get('NAMEFIN');
