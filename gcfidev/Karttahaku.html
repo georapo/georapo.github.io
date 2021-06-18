@@ -517,8 +517,11 @@ function mapInit()
 	
 	    map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
           if(layer == vectorLayer) {
-		    var lahinFeature = layer.getSource().getClosestFeatureToCoordinate(e.coordinate); //jos monta kätköä lähekkäin, valitaan lähin
+		    //jos monta kätköä sijaitsee lähekkäin, valitaan lähin
+		    var lahinFeature = layer.getSource().getClosestFeatureToCoordinate(e.coordinate); 
+			
             content.innerHTML = lahinFeature.getProperties().infotxt;  
+			
             //overlay.setPosition(e.coordinate);
 			overlay.setPosition(lahinFeature.getGeometry().getCoordinates());  //puhekupla kätkön kohdalle klikatun pisteen sijaan
           }
