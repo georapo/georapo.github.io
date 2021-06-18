@@ -505,18 +505,18 @@ function mapInit()
     });
 
     map.on("click", function(e) {
-	var dmsCoords = ddToDms(ol.proj.toLonLat(e.coordinate)[1], ol.proj.toLonLat(e.coordinate)[0]);
-	var viesti='<br><b>Pisteen koordinaatit:</b><br>'+ dmsCoords;
+	  var dmsCoords = ddToDms(ol.proj.toLonLat(e.coordinate)[1], ol.proj.toLonLat(e.coordinate)[0]);
+	  var viesti='<br><b>Pisteen koordinaatit:</b><br>'+ dmsCoords;
 	
-	document.getElementById("message").innerHTML=viesti;
-	document.getElementById("pikakeski").disabled=false;
-	document.getElementById("clicklat").value = ol.proj.toLonLat(e.coordinate)[1];
-	document.getElementById("clicklon").value = ol.proj.toLonLat(e.coordinate)[0];
-	document.getElementById("clicklat").style.color="#000000";
-	document.getElementById("clicklon").style.color="#000000";
-	    map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
-          if(layer == vectorLayer)
-          {
+	  document.getElementById("message").innerHTML=viesti;
+	  document.getElementById("pikakeski").disabled=false;
+	  document.getElementById("clicklat").value = ol.proj.toLonLat(e.coordinate)[1];
+	  document.getElementById("clicklon").value = ol.proj.toLonLat(e.coordinate)[0];
+	  document.getElementById("clicklat").style.color="#000000";
+	  document.getElementById("clicklon").style.color="#000000";
+	
+	  map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+          if(layer == vectorLayer) {
             content.innerHTML = feature.getProperties().infotxt;
             //overlay.setPosition(e.coordinate);
 			overlay.setPosition(feature.getGeometry().getCoordinates());  //puhekupla kätkön kohdalle klikatun pisteen sijaan
@@ -525,6 +525,7 @@ function mapInit()
                   document.getElementById("message").innerHTML = viesti + '<br>' + feature.get('NAMEFIN');
           }
         }, { hitTolerance: 12 })   //touchscreeneille pelivaraa kätköikoniin etusormella osumiseen
+	  
     });
 
     pointSource.on("addfeature", function(e) {
