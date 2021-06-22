@@ -52,8 +52,6 @@ function kantakarttaAvailable() {
     for(var i = 0; i < kantakartatDefs.length; i++) {
 		if (c[0] > kantakartatDefs[i][1] && c[0] < kantakartatDefs[i][3] && c[1] > kantakartatDefs[i][2] && c[1] < kantakartatDefs[i][4]) {
 			
-		  console.log(c[0]+","+c[1]+" i="+i+"\n");
-		
 		   if (pointinpolygontest([c[0],c[1]], kuntarajat1000k[i][1])) {
 		       currentKunta += (currentKunta.length > 0 ? ', ' : '') + kantakartatDefs[i][0];
                ret = true;  
