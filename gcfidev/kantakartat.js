@@ -64,7 +64,7 @@ function kantakarttaAvailable() {
 }
 
 function dealingWithKantakartat() {
-   	return ((kantakarttaActivated() && kantakarttaAvailable() && kantakarttaZoomLevel()) ? true : false);
+   	return ((kantakarttaActivated() && kantakarttaZoomLevel() && kantakarttaAvailable()) ? true : false);
 }
 
 function isBaseLayer(layer) {
