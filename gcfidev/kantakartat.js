@@ -107,6 +107,7 @@ function swapKantakarttaWidgetColors(color) {
 }
 
 function kantakarttaZoomlevelListener() {
+	console.log("kantakarttaZoomlevelListener");
     map.getLayers().forEach(function(layer) {
 		if (isBaseLayer(layer)) {
 		    layer.setOpacity((dealingWithKantakartat() ? 1-glbCurrentOpacity : 1.0));
