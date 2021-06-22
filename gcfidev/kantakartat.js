@@ -114,7 +114,7 @@ function kantakarttaZoomlevelListener() {
     });	
 
 	var kkCbx = document.getElementById('kantakartat');
-    if (kantakarttaAvailable() && kantakarttaZoomLevel()) {
+    if (kantakarttaZoomLevel() && kantakarttaAvailable()) {
 	  kkCbx.disabled = false;
 	  kkCbx.setAttribute('title', currentKunta);
       swapKantakarttaWidgetColors('black');
@@ -128,7 +128,7 @@ function kantakarttaZoomlevelListener() {
 	if(document.getElementById("TASOT").value == 'ORTO') {
 			map.getLayers().forEach(function(layer) {
                if (layer.get('id') == 'ORTOGROUP') {
-                    layer.setVisible((kantakarttaAvailable() && kantakarttaZoomLevel()) ? true : false);
+                    layer.setVisible((kantakarttaZoomLevel() && kantakarttaAvailable()) ? true : false);
 			   }		
             });
     } 
