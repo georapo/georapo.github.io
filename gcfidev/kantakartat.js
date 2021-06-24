@@ -111,7 +111,7 @@ function swapKantakarttaWidgetColors(color) {
 
 function kantakarttaZoomlevelListener() {
 	
-	var currentBaselayer = document.getElementById("TASOT").value;
+	//var currentBaselayer = document.getElementById("TASOT").value;
 	
 	//map.getLayers().forEach(function(layer) {
 	//	if (layer.get('id') == currentBaselayer) {
@@ -119,9 +119,10 @@ function kantakarttaZoomlevelListener() {
 	//	}
 	//}
 	
+	var dealWithKantakartat = dealingWithKantakartat();
     map.getLayers().forEach(function(layer) {  //muuta vain se taustakartta joka päällä muutetaan opac
 		if (isBaseLayer(layer)) {
-	      layer.setOpacity((dealingWithKantakartat() ? 1-glbCurrentOpacity : 1.0));
+	      layer.setOpacity((dealWithKantakartat ? 1-glbCurrentOpacity : 1.0));
 		}
     });	
 
