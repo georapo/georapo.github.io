@@ -110,11 +110,20 @@ function swapKantakarttaWidgetColors(color) {
 }
 
 function kantakarttaZoomlevelListener() {
-    map.getLayers().forEach(function(layer) {
-		if (isBaseLayer(layer)) {
-		    layer.setOpacity((dealingWithKantakartat() ? 1-glbCurrentOpacity : 1.0));
+	
+	var currentBaselayer = document.getElementById("TASOT").value;
+	
+	map.getLayers().forEach(function(layer) {
+		if (layer.get('id') == currentBaselayer) {
+			layer.setOpacity((dealingWithKantakartat() ? 1-glbCurrentOpacity : 1.0));
 		}
-    });	
+	}
+	
+    //map.getLayers().forEach(function(layer) {  //muuta vain se taustakartta joka päällä muutetaan opac
+	//	if (isBaseLayer(layer)) {
+	//	    layer.setOpacity((dealingWithKantakartat() ? 1-glbCurrentOpacity : 1.0));
+	//	}
+    //});	
 
 	var kkCbx = document.getElementById('kantakartat');
     if (kantakarttaZoomLevel() && kantakarttaAvailable()) {
