@@ -110,7 +110,7 @@ function swapKantakarttaWidgetColors(color) {
 
 function kantakarttaZoomlevelListener() {
 	
-	var dealWithKantakartat = dealingWithKantakartat();
+	var dealWithKantakartat = (kantakarttaZoomLevel() && kantakarttaAvailable());
 	
     map.getLayers().forEach(function(layer) {  
 		if (isBaseLayer(layer)) {
@@ -127,6 +127,7 @@ function kantakarttaZoomlevelListener() {
  	  kkCbx.disabled = true;
 	  kkCbx.setAttribute('title', '');
       swapKantakarttaWidgetColors('grey');
+	  dealWithKantakartat = false;
 	}
 	
 	/* jos orto valittuna selectlististä ja ollaan kuntaorto extentissä, niin otetaan ortogroup käyttöön */
