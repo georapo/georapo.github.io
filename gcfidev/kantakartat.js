@@ -55,8 +55,7 @@ function kantakarttaAvailable() {
 		if (c[0] > kantakartatDefs[i][1] && c[0] < kantakartatDefs[i][3] && c[1] > kantakartatDefs[i][2] && c[1] < kantakartatDefs[i][4]) {
 		  
 		   if ((i>kuntarajat1000k.length-1) || pointinpolygontest([c[0],c[1]], kuntarajat1000k[i][1]) ) {
-			   glb_cnt++;
-	console.log("cnt: "+glb_cnt);
+			
 		       currentKunta += (currentKunta.length > 0 ? ', ' : '') + kantakartatDefs[i][0];
                ret = true;  
 		   }
@@ -114,7 +113,9 @@ function kantakarttaZoomlevelListener() {
 		    layer.setOpacity((dealingWithKantakartat() ? 1-glbCurrentOpacity : 1.0));
 		}
     });	
-
+   glb_cnt++;
+	console.log("cntt: "+glb_cnt);
+	
 	var kkCbx = document.getElementById('kantakartat');
     if (kantakarttaZoomLevel() && kantakarttaAvailable()) {
 	  kkCbx.disabled = false;
