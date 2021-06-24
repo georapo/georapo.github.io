@@ -1,7 +1,6 @@
 /* kantakartat.js  */
-/* kantakartat -laajennos geocache.fi/kartta -sivulle */
-
-
+/* kuntien wms-kantakarttatasot geocache.fi/kartta -sivulle */
+/* contact: georapo12@gmail.com */
 
 /*
 var script = document.createElement('script');
