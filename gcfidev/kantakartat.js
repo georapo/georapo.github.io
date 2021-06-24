@@ -16,6 +16,8 @@ var glbCurrentOpacity = maxOpacity;
 var baselayersArray = ['OSM','PERUS','ORTO','ORTOGROUP','TAUSTA','MAPANT','TRAILMAP'];
 var currentKunta;   
 
+var glb_cnt=0;
+
 
 function kantakarttaZoomLevel() {
   return (map.getView().getZoom() >= 18 ? true : false); 	
@@ -40,7 +42,8 @@ function pointinpolygontest(point, vs) {
             && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
         if (intersect) inside = !inside;
     }
-    
+    glb_cnt++;
+	console.log("cnt: "+glb_cnt);
     return inside;
 } 	
 
