@@ -111,14 +111,15 @@ function swapKantakarttaWidgetColors(color) {
 function kantakarttaZoomlevelListener() {
 	
 	var dealWithKantakartat = dealingWithKantakartat();
-    map.getLayers().forEach(function(layer) {  //muuta vain se taustakartta joka päällä muutetaan opac
+	
+    map.getLayers().forEach(function(layer) {  
 		if (isBaseLayer(layer)) {
 	      layer.setOpacity((dealWithKantakartat ? 1-glbCurrentOpacity : 1.0));
 		}
     });	
 
 	var kkCbx = document.getElementById('kantakartat');
-    if (kantakarttaZoomLevel() && kantakarttaAvailable()) {
+    if (dealWithKantakartat) {
 	  kkCbx.disabled = false;
 	  kkCbx.setAttribute('title', currentKunta);
       swapKantakarttaWidgetColors('black');
