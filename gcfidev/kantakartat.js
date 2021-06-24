@@ -42,8 +42,7 @@ function pointinpolygontest(point, vs) {
             && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
         if (intersect) inside = !inside;
     }
-    glb_cnt++;
-	console.log("cnt: "+glb_cnt);
+    
     return inside;
 } 	
 
@@ -56,6 +55,8 @@ function kantakarttaAvailable() {
 		if (c[0] > kantakartatDefs[i][1] && c[0] < kantakartatDefs[i][3] && c[1] > kantakartatDefs[i][2] && c[1] < kantakartatDefs[i][4]) {
 		  
 		   if ((i>kuntarajat1000k.length-1) || pointinpolygontest([c[0],c[1]], kuntarajat1000k[i][1]) ) {
+			   glb_cnt++;
+	console.log("cnt: "+glb_cnt);
 		       currentKunta += (currentKunta.length > 0 ? ', ' : '') + kantakartatDefs[i][0];
                ret = true;  
 		   }
