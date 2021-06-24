@@ -56,7 +56,7 @@ function kantakarttaAvailable() {
 		  
 		   if ((i>kuntarajat1000k.length-1) || pointinpolygontest([c[0],c[1]], kuntarajat1000k[i][1]) ) {
 			     glb_cnt++;
-	console.log("countti: "+glb_cnt+ " "+kantakartatDefs[i][0]);
+	             console.log("countti: "+glb_cnt+ " "+kantakartatDefs[i][0]);
 	
 		       currentKunta += (currentKunta.length > 0 ? ', ' : '') + kantakartatDefs[i][0];
                ret = true;  
@@ -113,17 +113,17 @@ function kantakarttaZoomlevelListener() {
 	
 	var currentBaselayer = document.getElementById("TASOT").value;
 	
-	map.getLayers().forEach(function(layer) {
-		if (layer.get('id') == currentBaselayer) {
-			layer.setOpacity((dealingWithKantakartat() ? 1-glbCurrentOpacity : 1.0));
-		}
-	}
-	
-    //map.getLayers().forEach(function(layer) {  //muuta vain se taustakartta joka päällä muutetaan opac
-	//	if (isBaseLayer(layer)) {
-	//	    layer.setOpacity((dealingWithKantakartat() ? 1-glbCurrentOpacity : 1.0));
+	//map.getLayers().forEach(function(layer) {
+	//	if (layer.get('id') == currentBaselayer) {
+	//		layer.setOpacity((dealingWithKantakartat() ? 1-glbCurrentOpacity : 1.0));
 	//	}
-    //});	
+	//}
+	
+    map.getLayers().forEach(function(layer) {  //muuta vain se taustakartta joka päällä muutetaan opac
+		if (isBaseLayer(layer)) {
+	      layer.setOpacity((dealingWithKantakartat() ? 1-glbCurrentOpacity : 1.0));
+		}
+    });	
 
 	var kkCbx = document.getElementById('kantakartat');
     if (kantakarttaZoomLevel() && kantakarttaAvailable()) {
