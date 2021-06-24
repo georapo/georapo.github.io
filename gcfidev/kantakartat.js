@@ -111,14 +111,6 @@ function swapKantakarttaWidgetColors(color) {
 
 function kantakarttaZoomlevelListener() {
 	
-	//var currentBaselayer = document.getElementById("TASOT").value;
-	
-	//map.getLayers().forEach(function(layer) {
-	//	if (layer.get('id') == currentBaselayer) {
-	//		layer.setOpacity((dealingWithKantakartat() ? 1-glbCurrentOpacity : 1.0));
-	//	}
-	//}
-	
 	var dealWithKantakartat = dealingWithKantakartat();
     map.getLayers().forEach(function(layer) {  //muuta vain se taustakartta joka päällä muutetaan opac
 		if (isBaseLayer(layer)) {
@@ -141,7 +133,7 @@ function kantakarttaZoomlevelListener() {
 	if(document.getElementById("TASOT").value == 'ORTO') {
 			map.getLayers().forEach(function(layer) {
                if (layer.get('id') == 'ORTOGROUP') {
-                    layer.setVisible((kantakarttaZoomLevel() && kantakarttaAvailable()) ? true : false);
+                    layer.setVisible(dealWithKantakartat ? true : false);
 			   }		
             });
     } 
