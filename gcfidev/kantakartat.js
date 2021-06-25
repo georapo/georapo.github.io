@@ -15,8 +15,6 @@ var glbCurrentOpacity = maxOpacity;
 var baselayersArray = ['OSM','PERUS','ORTO','ORTOGROUP','TAUSTA','MAPANT','TRAILMAP'];
 var currentKunta;   
 
-var glb_cnt=0;
-
 
 function kantakarttaZoomLevel() {
   return (map.getView().getZoom() >= 18 ? true : false); 	
@@ -54,9 +52,6 @@ function kantakarttaAvailable() {
 		if (c[0] > kantakartatDefs[i][1] && c[0] < kantakartatDefs[i][3] && c[1] > kantakartatDefs[i][2] && c[1] < kantakartatDefs[i][4]) {
 		  
 		   if ((i>kuntarajat1000k.length-1) || pointinpolygontest([c[0],c[1]], kuntarajat1000k[i][1]) ) {
-			     glb_cnt++;
-	             console.log("countti: "+glb_cnt+ " "+kantakartatDefs[i][0]);
-	
 		       currentKunta += (currentKunta.length > 0 ? ', ' : '') + kantakartatDefs[i][0];
                ret = true;  
 		   }
@@ -113,9 +108,9 @@ function kantakarttaZoomlevelListener() {
 	var dealWithKantakartat = (kantakarttaZoomLevel() && kantakarttaAvailable());
 	
     map.getLayers().forEach(function(layer) {  
-		if (isBaseLayer(layer)) {
-	      layer.setOpacity((dealWithKantakartat ? 1-glbCurrentOpacity : 1.0));
-		}
+      if (isBaseLayer(layer)) {
+         layer.setOpacity((dealWithKantakartat ? 1-glbCurrentOpacity : 1.0));
+      }
     });	
 
 	var kkCbx = document.getElementById('kantakartat');
@@ -127,7 +122,6 @@ function kantakarttaZoomlevelListener() {
  	  kkCbx.disabled = true;
 	  kkCbx.setAttribute('title', '');
       swapKantakarttaWidgetColors('grey');
-	  dealWithKantakartat = false;
 	}
 	
 	/* jos orto valittuna selectlististä ja ollaan kuntaorto extentissä, niin otetaan ortogroup käyttöön */
