@@ -380,7 +380,7 @@ var queryString = window.location.search;
 var urlParams = new URLSearchParams(queryString);
 var wknimi = urlParams.get('w');
 
-if (wknimi != '') {
+if (wknimi !== null) {
   var gotit = false;
   
   for (var i=0; i < jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures().length; i++) {
