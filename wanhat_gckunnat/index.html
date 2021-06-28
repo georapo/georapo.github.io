@@ -119,7 +119,7 @@ if (wknimi !== null) {
     var wkn = wkfield.slice(0, wkfield.indexOf(" –"));	
 	console.log("wkfield: "+wkfield+" wkn:"+wkn);
 	if (wkn !== null && (wknimi.toUpperCase() == wkn.toUpperCase())) {
-       var wkpoint = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.getGeometry; 
+       var wkpoint = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.geometry; 
 	   console.log("wkpoint: "+wkpoint+" wkn:"+wkn);
 	   gotit = true;
 	   break;
