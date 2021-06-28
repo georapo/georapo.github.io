@@ -379,16 +379,20 @@ map.on("rendercomplete", function(evt) {
 var queryString = window.location.search;    
 var urlParams = new URLSearchParams(queryString);
 var wknimi = urlParams.get('w');
-if (wknimi) != '' {
-
+if (wknimi != '') {
+  var gotit = false;
+  
   for (var i=0; i < jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures().length; i++) {
 	var wkfield = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.wanhatkunnat_field_1;
     var wkn = wkfield.slice(0, wkfield.IndexOf(" -"));	
 	if (wknimi.toUpperCase() == wkn.toUpperCase()) {
        var wkpoint = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.getGeometry; 
 	   console.log("wkpoint: "+wkpoint);
+	   gotit = true;
+	   break;
     }	
   }
+  
 	
 	
 }
