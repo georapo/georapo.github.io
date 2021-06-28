@@ -107,7 +107,7 @@
 	        ctrl.set('position', 0.8);
 
 			
-// jos kutsutaan kuntanimellä esim. ...&w=Ähtäri
+// jos kutsutaan kuntanimellä esim. ...&w=haapasaari
 var queryString = window.location.search;    
 var urlParams = new URLSearchParams(queryString);
 var wknimi = urlParams.get('w');
@@ -118,10 +118,8 @@ if (wknimi !== null) {
   for (var i=0; i < jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures().length; i++) {
 	var wkfield = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.wanhatkunnat_field_1;
     var wkn = wkfield.slice(0, wkfield.indexOf(" –"));	
-	//console.log("wkfield: "+wkfield+" wkn:"+wkn);
 	if (wkn !== null && (wknimi.toUpperCase() == wkn.toUpperCase())) {
        var wkpoint = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.geometry; 
-	   //console.log("wkpoint: "+wkpoint+" wkn:"+wkn);
 	   gotit = true;
 	   break;
     }	
