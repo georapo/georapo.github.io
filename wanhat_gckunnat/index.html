@@ -122,6 +122,7 @@ if (wknimi !== null) {
        var wkpoint = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.geometry; 
 	   //console.log("wkpoint: "+wkpoint+" wkn:"+wkn);
 	   map.getView().setCenter([wkpoint.flatCoordinates[0],wkpoint.flatCoordinates[1]]);
+	   map.getView().setZoom(10);
 	   gotit = true;
 	   break;
     }	
