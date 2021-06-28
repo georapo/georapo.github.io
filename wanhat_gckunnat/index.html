@@ -117,10 +117,11 @@ if (wknimi !== null) {
   for (var i=0; i < jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures().length; i++) {
 	var wkfield = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.wanhatkunnat_field_1;
     var wkn = wkfield.slice(0, wkfield.indexOf(" –"));	
-	console.log("wkfield: "+wkfield+" wkn:"+wkn);
+	//console.log("wkfield: "+wkfield+" wkn:"+wkn);
 	if (wkn !== null && (wknimi.toUpperCase() == wkn.toUpperCase())) {
        var wkpoint = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.geometry; 
-	   console.log("wkpoint: "+wkpoint+" wkn:"+wkn);
+	   //console.log("wkpoint: "+wkpoint+" wkn:"+wkn);
+	   map.getView().setCenter(ol.proj.fromLonLat([wkpoint.flatCoordinates[0],wkpoint.flatCoordinates[1]]));
 	   gotit = true;
 	   break;
     }	
