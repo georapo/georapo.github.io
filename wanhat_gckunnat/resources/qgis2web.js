@@ -92,7 +92,7 @@ var onPointerMove = function(evt) {
     var currentLayer;
     var currentFeatureKeys;
     var clusteredFeatures;
-    var popupText = '<ul>';
+    var popupText = '<ul>'; 
     map.forEachFeatureAtPixel(pixel, function(feature, layer) {
         // We only care about features from layers in the layersList, ignore
         // any other layers which the map might contain such as the vector
@@ -115,7 +115,7 @@ var onPointerMove = function(evt) {
                 for(var n=0; n<clusteredFeatures.length; n++) {
                     clusterFeature = clusteredFeatures[n];
                     currentFeatureKeys = clusterFeature.getKeys();
-                    popupText += '<li><table>'
+                    popupText += '<li><table>';  
                     for (var i=0; i<currentFeatureKeys.length; i++) {
                         if (currentFeatureKeys[i] != 'geometry') {
                             popupField = '';
@@ -135,29 +135,34 @@ var onPointerMove = function(evt) {
                             popupText += '<tr>' + popupField + '</tr>';
                         }
                     } 
-                    popupText += '</table></li>';    
+                    popupText += '</table></li>';     
                 }
             }
         } else {
             currentFeatureKeys = currentFeature.getKeys();
             if (doPopup) {  
-                popupText += '<li><table>';
-                for (var i=0; i<currentFeatureKeys.length; i++) {
+                popupText += '<li><table>'; 
+                for (var i=0; i<currentFeatureKeys.length; i++) {  
                     if (currentFeatureKeys[i] != 'geometry') {
                         popupField = '';
                         if (layer.get('fieldLabels')[currentFeatureKeys[i]] == "inline label") {
                             popupField += '<th>' + layer.get('fieldAliases')[currentFeatureKeys[i]] + ':</th><td>';
                         } else {  
-                            popupField += '<td colspan="2">';
+						    popupField += '<td colspan="2">';
                         }
-                        if (layer.get('fieldLabels')[currentFeatureKeys[i]] == "header label") {
+                        if (layer.get('fieldLabels')[currentFeatureKeys[i]] == "header label") {  
                             popupField += '<strong>' + layer.get('fieldAliases')[currentFeatureKeys[i]] + ':</strong><br />';
                         }
                         if (layer.get('fieldImages')[currentFeatureKeys[i]] != "ExternalResource") {
+							
+							  if ((currentFeatureKeys.length > 3 && i == 3)||(currentFeatureKeys.length < 3 && i == 1)) {
+								  var wknimi = currentFeature.get(currentFeatureKeys[i]).slice(0, currentFeature.get(currentFeatureKeys[i]).indexOf(" –"));	
+							  	  popupField += '<img src="https://fi.wikipedia.org/wiki/Special:Filepath/Tiedosto:'+wknimi+'.vaakuna.svg" width="40" height="40">';
+							  }
 							  
                               popupField += (currentFeature.get(currentFeatureKeys[i]) != null ? autolinker.link(currentFeature.get(currentFeatureKeys[i]).toLocaleString()) + '</td>' : '');
                         } else {   
-						  
+						 
                             popupField += (currentFeature.get(currentFeatureKeys[i]) != null ? '<img src="images/' + currentFeature.get(currentFeatureKeys[i]).replace(/[\\\/:]/g, '_').trim()  + '" /></td>' : '');
                         }  
                         popupText += '<tr>' + popupField + '</tr>';
@@ -221,7 +226,7 @@ var onPointerMove = function(evt) {
     if (doHover) {
         if (popupText) {
             overlayPopup.setPosition(coord);
-            content.innerHTML = popupText;
+            content.innerHTML = popupText;  
             container.style.display = 'block';        
         } else {
             container.style.display = 'none';
@@ -307,7 +312,7 @@ var onSingleClick = function(evt) {
                             popupText += '<tr>' + popupField + '</tr>';
                         }
                     }
-                    popupText += '</table>';
+                    popupText += '</table>';  
                 }
             }
         }
@@ -327,7 +332,7 @@ var onSingleClick = function(evt) {
                 {
                     'INFO_FORMAT': 'text/html',
                 });
-            if (url) {
+            if (url) {  
                 popupText = popupText + '<iframe style="width:100%;height:110px;border:0px;" id="iframe" seamless src="' + url + '"></iframe>';
             }
         }
@@ -335,7 +340,7 @@ var onSingleClick = function(evt) {
 
     if (popupText) {
         overlayPopup.setPosition(coord);
-        content.innerHTML = popupText;
+        content.innerHTML = popupText;  
         container.style.display = 'block';        
     } else {
         container.style.display = 'none';
@@ -375,28 +380,7 @@ map.on("rendercomplete", function(evt) {
 })
 
 
-// jos kutsutaan kuntanimellä esim. ...&w=Ähtäri
-var queryString = window.location.search;    
-var urlParams = new URLSearchParams(queryString);
-var wknimi = urlParams.get('w');
 
-if (wknimi !== null) {
-  var gotit = false;
-  
-  for (var i=0; i < jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures().length; i++) {
-	var wkfield = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.wanhatkunnat_field_1;
-    var wkn = wkfield.slice(0, wkfield.indexOf(" -"));	
-	if (wkn !== null && (wknimi.toUpperCase() == wkn.toUpperCase())) {
-       var wkpoint = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.getGeometry; 
-	   console.log("wkpoint: "+wkpoint+" wkn:"+wkn);
-	   gotit = true;
-	   break;
-    }	
-  }
-  
-	
-	
-}
 
 
 
