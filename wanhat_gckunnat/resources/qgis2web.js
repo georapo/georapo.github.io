@@ -157,6 +157,8 @@ var onPointerMove = function(evt) {
 							
 							  if ((currentFeatureKeys.length > 3 && i == 3)||(currentFeatureKeys.length < 3 && i == 1)) {
 								  var wknimi = currentFeature.get(currentFeatureKeys[i]).slice(0, currentFeature.get(currentFeatureKeys[i]).indexOf(" –"));	
+								  wknimi = wknimi.replace(/Ä/g, "%C3%84"); wknimi = wknimi.replace(/ä/g, "%C3%A4"); wknimi = wknimi.replace(/Ö/g, "%C3%96"); wknimi = wknimi.replace(/ö/g, "%C3%B6");
+								  
 							  	  popupField += '<img src="https://fi.wikipedia.org/wiki/Special:Filepath/Tiedosto:'+wknimi+'.vaakuna.svg" width="40" height="40">';
 							  }
 							  
