@@ -14,7 +14,6 @@ var json_BM86ANZwaypoints_3 = {
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Teisko – liitetty Tampereeseen ja Kuruun 1972" }, "geometry": { "type": "Point", "coordinates": [ 23.8325, 61.678833 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Tenhola – liitetty 1993 Tammisaareen, joka 2009 yhdistyi Raaseporiksi" }, "geometry": { "type": "Point", "coordinates": [ 23.2962, 60.05815 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Uudenkaupungin mlk – liitetty 1969 Uuteenkaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 21.39175, 60.824267 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Ylihärmä – liitetty Kauhavaan 2009" }, "geometry": { "type": "Point", "coordinates": [ 22.79205, 63.141917 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Alahärmä – liitetty Kauhavaan 2009" }, "geometry": { "type": "Point", "coordinates": [ 22.854933, 63.245633 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Kortesjärvi – liitetty Kauhavaan 2009" }, "geometry": { "type": "Point", "coordinates": [ 23.155933, 63.299117 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Oravainen – liitetty Vöyri-Maksamaan kanssa uudeksi Vöyrin kunnaksi 2011" }, "geometry": { "type": "Point", "coordinates": [ 22.37755, 63.30215 ] } },
