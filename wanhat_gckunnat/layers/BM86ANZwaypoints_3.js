@@ -14,16 +14,6 @@ var json_BM86ANZwaypoints_3 = {
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Teisko – liitetty Tampereeseen ja Kuruun 1972" }, "geometry": { "type": "Point", "coordinates": [ 23.8325, 61.678833 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Tenhola – liitetty 1993 Tammisaareen, joka 2009 yhdistyi Raaseporiksi" }, "geometry": { "type": "Point", "coordinates": [ 23.2962, 60.05815 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Uudenkaupungin mlk – liitetty 1969 Uuteenkaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 21.39175, 60.824267 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Alahärmä – liitetty Kauhavaan 2009" }, "geometry": { "type": "Point", "coordinates": [ 22.854933, 63.245633 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Kortesjärvi – liitetty Kauhavaan 2009" }, "geometry": { "type": "Point", "coordinates": [ 23.155933, 63.299117 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Oravainen – liitetty Vöyri-Maksamaan kanssa uudeksi Vöyrin kunnaksi 2011" }, "geometry": { "type": "Point", "coordinates": [ 22.37755, 63.30215 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Jepua – lakkautettu 1975, liitetty Uuteenkaarlepyyhyn" }, "geometry": { "type": "Point", "coordinates": [ 22.62855, 63.410517 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Uudenkaarlepyyn mlk – liitetty 1975 Uuteenkaarlepyyhyn" }, "geometry": { "type": "Point", "coordinates": [ 22.836633, 63.471583 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Purmo – liitetty Pietarsaaren maalaiskuntaan (nyk. Pedersören kuntaan) 1977" }, "geometry": { "type": "Point", "coordinates": [ 22.958717, 63.5232 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Teerijärvi – liitetty Kruunupyyhyn 1969" }, "geometry": { "type": "Point", "coordinates": [ 23.50415, 63.546717 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Ullava – liitetty Kokkolaan 2009" }, "geometry": { "type": "Point", "coordinates": [ 23.9006, 63.711417 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Lohtaja – liitetty Kokkolaan 2009" }, "geometry": { "type": "Point", "coordinates": [ 23.5032, 64.021717 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Himanka – liittyi Kalajoen kaupunkiin 2010" }, "geometry": { "type": "Point", "coordinates": [ 23.651567, 64.064033 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Rautio – liitetty 1973 Kalajokeen" }, "geometry": { "type": "Point", "coordinates": [ 24.205667, 64.076317 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Pattijoki – liitetty Raaheen 2003" }, "geometry": { "type": "Point", "coordinates": [ 24.5678, 64.6922 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Oulunsalo – muodosti uuden Oulun kaupungin Oulun, Haukiputaan, Kiimingin ja Yli-Iin kanssa 2013" }, "geometry": { "type": "Point", "coordinates": [ 25.43005, 64.939433 ] } },
@@ -37,8 +27,6 @@ var json_BM86ANZwaypoints_3 = {
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Maaninka – liitetty 2015 Kuopioon" }, "geometry": { "type": "Point", "coordinates": [ 27.2984, 63.154283 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Karttula – liitetty Kuopioon 2011" }, "geometry": { "type": "Point", "coordinates": [ 26.9686, 62.887633 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Jäppilä – lakkautettu 2004, muodosti Pieksämäen mlk:n ja Virtasalmen kanssa Pieksänmaan, joka yhdistyi 2007 Pieksämäen kanssa" }, "geometry": { "type": "Point", "coordinates": [ 27.429967, 62.382883 ] } },
-
-
 
 ]
 }
