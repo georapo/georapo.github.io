@@ -14,7 +14,6 @@ var json_BM86ANZwaypoints_3 = {
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Teisko – liitetty Tampereeseen ja Kuruun 1972" }, "geometry": { "type": "Point", "coordinates": [ 23.8325, 61.678833 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Tenhola – liitetty 1993 Tammisaareen, joka 2009 yhdistyi Raaseporiksi" }, "geometry": { "type": "Point", "coordinates": [ 23.2962, 60.05815 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Uudenkaupungin mlk – liitetty 1969 Uuteenkaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 21.39175, 60.824267 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Rantsila – yhdistetty Pulkkilan, Piippolan sekä Kestilän kanssa Siikalatvan kunnaksi 2009" }, "geometry": { "type": "Point", "coordinates": [ 25.655517, 64.50495 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Piippola – yhdistetty Pulkkilan, Rantsilan ja Kestilän kanssa Siikalatvan kunnaksi 2009" }, "geometry": { "type": "Point", "coordinates": [ 25.965217, 64.177783 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Vuolijoki – liitetty Kajaaniin 2007" }, "geometry": { "type": "Point", "coordinates": [ 27.0057, 64.178767 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Maaninka – liitetty 2015 Kuopioon" }, "geometry": { "type": "Point", "coordinates": [ 27.2984, 63.154283 ] } },
