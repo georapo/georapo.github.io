@@ -250,7 +250,7 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC4J0N1", "urlname": "0 km: Piippola", "wanhatkunnat_field_1": "Piippola – yhdistetty Pulkkilan, Rantsilan ja Kestilän kanssa Siikalatvan kunnaksi 2009" }, "geometry": { "type": "Point", "coordinates": [ 25.965217, 64.177783 ] } },
 { "type": "Feature", "properties": { "name": "GC2ATTP", "urlname": "Saaresmäki", "wanhatkunnat_field_1": "Vuolijoki – liitetty Kajaaniin 2007" }, "geometry": { "type": "Point", "coordinates": [ 26.90975, 64.05365 ] } },
 { "type": "Feature", "properties": { "name": "GC890GF", "urlname": "Maaningan Korkeakoski", "wanhatkunnat_field_1": "Maaninka – liitetty 2015 Kuopioon" }, "geometry": { "type": "Point", "coordinates": [ 27.0611, 63.2415 ] } },
-//{ "type": "Feature", "properties": { "name": "GC5PZWY", "urlname": "Kadonnut Karttula", "wanhatkunnat_field_1": "Karttula – liitetty Kuopioon 2011" }, "geometry": { "type": "Point", "coordinates": [ 26.96215, 62.90333 ] } },
+{ "type": "Feature", "properties": { "name": "GC9BTZR", "urlname": "Karttula - Adventure Lab Bonus", "wanhatkunnat_field_1": "Karttula – liitetty Kuopioon 2011" }, "geometry": { "type": "Point", "coordinates": [ 26.9696, 62.89195 ] } },
 //{ "type": "Feature", "properties": { "name": "GC4FD4C", "urlname": "Jäppilän kirkko", "wanhatkunnat_field_1": "Jäppilä – lakkautettu 2004, muodosti Pieksämäen mlk:n ja Virtasalmen kanssa Pieksänmaan, joka yhdistyi 2007 Pieksämäen kanssa" }, "geometry": { "type": "Point", "coordinates": [ 27.429967, 62.382883 ] } },
 
 
