@@ -14,7 +14,6 @@ var json_BM86ANZwaypoints_3 = {
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Teisko – liitetty Tampereeseen ja Kuruun 1972" }, "geometry": { "type": "Point", "coordinates": [ 23.8325, 61.678833 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Tenhola – liitetty 1993 Tammisaareen, joka 2009 yhdistyi Raaseporiksi" }, "geometry": { "type": "Point", "coordinates": [ 23.2962, 60.05815 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Uudenkaupungin mlk – liitetty 1969 Uuteenkaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 21.39175, 60.824267 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Karttula – liitetty Kuopioon 2011" }, "geometry": { "type": "Point", "coordinates": [ 26.9686, 62.887633 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Jäppilä – lakkautettu 2004, muodosti Pieksämäen mlk:n ja Virtasalmen kanssa Pieksänmaan, joka yhdistyi 2007 Pieksämäen kanssa" }, "geometry": { "type": "Point", "coordinates": [ 27.429967, 62.382883 ] } },
 
 ]
