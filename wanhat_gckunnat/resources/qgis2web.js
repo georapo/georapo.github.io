@@ -19,9 +19,10 @@ var expandedAttribution = new ol.control.Attribution({
 });
 
 var map = new ol.Map({
-    controls: ol.control.defaults({attribution:false}).extend([
+    controls: ol.control.defaults({attribution:false, rotate:false}).extend([
         expandedAttribution
     ]),
+	interactions: ol.interaction.defaults({altShiftDragRotate:false, pinchRotate:false}), 
     target: document.getElementById('map'),
     renderer: 'canvas',
     overlays: [overlayPopup],
