@@ -257,5 +257,4 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC770B0", "urlname": "Visit Keuruu #23 Karhunkylä", "wanhatkunnat_field_1": "Pihlajavesi – liitetty 1969 Keuruuseen" }, "geometry": { "type": "Point", "coordinates": [ 24.26218, 62.3181 ] } },
 
 
-}
-]
+]}
