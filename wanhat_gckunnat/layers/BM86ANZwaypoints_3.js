@@ -8,10 +8,7 @@ var json_BM86ANZwaypoints_3 = {
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Koskenpää – liitetty Jämsänkoskeen 1969, joka yhdistyi 2009 Jämsään" }, "geometry": { "type": "Point", "coordinates": [ 25.142817, 62.080383 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Lokalahti – liitetty Uuteenkaupunkiin 1981" }, "geometry": { "type": "Point", "coordinates": [ 21.46415, 60.681467 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Mietoinen – liitetty Mynämäen kuntaan 1. tammikuuta 2007" }, "geometry": { "type": "Point", "coordinates": [ 21.9223, 60.628033 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Pihlajavesi – liitetty 1969 Keuruuseen" }, "geometry": { "type": "Point", "coordinates": [ 24.392017, 62.344833 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Pohjaslahti – liitetty 1973 Vilppulaan ja Virtoihin" }, "geometry": { "type": "Point", "coordinates": [ 24.143, 62.1648 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Snappertuna – pääosa liitetty 1977 Tammisaareen ja loput Karjaaseen. Vuodesta 2009 Raaseporia" }, "geometry": { "type": "Point", "coordinates": [ 23.689444, 59.947222 ] } },
-{ "type": "Feature", "properties": { "wanhatkunnat_field_1": "Teisko – liitetty Tampereeseen ja Kuruun 1972" }, "geometry": { "type": "Point", "coordinates": [ 23.8325, 61.678833 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Tenhola – liitetty 1993 Tammisaareen, joka 2009 yhdistyi Raaseporiksi" }, "geometry": { "type": "Point", "coordinates": [ 23.2962, 60.05815 ] } },
 { "type": "Feature", "properties": { "wanhatkunnat_field_1": "Uudenkaupungin mlk – liitetty 1969 Uuteenkaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 21.39175, 60.824267 ] } },
 

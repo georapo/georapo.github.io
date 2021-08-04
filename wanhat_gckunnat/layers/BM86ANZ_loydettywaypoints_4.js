@@ -252,6 +252,10 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC890GF", "urlname": "Maaningan Korkeakoski", "wanhatkunnat_field_1": "Maaninka – liitetty 2015 Kuopioon" }, "geometry": { "type": "Point", "coordinates": [ 27.0611, 63.2415 ] } },
 { "type": "Feature", "properties": { "name": "GC9BTZR", "urlname": "Karttula - Adventure Lab Bonus", "wanhatkunnat_field_1": "Karttula – liitetty Kuopioon 2011" }, "geometry": { "type": "Point", "coordinates": [ 26.9696, 62.89195 ] } },
 { "type": "Feature", "properties": { "name": "GC4FD4C", "urlname": "Jäppilän kirkko", "wanhatkunnat_field_1": "Jäppilä – lakkautettu 2004, muodosti Pieksämäen mlk:n ja Virtasalmen kanssa Pieksänmaan, joka yhdistyi 2007 Pieksämäen kanssa" }, "geometry": { "type": "Point", "coordinates": [ 27.429967, 62.382883 ] } },
+{ "type": "Feature", "properties": { "name": "GC609A5", "urlname": "Teisko 0 km - Tampere Alphabet T", "wanhatkunnat_field_1": "Teisko – liitetty Tampereeseen ja Kuruun 1972" }, "geometry": { "type": "Point", "coordinates": [ 23.8325, 61.678833 ] } },
+{ "type": "Feature", "properties": { "name": "GC2DE1Y", "urlname": "Pohjaslahden kirkko - The church of Pohjaslahti", "wanhatkunnat_field_1": "Pohjaslahti – liitetty 1973 Vilppulaan ja Virtoihin" }, "geometry": { "type": "Point", "coordinates": [ 24.143, 62.1648 ] } },
+{ "type": "Feature", "properties": { "name": "GC770B0", "urlname": "Visit Keuruu #23 Karhunkylä", "wanhatkunnat_field_1": "Pihlajavesi – liitetty 1969 Keuruuseen" }, "geometry": { "type": "Point", "coordinates": [ 24.26218, 62.3181 ] } },
 
-]
+
 }
+]
