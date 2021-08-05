@@ -255,6 +255,7 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC609A5", "urlname": "Teisko 0 km - Tampere Alphabet T", "wanhatkunnat_field_1": "Teisko – liitetty Tampereeseen ja Kuruun 1972" }, "geometry": { "type": "Point", "coordinates": [ 23.8325, 61.678833 ] } },
 { "type": "Feature", "properties": { "name": "GC2DE1Y", "urlname": "Pohjaslahden kirkko - The church of Pohjaslahti", "wanhatkunnat_field_1": "Pohjaslahti – liitetty 1973 Vilppulaan ja Virtoihin" }, "geometry": { "type": "Point", "coordinates": [ 24.143, 62.1648 ] } },
 { "type": "Feature", "properties": { "name": "GC770B0", "urlname": "Visit Keuruu #23 Karhunkylä", "wanhatkunnat_field_1": "Pihlajavesi – liitetty 1969 Keuruuseen" }, "geometry": { "type": "Point", "coordinates": [ 24.26218, 62.3181 ] } },
+{ "type": "Feature", "properties": { "name": "GC33Q77", "urlname": "Jämsän kirkot: Koskenpään kirkko", "wanhatkunnat_field_1": "Koskenpää – liitetty Jämsänkoskeen 1969, joka yhdistyi 2009 Jämsään" }, "geometry": { "type": "Point", "coordinates": [ 25.14252, 62.08298 ] } },
 
 
 ]}
