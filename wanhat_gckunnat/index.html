@@ -206,8 +206,9 @@ function previous_and_next_wk(wknimi, zoomTo) {
 		}
 		
 		var ord = (i>=139 ? (i+1)+"." : "");
+		var gcc = ( gccode.indexOf(" ") != -1 ? gccode.slice(0, gccode.indexOf(" ")) : gccode); 
 		
-        wkstrings += "<td style='text-align: center;'>" + ord + "<br><strong><font size=+1>" + wkn + "</font></strong><br><font size=-2><a href='https://coord.info/"+gccode.slice(0, gccode.indexOf(" "))+"' target='_new'>"+gccode+"</a></font></td>";
+        wkstrings += "<td style='text-align: center;'>" + ord + "<br><strong><font size=+1>" + wkn + "</font></strong><br><font size=-2><a href='https://coord.info/" + gcc + "' target='_new'>"+gccode+"</a></font></td>";
 
         if (next_wk != '') {
 		   wkstrings += "<td style='vertical-align: middle; text-align: left'> Seuraava: <a href='#' onclick='flytowk([" + next_wk_point.flatCoordinates[0] + "," + next_wk_point.flatCoordinates[1] + "],&#39;" + next_wk + "&#39;,function () {})'>" + next_wk + "</a>";
