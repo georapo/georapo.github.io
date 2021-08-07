@@ -239,12 +239,12 @@ var onPointerMove = function(evt) {
 };
 
 var onSingleClick = function(evt) {
-    if (doHover) {
-        return;
-    }
-    if (sketch) {
-        return;
-    }
+    //if (doHover) {  
+    //    return;
+    //}
+    //if (sketch) {
+    //    return;
+    //}
     var pixel = map.getEventPixel(evt.originalEvent);
     var coord = evt.coordinate;
     var popupField;
@@ -309,6 +309,14 @@ var onSingleClick = function(evt) {
                             }
                             if (layer.get('fieldImages')[currentFeatureKeys[i]] != "ExternalResource") {
                                 popupField += (currentFeature.get(currentFeatureKeys[i]) != null ? autolinker.link(currentFeature.get(currentFeatureKeys[i]).toLocaleString()) + '</td>' : '');
+								
+								if (currentFeatureKeys.length > 3 && i == 3) {
+								  var wknimi = currentFeature.get(currentFeatureKeys[i]).slice(0, currentFeature.get(currentFeatureKeys[i]).indexOf(" –"));	
+								  window.location.href = window.location.pathname + "?w=" + wknimi;
+								}  
+							
+								
+								
                             } else {
                                 popupField += (currentFeature.get(currentFeatureKeys[i]) != null ? '<img src="images/' + currentFeature.get(currentFeatureKeys[i]).replace(/[\\\/:]/g, '_').trim()  + '" /></td>' : '');
                             }

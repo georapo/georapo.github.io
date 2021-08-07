@@ -52,12 +52,15 @@
         </style>
         <style>
         #map {
-            width: 897px;
-            height: 642px;
+            width: 800px;
+            height: 600px;
         }
 		#kuvaus {
 		    max-width: 800px;
-		
+		}
+		.wk_statordinal {
+		   width: 100%;
+		   text-align: center;
 		}
         </style>
         <title>Operaatio Suomen entiset kunnat löydetyiksi geokätkökunniksi</title>
@@ -73,6 +76,8 @@
         </div>
 		<p>
 		<div id="kuvaus">
+		  <div class="wk_statordinal"><span id="wkordinal"></span></div>
+		  <hr>
  		  <h3>Geokätkötetyt Suomen entiset itsenäiset kunnat </h3>
 		  <div id="tilanne_meter" ></div>
 		  <p>
@@ -108,20 +113,70 @@
 	        ctrl.set('position', 0.8);
 
 			
-// jos kutsutaan kuntanimellä esim. ...&w=haapasaari
-var queryString = window.location.search;    
-var urlParams = new URLSearchParams(queryString);
-var wknimi = urlParams.get('w');
+function flytowk(location, wknimi, done) {
+  const duration = 3000;
+  const zoom = map.getView().getZoom();
+  let parts = 2;
+  let called = false;
+  function callback(complete) {
+    --parts;
+    if (called) {
+      return;
+    }
+    if (parts === 0 || !complete) {
+      called = true;
+      done(complete);
+	  previous_and_next_wk(wknimi, false);
+    }
+  }
+  map.getView().animate(
+    {
+      center: location,
+      duration: duration,
+    },
+    callback
+  );
+  map.getView().animate(
+    {
+      zoom: zoom - 1,
+      duration: duration / 2,
+    },
+    {
+      zoom: zoom,
+      duration: duration / 2,
+    },
+    callback
+  );
+}
 
-if (wknimi !== null) {
+
+
+function previous_and_next_wk(wknimi, zoomTo) {
+
   var gotit = false;
+  var prev_wk = '';
+  var next_wk = '';
   
   for (var i=0; i < jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures().length; i++) {
 	var wkfield = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.wanhatkunnat_field_1;
     var wkn = wkfield.slice(0, wkfield.indexOf(" –"));	
 	if (wkn !== null && (wknimi.toUpperCase() == wkn.toUpperCase())) {
        var wkpoint = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.geometry; 
+	   var gccode = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i].values_.name;
 	   gotit = true;
+	   
+	   if (i>139) {  // Rymättylä 19.6.2020 ensimmäinen suunniteltu wanha kunta
+	    var prev_wkf = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i-1].values_.wanhatkunnat_field_1;
+	    prev_wk = (prev_wkf !== null ? prev_wkf.slice(0, prev_wkf.indexOf(" –")) : '');
+	    var prev_wk_point = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i-1].values_.geometry;
+	   }
+	   
+	   if ((i < jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures().length - 1) && (i>=139)) { 
+	     var next_wkf = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i+1].values_.wanhatkunnat_field_1;
+	     next_wk = (next_wkf !== null ? next_wkf.slice(0, next_wkf.indexOf(" –")) : '');
+		 var next_wk_point = jsonSource_BM86ANZ_loydettywaypoints_4.getFeatures()[i+1].values_.geometry;
+	   }
+	   
 	   break;
     }	
   }
@@ -136,19 +191,52 @@ if (wknimi !== null) {
       }	
     }
   }  
+  
   if (gotit) {
-	    map.getView().setCenter([wkpoint.flatCoordinates[0],wkpoint.flatCoordinates[1]]);
-	    map.getView().setZoom(11);
+  
+        if (zoomTo) { 
+	      map.getView().setCenter([wkpoint.flatCoordinates[0],wkpoint.flatCoordinates[1]]);
+	      map.getView().setZoom(11);
+		}
+		
+		var wkstrings = "<table width='780' height='60' border='0'><tr>";
+		
+		if (prev_wk != '') {
+		   wkstrings += "<td style='vertical-align: middle; text-align: right'>Edellinen: <a href='#' onclick='flytowk([" + prev_wk_point.flatCoordinates[0] + "," + prev_wk_point.flatCoordinates[1] + "],&#39;" + prev_wk + "&#39;,function () {})'>" + prev_wk + "</a> </td>"; 
+		}
+		
+		var ord = (i>=139 ? (i+1)+"." : "");
+		
+        wkstrings += "<td style='text-align: center;'>" + ord + "<br><strong><font size=+1>" + wkn + "</font></strong><br><font size=-2><a href='https://coord.info/"+gccode.slice(0, gccode.indexOf(" "))+"' target='_new'>"+gccode+"</a></font></td>";
+
+        if (next_wk != '') {
+		   wkstrings += "<td style='vertical-align: middle; text-align: left'> Seuraava: <a href='#' onclick='flytowk([" + next_wk_point.flatCoordinates[0] + "," + next_wk_point.flatCoordinates[1] + "],&#39;" + next_wk + "&#39;,function () {})'>" + next_wk + "</a>";
+        }        
+		wkstrings += "</td></tr></table>";
+ 		
+		document.getElementById("wkordinal").innerHTML = wkstrings;
+		
   }
 }
+ 
+  // jos kutsutaan kuntanimellä esim. ...&w=haapasaari
+  var queryString = window.location.search;    
+  var urlParams = new URLSearchParams(queryString);
+  var wknimi = urlParams.get('w');
+  var prev_wk = '';
+  var next_wk = '';
+  if (wknimi !== null) {
+    previous_and_next_wk(wknimi, true);
+  }
 
-	    </script>
-<span id="wts2068804"></span>
+</script>
+     <span id="wts2068804"></span>
         <script>
 		  var wts=document.createElement('script');
 		  wts.async=true;wts.src='https://app.wts2.one/log7.js';
 		  document.head.appendChild(wts);
 		  wts.onload = function(){ wtslog7(2068804,3); };
         </script><noscript><a href="https://www.web-stat.com"><img src="https://app.wts2.one/7/3/2068804.png" width="1" height="1"></a></noscript>
-    </body>
+
+</body>
 </html>
