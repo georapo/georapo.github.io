@@ -298,6 +298,8 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC2DE1Y 02.08.2021", "urlname": "Pohjaslahden kirkko - The church of Pohjaslahti", "wanhatkunnat_field_1": "Pohjaslahti – liitetty 1973 Vilppulaan ja Virtoihin" }, "geometry": { "type": "Point", "coordinates": [ 24.143, 62.1648 ] } },
 { "type": "Feature", "properties": { "name": "GC770B0 02.08.2021", "urlname": "Visit Keuruu #23 Karhunkylä", "wanhatkunnat_field_1": "Pihlajavesi – liitetty 1969 Keuruuseen" }, "geometry": { "type": "Point", "coordinates": [ 24.26218, 62.3181 ] } },
 { "type": "Feature", "properties": { "name": "GC33Q77 04.08.2021", "urlname": "Jämsän kirkot: Koskenpään kirkko", "wanhatkunnat_field_1": "Koskenpää – liitetty Jämsänkoskeen 1969, joka yhdistyi 2009 Jämsään" }, "geometry": { "type": "Point", "coordinates": [ 25.14252, 62.08298 ] } },
+{ "type": "Feature", "properties": { "name": "GC32N1R 08.08.2021", "urlname": "Mynämäen Karjalan kirkko", "wanhatkunnat_field_1": "Karjala – liitetty 1977 Mynämäkeen" }, "geometry": { "type": "Point", "coordinates": [ 22.0739, 60.78595 ] } },
+{ "type": "Feature", "properties": { "name": "GC6QM0D 09.08.2021", "urlname": "vanhoja kiviaitoja","wanhatkunnat_field_1": "Uudenkaupungin mlk – liitetty 1969 Uuteenkaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 21.38652, 60.82885 ] } },
 
 
 ]}
