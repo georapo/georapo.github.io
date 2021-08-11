@@ -299,7 +299,9 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC770B0 02.08.2021", "urlname": "Visit Keuruu #23 Karhunkylä", "wanhatkunnat_field_1": "Pihlajavesi – liitetty 1969 Keuruuseen" }, "geometry": { "type": "Point", "coordinates": [ 24.26218, 62.3181 ] } },
 { "type": "Feature", "properties": { "name": "GC33Q77 04.08.2021", "urlname": "Jämsän kirkot: Koskenpään kirkko", "wanhatkunnat_field_1": "Koskenpää – liitetty Jämsänkoskeen 1969, joka yhdistyi 2009 Jämsään" }, "geometry": { "type": "Point", "coordinates": [ 25.14252, 62.08298 ] } },
 { "type": "Feature", "properties": { "name": "GC32N1R 08.08.2021", "urlname": "Mynämäen Karjalan kirkko", "wanhatkunnat_field_1": "Karjala – liitetty 1977 Mynämäkeen" }, "geometry": { "type": "Point", "coordinates": [ 22.0739, 60.78595 ] } },
-{ "type": "Feature", "properties": { "name": "GC6QM0D 09.08.2021", "urlname": "vanhoja kiviaitoja","wanhatkunnat_field_1": "Uudenkaupungin mlk – liitetty 1969 Uuteenkaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 21.38652, 60.82885 ] } },
+{ "type": "Feature", "properties": { "name": "GC6QM0D 09.08.2021", "urlname": "vanhoja kiviaitoja", "wanhatkunnat_field_1": "Uudenkaupungin mlk – liitetty 1969 Uuteenkaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 21.38652, 60.82885 ] } },
+{ "type": "Feature", "properties": { "name": "GC1A9AQ 10.08.2021", "urlname": "Lokalahtikko", "wanhatkunnat_field_1": "Lokalahti – liitetty Uuteenkaupunkiin 1981" }, "geometry": { "type": "Point", "coordinates": [ 21.46415, 60.681467 ] } },
+{ "type": "Feature", "properties": { "name": "GC1WN7P 10.08.2021", "urlname": "Mietoisten kirkko", "wanhatkunnat_field_1": "Mietoinen – liitetty Mynämäen kuntaan 1. tammikuuta 2007" }, "geometry": { "type": "Point", "coordinates": [ 21.9223, 60.628033 ] } },
 
 
 ]}
