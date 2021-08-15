@@ -276,7 +276,6 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC79GCR 10.07.2021", "urlname": "Ullavan agility- ja ratsastuskenttä", "wanhatkunnat_field_1": "Ullava – liitetty Kokkolaan 2009" }, "geometry": { "type": "Point", "coordinates": [ 23.9006, 63.711417 ] } },
 { "type": "Feature", "properties": { "name": "GC6DGQW 10.07.2021", "urlname": "Lohtajan Kirkko", "wanhatkunnat_field_1": "Lohtaja – liitetty Kokkolaan 2009" }, "geometry": { "type": "Point", "coordinates": [ 23.5032, 64.021717 ] } },
 { "type": "Feature", "properties": { "name": "GC7QBQV 10.07.2021", "urlname": "Raumankarin vanha asutus, Muinaismuisto", "wanhatkunnat_field_1": "Himanka – liittyi Kalajoen kaupunkiin 2010" }, "geometry": { "type": "Point", "coordinates": [ 23.651567, 64.064033 ] } },
-
 { "type": "Feature", "properties": { "name": "GC3JNHN 11.07.2021", "urlname": "Raution kirkko", "wanhatkunnat_field_1": "Rautio – liitetty 1973 Kalajokeen" }, "geometry": { "type": "Point", "coordinates": [ 24.205667, 64.076317 ] } },
 
 { "type": "Feature", "properties": { "name": "GC1G2D2 12.07.2021", "urlname": "0 km: Pattijoki", "wanhatkunnat_field_1": "Pattijoki – liitetty Raaheen 2003" }, "geometry": { "type": "Point", "coordinates": [ 24.57092, 64.68738 ] } },
@@ -302,6 +301,8 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GC6QM0D 09.08.2021", "urlname": "vanhoja kiviaitoja", "wanhatkunnat_field_1": "Uudenkaupungin mlk – liitetty 1969 Uuteenkaupunkiin" }, "geometry": { "type": "Point", "coordinates": [ 21.38652, 60.82885 ] } },
 { "type": "Feature", "properties": { "name": "GC1A9AQ 10.08.2021", "urlname": "Lokalahtikko", "wanhatkunnat_field_1": "Lokalahti – liitetty Uuteenkaupunkiin 1981" }, "geometry": { "type": "Point", "coordinates": [ 21.46415, 60.681467 ] } },
 { "type": "Feature", "properties": { "name": "GC1WN7P 10.08.2021", "urlname": "Mietoisten kirkko", "wanhatkunnat_field_1": "Mietoinen – liitetty Mynämäen kuntaan 1. tammikuuta 2007" }, "geometry": { "type": "Point", "coordinates": [ 21.9223, 60.628033 ] } },
+{ "type": "Feature", "properties": { "name": "GC8XNCR 14.08.2021", "urlname": "Boxin boxit", "wanhatkunnat_field_1": "Snappertuna – pääosa liitetty 1977 Tammisaareen ja loput Karjaaseen. Vuodesta 2009 Raaseporia" }, "geometry": { "type": "Point", "coordinates": [ 23.62767, 59.93913 ] } },
+{ "type": "Feature", "properties": { "name": "GC7YXYX 14.08.2021", "urlname": "Tenholan kirkko", "wanhatkunnat_field_1": "Tenhola – liitetty 1993 Tammisaareen, joka 2009 yhdistyi Raaseporiksi" }, "geometry": { "type": "Point", "coordinates": [ 23.2962, 60.05815 ] } },
+{ "type": "Feature", "properties": { "name": "GCQ1MB 14.08.2021", "urlname": "Framnäs, Bromarv", "wanhatkunnat_field_1": "Bromarv – liitetty pääosin Tenholaan ja eteläkulmalta Hankoon 1977, Tenhola liitetty edelleen Tammisaareen 1993, joka Raaseporiin 2009" }, "geometry": { "type": "Point", "coordinates": [ 23.096667, 60.006367 ] } },
 
-
-]}
+]
