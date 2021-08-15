@@ -306,3 +306,5 @@ var json_BM86ANZ_loydettywaypoints_4 = {
 { "type": "Feature", "properties": { "name": "GCQ1MB 14.08.2021", "urlname": "Framnäs, Bromarv", "wanhatkunnat_field_1": "Bromarv – liitetty pääosin Tenholaan ja eteläkulmalta Hankoon 1977, Tenhola liitetty edelleen Tammisaareen 1993, joka Raaseporiin 2009" }, "geometry": { "type": "Point", "coordinates": [ 23.096667, 60.006367 ] } },
 
 ]
+}
+
