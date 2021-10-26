@@ -105,9 +105,7 @@ function kantakarttaZoomlevelListener() {
 	var dealWithKantakartat = (kantakarttaZoomLevel() && kantakarttaAvailable());
 	
     map.getLayers().forEach(function(layer) {  
-      if (isBaseLayer(layer)) {
-         layer.setOpacity(((dealWithKantakartat==1 && kantakarttaActivated()==1) ? 1-glbCurrentOpacity : 1.0));
-      }
+      if (isBaseLayer(layer)) layer.setOpacity(((dealWithKantakartat==1 && kantakarttaActivated()==1) ? 1-glbCurrentOpacity : 1.0));
     });	
 
 	var kkCbx = document.getElementById('kantakartat');
@@ -123,11 +121,9 @@ function kantakarttaZoomlevelListener() {
 	
 	/* jos orto valittuna selectlististä ja ollaan kuntaorto extentissä, niin otetaan ortogroup käyttöön */
 	if(document.getElementById("TASOT").value == 'ORTO') {
-			map.getLayers().forEach(function(layer) {
-               if (layer.get('id') == 'ORTOGROUP') {
-                    layer.setVisible(dealWithKantakartat ? true : false);
-			   }		
-            });
+	  map.getLayers().forEach(function(layer) {
+        if (layer.get('id') == 'ORTOGROUP') layer.setVisible(dealWithKantakartat ? true : false);
+      });
     } 
 	
 }
