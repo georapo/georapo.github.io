@@ -21,86 +21,83 @@ function kantakarttaZoomLevel() {
 }
 
 function kantakarttaActivated() {
-  	return document.getElementById('kantakartat').checked;
+  return document.getElementById('kantakartat').checked;
 }
 
 function pointinpolygontest(point, vs) {
-    // kaytto: var polygon = [ [ 1, 1 ], [ 1, 2 ], [ 2, 2 ], [ 2, 1 ] ];
-    // pointinpolygontest([ 1.5, 1.5 ], polygon);
+  // kaytto: var polygon = [ [ 1, 1 ], [ 1, 2 ], [ 2, 2 ], [ 2, 1 ] ];
+  // pointinpolygontest([ 1.5, 1.5 ], polygon);
 
-    var x = point[0], y = point[1];
+  var x = point[0], y = point[1];
     
-    var inside = false;
-    for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
-        var xi = vs[i][0], yi = vs[i][1];
-        var xj = vs[j][0], yj = vs[j][1];
-        
-        var intersect = ((yi > y) != (yj > y))
+  var inside = false;
+  for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+    var xi = vs[i][0], yi = vs[i][1];
+    var xj = vs[j][0], yj = vs[j][1];
+    var intersect = ((yi > y) != (yj > y))
             && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-        if (intersect) inside = !inside;
-    }
+    if (intersect) inside = !inside;
+  }
     
-    return inside;
+  return inside;
 } 	
 
 
 function kantakarttaAvailable() {
-    var ret = false;
-	currentKunta = '';
-    var c = map.getView().getCenter();
-    for(var i = 0; i < kantakartatDefs.length; i++) {
-		if (c[0] > kantakartatDefs[i][1] && c[0] < kantakartatDefs[i][3] && c[1] > kantakartatDefs[i][2] && c[1] < kantakartatDefs[i][4]) {
-		  
-		   if ((i>kuntarajat1000k.length-1) || pointinpolygontest([c[0],c[1]], kuntarajat1000k[i][1]) ) {
-		       currentKunta += (currentKunta.length > 0 ? ', ' : '') + kantakartatDefs[i][0];
-               ret = true;  
-		   }
-		}
+  var ret = false;
+  currentKunta = '';
+  var c = map.getView().getCenter();
+  for(var i = 0; i < kantakartatDefs.length; i++) {
+	if (c[0] > kantakartatDefs[i][1] && c[0] < kantakartatDefs[i][3] && c[1] > kantakartatDefs[i][2] && c[1] < kantakartatDefs[i][4]) {
+	   if ((i>kuntarajat1000k.length-1) || pointinpolygontest([c[0],c[1]], kuntarajat1000k[i][1]) ) {
+	       currentKunta += (currentKunta.length > 0 ? ', ' : '') + kantakartatDefs[i][0];
+           ret = true;  
+	   }
 	}
-	return ret;
+  }
+  return ret;
 }
 
 function dealingWithKantakartat() {
-   	return ((kantakarttaActivated() && kantakarttaZoomLevel() && kantakarttaAvailable()) ? true : false);
+  return ((kantakarttaActivated() && kantakarttaZoomLevel() && kantakarttaAvailable()) ? true : false);
 }
 
 function isBaseLayer(layer) {
-	return (baselayersArray.includes(layer.get('id')) ? true : false);
+  return (baselayersArray.includes(layer.get('id')) ? true : false);
 }
 
 function switchKantakartta(obj) {
-    if (kantakarttaAvailable()) {
-      map.getLayers().forEach(function(layer) {
-	    if (layer.get('id') == 'KANTAKARTTAGROUP') {
-		  layer.setVisible(obj.checked);
-		} else if (isBaseLayer(layer)) {
-			  layer.setOpacity((obj.checked ? ((kantakarttaZoomLevel() && kantakarttaActivated()) ? 1-glbCurrentOpacity : 1.0) : 1.0));
-		}	
-	  });
-    }	  
+  if (kantakarttaAvailable()) {
+    map.getLayers().forEach(function(layer) {
+      if (layer.get('id') == 'KANTAKARTTAGROUP') {
+        layer.setVisible(obj.checked);
+      } else if (isBaseLayer(layer)) {
+        layer.setOpacity((obj.checked ? (kantakarttaZoomLevel() ? 1-glbCurrentOpacity : 1.0) : 1.0));
+      }	
+    });
+  }	  
 }
 
-function changeOpacity(byOpacity) {
-   if (dealingWithKantakartat()) {
-      var opac = document.getElementById('opacity').value.replace('%','').trim();
-      var newOpacity = parseFloat((opac/100) + byOpacity).toFixed(1);
-      newOpacity = Math.min(maxOpacity, Math.max(minOpacity, newOpacity));
+function changeOpacity(byOpacity) {  
+  if (dealingWithKantakartat()) {
+    var opac = document.getElementById('opacity').value.replace('%','').trim();
+    var newOpacity = parseFloat((opac/100) + byOpacity).toFixed(1);
+    newOpacity = Math.min(maxOpacity, Math.max(minOpacity, newOpacity));
+	document.getElementById('opacity').value = newOpacity * 100 + " %";
 
-	  document.getElementById('opacity').value = newOpacity * 100 + " %";
-			
-      map.getLayers().forEach(function(layer) {
+    map.getLayers().forEach(function(layer) {
 		if (isBaseLayer(layer)) layer.setOpacity(1-newOpacity);
-      });
+    });
 
-   	  glbCurrentOpacity = newOpacity;
-   }
+   	glbCurrentOpacity = newOpacity;
+  }
 }
 
 function swapKantakarttaWidgetColors(color) {
-	  document.getElementById('opa1').style.color = color;
-	  document.getElementById('opa2').style.color = color;
-	  document.getElementById('kantakarttalbl').style.color = color;
-      document.getElementById('opacity').style.color = color;
+  document.getElementById('opa1').style.color = color;
+  document.getElementById('opa2').style.color = color;
+  document.getElementById('kantakarttalbl').style.color = color;
+  document.getElementById('opacity').style.color = color;
 }
 
 function kantakarttaZoomlevelListener() {
@@ -109,7 +106,7 @@ function kantakarttaZoomlevelListener() {
 	
     map.getLayers().forEach(function(layer) {  
       if (isBaseLayer(layer)) {
-         layer.setOpacity((dealWithKantakartat ? 1-glbCurrentOpacity : 1.0));
+         layer.setOpacity(((dealWithKantakartat && kantakarttaActivated()) ? 1-glbCurrentOpacity : 1.0));
       }
     });	
 
