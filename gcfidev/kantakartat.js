@@ -106,7 +106,7 @@ function kantakarttaZoomlevelListener() {
 	
     map.getLayers().forEach(function(layer) {  
       if (isBaseLayer(layer)) {
-         layer.setOpacity(((dealWithKantakartat && kantakarttaActivated()) ? 1-glbCurrentOpacity : 1.0));
+         layer.setOpacity(((dealWithKantakartat==1 && kantakarttaActivated()==1) ? 1-glbCurrentOpacity : 1.0));
       }
     });	
 
