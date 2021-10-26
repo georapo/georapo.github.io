@@ -74,7 +74,7 @@ function switchKantakartta(obj) {
 	    if (layer.get('id') == 'KANTAKARTTAGROUP') {
 		  layer.setVisible(obj.checked);
 		} else if (isBaseLayer(layer)) {
-			  layer.setOpacity((obj.checked ? (kantakarttaZoomLevel() ? 1-glbCurrentOpacity : 1.0) : 1.0));
+			  layer.setOpacity((obj.checked ? ((kantakarttaZoomLevel() && kantakarttaActivated()) ? 1-glbCurrentOpacity : 1.0) : 1.0));
 		}	
 	  });
     }	  
