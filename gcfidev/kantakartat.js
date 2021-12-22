@@ -160,22 +160,22 @@ function installKantakartat() {
     if (layer.get('id') == 'KANTAKARTTAGROUP') {
       for(var i = 0; i < kantakartatDefs.length; i++) {   
         var ll = new ol.layer.Tile({  
-			  extent: [kantakartatDefs[i][1], kantakartatDefs[i][2], kantakartatDefs[i][3], kantakartatDefs[i][4]],
-		      source: new ol.source.TileWMS({
-			    url: kantakartatDefs[i][5],
-			    projection: (kantakartatDefs[i][7].includes('CRS') ? 'CRS:84' : 'EPSG:'+kantakartatDefs[i][7]),
+            extent: [kantakartatDefs[i][1], kantakartatDefs[i][2], kantakartatDefs[i][3], kantakartatDefs[i][4]],
+            source: new ol.source.TileWMS({
+                url: kantakartatDefs[i][5],
+                projection: (kantakartatDefs[i][7].includes('CRS') ? 'CRS:84' : 'EPSG:'+kantakartatDefs[i][7]),
                 params: {
-				  'LAYERS': kantakartatDefs[i][6],	
-				  'VERSION': kantakartatDefs[i][8],
+                  'LAYERS': kantakartatDefs[i][6],	
+                  'VERSION': kantakartatDefs[i][8],
                   'FORMAT': 'image/png',
-				  'TRANSPARENT': 'true',
-	            }
-              }),
-		      maxResolution: 1.0,
-	    }); 
+                  'TRANSPARENT': 'true',
+				}
+            }),
+            maxResolution: 1.0,
+        }); 
 		
 		ll.getSource().on('tileloadend', function(event) {
-             console.log(event);
+             console.log(event.getProperties());
 			 
 			 
         });
