@@ -155,6 +155,9 @@ function installOrtokartat() {
 }
 
 function installKantakartat() {
+	
+	var tyhjaimg="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAADHUlEQVR4nO3UMQEAIAzAMMC/5yFjRxMFvXpn5gBNbzsA2GMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEPYB58oE/VhFU1IAAAAASUVORK5CYII=";
+	
   var kkLayers = []; 
   map.getLayers().forEach(function(layer) {
     if (layer.get('id') == 'KANTAKARTTAGROUP') {
@@ -174,8 +177,13 @@ function installKantakartat() {
             maxResolution: 1.0,
         }); 
 		
+		// yritetään päästä käsiksi, jos wms palauttaa haja-asutusalueilla tmv. vain tyhjän tilen
 		ll.getSource().on('tileloadend', function(event) {
-             console.log(getBase64Image(event.tile.M.currentSrc));
+             var currTileImg = getBase64Image(event.tile.M.currentSrc);
+			 
+			 if (currTileImg == tyhjaimg) {
+				   console.log("TYHJÄ TILE HAVAITTU ");
+			 }
 			 
          //var b64 = getBase64Image(event.tile.M.currentSrc);
 
@@ -192,7 +200,8 @@ function installKantakartat() {
   installOrtokartat();
 }
 
-		// get an image blob from url using fetch
+// getBase64Image.js: https://gist.github.com/colxi/c9ab898aa063e0943d4fae1840b982d8
+// get an image blob from url using fetch
 let getImageBlob = function(url){
   return new Promise( async resolve=>{
     let resposne = await fetch( url );
@@ -219,6 +228,7 @@ let getBase64Image = async function( url ){
   let base64 = await blobToBase64( blob );
   return base64;
 }
+
 /* todo:
  
  ohjeeseen mukana olevien kuntien js-autogenerointi 
