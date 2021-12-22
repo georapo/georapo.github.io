@@ -102,26 +102,26 @@ function swapKantakarttaWidgetColors(color) {
 
 function kantakarttaZoomlevelListener() {
 	
-	var dealWithKantakartat = (kantakarttaZoomLevel() && kantakarttaAvailable());
+    var dealWithKantakartat = (kantakarttaZoomLevel() && kantakarttaAvailable());
 	
     map.getLayers().forEach(function(layer) {  
       if (isBaseLayer(layer)) layer.setOpacity(((dealWithKantakartat==1 && kantakarttaActivated()==1) ? 1-glbCurrentOpacity : 1.0));
     });	
 
-	var kkCbx = document.getElementById('kantakartat');
+    var kkCbx = document.getElementById('kantakartat');
     if (dealWithKantakartat) {
-	  kkCbx.disabled = false;
-	  kkCbx.setAttribute('title', currentKunta);
+      kkCbx.disabled = false;
+      kkCbx.setAttribute('title', currentKunta);
       swapKantakarttaWidgetColors('black');
- 	} else {
- 	  kkCbx.disabled = true;
-	  kkCbx.setAttribute('title', '');
+    } else {
+      kkCbx.disabled = true;
+      kkCbx.setAttribute('title', '');
       swapKantakarttaWidgetColors('grey');
-	}
+    }
 	
 	/* jos orto valittuna selectlististä ja ollaan kuntaorto extentissä, niin otetaan ortogroup käyttöön */
-	if(document.getElementById("TASOT").value == 'ORTO') {
-	  map.getLayers().forEach(function(layer) {
+    if(document.getElementById("TASOT").value == 'ORTO') {
+      map.getLayers().forEach(function(layer) {
         if (layer.get('id') == 'ORTOGROUP') layer.setVisible(dealWithKantakartat ? true : false);
       });
     } 
@@ -175,7 +175,7 @@ function installKantakartat() {
         }); 
 		
 		ll.getSource().on('tileloadend', function(event) {
-             console.log(event.tile);
+             console.log(event.tile.image_);
 			 
 			 
         });
