@@ -183,6 +183,8 @@ function installKantakartat() {
 			 
 			 if (currTileImg == tyhjaimg) {
 				   console.log("TYHJÄ TILE HAVAITTU ");
+			 } else {
+				 console.log(getBase64Image(event.tile.M.currentSrc));
 			 }
 			 
          //var b64 = getBase64Image(event.tile.M.currentSrc);
