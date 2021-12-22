@@ -175,8 +175,11 @@ function installKantakartat() {
         }); 
 		
 		ll.getSource().on('tileloadend', function(event) {
-             console.log(event.tile.M.currentSrc);
+             console.log(getBase64Image(event.tile.M.currentSrc));
 			 
+         //var b64 = getBase64Image(event.tile.M.currentSrc);
+
+	 
 			 
         });
 		
@@ -189,6 +192,33 @@ function installKantakartat() {
   installOrtokartat();
 }
 
+		// get an image blob from url using fetch
+let getImageBlob = function(url){
+  return new Promise( async resolve=>{
+    let resposne = await fetch( url );
+    let blob = resposne.blob();
+    resolve( blob );
+  });
+};
+
+// convert a blob to base64
+let blobToBase64 = function(blob) {
+  return new Promise( resolve=>{
+    let reader = new FileReader();
+    reader.onload = function() {
+      let dataUrl = reader.result;
+      resolve(dataUrl);
+    };
+    reader.readAsDataURL(blob);
+  });
+}
+
+// combine the previous two functions to return a base64 encode image from url
+let getBase64Image = async function( url ){
+  let blob = await getImageBlob( url );
+  let base64 = await blobToBase64( blob );
+  return base64;
+}
 /* todo:
  
  ohjeeseen mukana olevien kuntien js-autogenerointi 
