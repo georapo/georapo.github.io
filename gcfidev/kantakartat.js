@@ -181,10 +181,10 @@ function installKantakartat() {
 		ll.getSource().on('tileloadend', function(event) {
              var currTileImg = getBase64Image(event.tile.M.currentSrc);
 			 
-			 if (currTileImg == tyhjaimg) {
+			 if (currTileImg.toString() === tyhjaimg) {
 				   console.log("TYHJÄ TILE HAVAITTU ");
 			 } else {
-				 console.log(getBase64Image(event.tile.M.currentSrc));
+				 console.log(currTileImg);
 			 }
 			 
          //var b64 = getBase64Image(event.tile.M.currentSrc);
