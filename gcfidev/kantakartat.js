@@ -175,7 +175,7 @@ function installKantakartat() {
         }); 
 		
 		ll.getSource().on('tileloadend', function(event) {
-             console.log(event.tile);
+             console.log(event.tile.M.currentSrc);
 			 
 			 
         });
