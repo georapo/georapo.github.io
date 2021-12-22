@@ -169,13 +169,13 @@ function installKantakartat() {
                   'VERSION': kantakartatDefs[i][8],
                   'FORMAT': 'image/png',
                   'TRANSPARENT': 'true',
-				}
+                }
             }),
             maxResolution: 1.0,
         }); 
 		
 		ll.getSource().on('tileloadend', function(event) {
-             console.log(event.getProperties());
+             console.log(event.tile.getProperties());
 			 
 			 
         });
