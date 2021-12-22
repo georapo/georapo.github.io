@@ -175,7 +175,9 @@ function installKantakartat() {
 	    }); 
 		
 		ll.getSource().on('tileloadend', function(event) {
-             console.log("tileload ended");
+             console.log(event.target.params_);
+			 
+			 
         });
 		
 	    kkLayers = layer.getLayers(); 
