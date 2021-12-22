@@ -173,6 +173,11 @@ function installKantakartat() {
               }),
 		      maxResolution: 1.0,
 	    }); 
+		
+		ll.getSource().on('tileloadend', function(event) {
+             console.log("tileload ended");
+        });
+		
 	    kkLayers = layer.getLayers(); 
 	    kkLayers.push(ll);  
       }
