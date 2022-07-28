@@ -296,8 +296,10 @@ function mapInit()
           }),
  		  
         new ol.layer.Tile({
-          source: new ol.source.TileWMS({
-            url: 'http://tiles.kartat.kapsi.fi/peruskartta?',
+//          source: new ol.source.TileWMS({
+		  source: new ol.source.XYZ({
+//            url: 'http://tiles.kartat.kapsi.fi/peruskartta?',
+            url: 'https://tiles.kartat.kapsi.fi/peruskartta_3067/{z}/{x}/{y}.jpg',
 	        attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>',
             crossOrigin: 'anonymous',
             params: {
