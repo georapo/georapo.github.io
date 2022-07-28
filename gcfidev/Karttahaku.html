@@ -299,14 +299,14 @@ function mapInit()
 //          source: new ol.source.TileWMS({
 		    source: new ol.source.XYZ({
 //            url: 'http://tiles.kartat.kapsi.fi/peruskartta?',
-            url: 'https://tiles.kartat.kapsi.fi/peruskartta/{z}/{x}/{y}.png',
+            url: 'https://tiles.kartat.kapsi.fi/peruskartta/{z}/{x}/{y}.jpg',
 	        attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>',
 //            crossOrigin: 'anonymous',
 			      projection: 'EPSG:3857',
                   origin: ol.proj.fromLonLat([25.5, 63.0]),
                   tilePixelRatio: 2,
             params: {
-                'FORMAT': 'image/png'
+                'FORMAT': 'image/jpeg'
             },
  //           serverType: 'mapserver'
           }),
@@ -332,13 +332,13 @@ function mapInit()
  			
 		new ol.layer.Tile({
 		  source: new ol.source.XYZ({
-            url: 'http://tiles.kartat.kapsi.fi/ortokuva/{z}/{x}/{y}.png',
+            url: 'http://tiles.kartat.kapsi.fi/ortokuva/{z}/{x}/{y}.jpg',
 	        attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>',
   	        projection: 'EPSG:3857',
             origin: ol.proj.fromLonLat([25.5, 63.0]),
             tilePixelRatio: 2,
             params: {
-                'FORMAT': 'image/png'
+                'FORMAT': 'image/jpeg'
             },
           }),
           visible: false,
