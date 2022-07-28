@@ -297,17 +297,16 @@ function mapInit()
  		  
         new ol.layer.Tile({
 //          source: new ol.source.TileWMS({
-		  source: new ol.source.XYZ({
+		    source: new ol.source.XYZ({
 //            url: 'http://tiles.kartat.kapsi.fi/peruskartta?',
-            url: 'https://tiles.kartat.kapsi.fi/peruskartta/{z}/{x}/{y}.jpg',
+            url: 'https://tiles.kartat.kapsi.fi/peruskartta/{z}/{x}/{y}.png',
 	        attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>',
 //            crossOrigin: 'anonymous',
 			      projection: 'EPSG:3857',
                   origin: ol.proj.fromLonLat([25.5, 63.0]),
                   tilePixelRatio: 2,
             params: {
-//                'FORMAT': 'image/png'
-                'FORMAT': 'image/jpg'
+                'FORMAT': 'image/png'
             },
  //           serverType: 'mapserver'
           }),
@@ -316,37 +315,67 @@ function mapInit()
           id: "PERUS"
         }),
 
+//		new ol.layer.Tile({
+//          source: new ol.source.TileWMS({
+//            url: 'http://tiles.kartat.kapsi.fi/ortokuva?',
+//	        attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>',
+//            crossOrigin: 'anonymous',
+//            params: {
+//                'FORMAT': 'image/png'
+//            },
+//            serverType: 'mapserver'
+//          }),
+//          visible: false,
+//		  isBaseLayer: true,
+//          id: "ORTO"
+//        }),  
+ 			
 		new ol.layer.Tile({
-          source: new ol.source.TileWMS({
-            url: 'http://tiles.kartat.kapsi.fi/ortokuva?',
+		  source: new ol.source.XYZ({
+            url: 'http://tiles.kartat.kapsi.fi/ortokuva/{z}/{x}/{y}.png',
 	        attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>',
-            crossOrigin: 'anonymous',
+  	        projection: 'EPSG:3857',
+            origin: ol.proj.fromLonLat([25.5, 63.0]),
+            tilePixelRatio: 2,
             params: {
                 'FORMAT': 'image/png'
             },
-            serverType: 'mapserver'
           }),
           visible: false,
 		  isBaseLayer: true,
           id: "ORTO"
         }),  
- 			
+
+//        new ol.layer.Tile({
+//        source: new ol.source.TileWMS({
+//            url: 'http://tiles.kartat.kapsi.fi/taustakartta?',
+//	      attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>', 
+//           crossOrigin: 'anonymous',
+//            params: {
+//                'FORMAT': 'image/png'
+//            },
+//            serverType: 'mapserver'
+//          }),
+//            visible: false,
+//			isBaseLayer: true,
+//            id: "TAUSTA"
+//        }),
 
         new ol.layer.Tile({
-        source: new ol.source.TileWMS({
-            url: 'http://tiles.kartat.kapsi.fi/taustakartta?',
-	      attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>', 
-           crossOrigin: 'anonymous',
+		  source: new ol.source.XYZ({
+            url: 'http://tiles.kartat.kapsi.fi/taustakartta/{z}/{x}/{y}.png',
+ 	        attributions: '© <a href="http://www.maanmittauslaitos.fi/" target="_blank">Maanmittauslaitos</a>', 
+  	        projection: 'EPSG:3857',
+            origin: ol.proj.fromLonLat([25.5, 63.0]),
+            tilePixelRatio: 2,
             params: {
                 'FORMAT': 'image/png'
             },
-            serverType: 'mapserver'
           }),
-            visible: false,
-			isBaseLayer: true,
-            id: "TAUSTA"
+          visible: false,
+		  isBaseLayer: true,
+          id: "TAUSTA"
         }),
-
 
         new ol.layer.Tile({
           source: new ol.source.XYZ({
