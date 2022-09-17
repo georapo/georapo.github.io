@@ -90,7 +90,7 @@ function MultiselectDropdown(options){
     search:true,
     height:'15rem',
     placeholder:'Muut karttatasot',
-    txtSelected:'selected',
+    txtSelected:'valittu',
     txtAll:'All',
     txtRemove: 'Remove',
     txtSearch:'search',
