@@ -68,7 +68,8 @@ style.innerHTML = `
 }
 
 .multiselect-dropdown-list div{
-  padding: 5px;
+ // padding: 5px;
+  padding: 3px;
 }
 .multiselect-dropdown-list input{
   height: 1.15em;
