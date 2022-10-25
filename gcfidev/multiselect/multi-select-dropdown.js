@@ -1,8 +1,8 @@
 const MultiSelectDropdown = (params) => {
   let config = {
-    search: true,
+    search: false,
     hideX: false,
-    useStyles: true,
+    useStyles: false,
     placeholder: 'Muu kartta...',
     txtSelected: 'Valittu',
     txtAll: 'Kaikki',
