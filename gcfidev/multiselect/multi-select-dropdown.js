@@ -206,7 +206,6 @@ const MultiSelectDropdown = (params) => {
         '--border-radius--base': `${parseInt(config.borderRadius)}px` || '6px',
         '--border-radius--small': `${parseInt(config.borderRadius) * 0.75}px` || '4px'
       },
-      '0,
       'span.optext, span.placeholder': {
         display: 'inline-flex',
         'justify-content': 'center',
