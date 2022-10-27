@@ -11,7 +11,7 @@ const MultiSelectDropdown = (params) => {
     minWidth: '160px',
     maxWidth: '360px',
     maxHeight: '180px',
-    borderRadius: 6,
+    borderRadius: 1,
     ...params
   };
 
@@ -210,7 +210,7 @@ const MultiSelectDropdown = (params) => {
         display: 'inline-flex',
         'justify-content': 'center',
         'align-items': 'center',
-        'font-size': '16px',
+        'font-size': '11px',
         'border-radius': 'var(--border-radius--small)'
       },
       'span.optext': {
@@ -225,7 +225,7 @@ const MultiSelectDropdown = (params) => {
       'span.optext .optdel': {
         float: 'right',
         margin: '0 -6px 1px 6px',
-        'font-size': '12px',
+        'font-size': '11px',
         cursor: 'pointer',
         color: 'var(--color-text--grey)'
       },
@@ -257,7 +257,7 @@ const MultiSelectDropdown = (params) => {
       },
       '.multiselect-dropdown-search::placeholder': {
         color: 'var(--color-text--placeholder)',
-        'font-size': '16px'
+        'font-size': '11px'
       },
       '.multiselect-dropdown-search:focus, .multiselect-dropdown-search:focus-visible': {
         outline: 'none'
