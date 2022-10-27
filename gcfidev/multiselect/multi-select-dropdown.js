@@ -4,7 +4,7 @@ const MultiSelectDropdown = (params) => {
     hideX: false,
     useStyles: true,
     placeholder: 'Muu kartta...',
-    txtSelected: 'Valittu',
+    txtSelected: 'valittu',
     txtAll: 'Kaikki',
     txtRemove: 'Poista',
     txtSearch: 'Hae...',
