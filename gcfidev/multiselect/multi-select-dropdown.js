@@ -11,7 +11,7 @@ const MultiSelectDropdown = (params) => {
     minWidth: '160px',
     maxWidth: '360px',
     maxHeight: '180px',
-    borderRadius: 1,
+    borderRadius: 2,
     ...params
   };
 
@@ -196,7 +196,7 @@ const MultiSelectDropdown = (params) => {
     let styles = {
       ':root': {
         '--color-background': '#ffffff',
-        '--color-border': '#ced4da',
+        '--color-border': '#222222',
         '--color-background--option': '#d6dde6',
         '--color-background--option--hover': '#cbd5e0a1',
         '--color-text--normal': '#0c0c0c',
