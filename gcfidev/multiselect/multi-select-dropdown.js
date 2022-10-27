@@ -12,6 +12,7 @@ const MultiSelectDropdown = (params) => {
     maxWidth: '200px',
     maxHeight: '180px',
     borderRadius: 2,
+	max-items: 3,
     ...params
   };
 
@@ -41,7 +42,7 @@ const MultiSelectDropdown = (params) => {
 
   document.querySelectorAll('select[multiple]').forEach((multiSelect) => {
     let div = newElement('div', { class: 'multiselect-dropdown' });
-	div.id = 'dropdownKartat';
+	//div.id = 'dropdownKartat';
     multiSelect.style.display = 'none';
     multiSelect.parentNode.insertBefore(div, multiSelect.nextSibling);
     let dropdownListWrapper = newElement('div', { class: 'multiselect-dropdown-list-wrapper' });
