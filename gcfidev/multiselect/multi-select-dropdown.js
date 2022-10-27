@@ -208,6 +208,24 @@ const MultiSelectDropdown = (params) => {
         '--border-radius--base': `${parseInt(config.borderRadius)}px` || '6px',
         '--border-radius--small': `${parseInt(config.borderRadius) * 0.75}px` || '4px'
       },
+	  '.multiselect-dropdown': {
+        position: 'relative',
+        display: 'inline-flex',
+        'flex-wrap': 'wrap',
+        padding: '6px 36px 6px 6px',
+        gap: '6px',
+        'border-radius': 'var(--border-radius--base)',
+        border: 'solid 1px var(--color-border)',
+        background: 'var(--color-background)',
+        'background-image':
+          "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e\")",
+        'background-repeat': 'no-repeat',
+        'background-position': 'right 6px center',
+        'background-size': '16px 12px',
+        'min-width': `${config.minWidth}` ?? '140px',
+        'max-width': `${config.maxWidth}` ?? '360px',
+        cursor: 'pointer'
+      },
       'span.optext, span.placeholder': {
         display: 'inline-flex',
         'justify-content': 'center',
@@ -244,9 +262,9 @@ const MultiSelectDropdown = (params) => {
         display: 'none',
         margin: '-1px',
         position: 'absolute',
-        top: 70,
-        left: 800,
-        //right: 0,
+        top: 0,
+        left: 0,
+        right: 0,
         background: 'var(--color-background)'
       },
       //'.multiselect-dropdown-search': {
