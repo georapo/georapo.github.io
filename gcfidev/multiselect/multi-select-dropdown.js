@@ -41,6 +41,7 @@ const MultiSelectDropdown = (params) => {
 
   document.querySelectorAll('select[multiple]').forEach((multiSelect) => {
     let div = newElement('div', { class: 'multiselect-dropdown' });
+	div.id = 'dropdownKartat';
     multiSelect.style.display = 'none';
     multiSelect.parentNode.insertBefore(div, multiSelect.nextSibling);
     let dropdownListWrapper = newElement('div', { class: 'multiselect-dropdown-list-wrapper' });
