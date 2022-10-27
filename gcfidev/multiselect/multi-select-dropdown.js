@@ -48,8 +48,8 @@ const MultiSelectDropdown = (params) => {
     let search = newElement('input', {
       class: ['multiselect-dropdown-search'].concat([config.searchInput?.class ?? 'form-control']),
       style: {
-        //width: '100%',
-		width: '350px',
+        width: '100%',
+		//width: '350px',
         display: config.search ? 'block' : multiSelect.attributes.search?.value === 'true' ? 'block' : 'none'
       },
       placeholder: config.txtSearch
@@ -245,7 +245,7 @@ const MultiSelectDropdown = (params) => {
         position: 'absolute',
         top: 0,
         left: 0,
-        right: 0,
+        //right: 0,
         background: 'var(--color-background)'
       },
       '.multiselect-dropdown-search': {
