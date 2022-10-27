@@ -45,16 +45,15 @@ const MultiSelectDropdown = (params) => {
     multiSelect.parentNode.insertBefore(div, multiSelect.nextSibling);
     let dropdownListWrapper = newElement('div', { class: 'multiselect-dropdown-list-wrapper' });
     let dropdownList = newElement('div', { class: 'multiselect-dropdown-list' });
-    let search = newElement('input', {
-      class: ['multiselect-dropdown-search'].concat([config.searchInput?.class ?? 'form-control']),
-      style: {
-        width: '100%',
-		//width: '350px',
-        display: config.search ? 'block' : multiSelect.attributes.search?.value === 'true' ? 'block' : 'none'
-      },
-      placeholder: config.txtSearch
-    });
-    dropdownListWrapper.appendChild(search);
+    //let search = newElement('input', {
+    //  class: ['multiselect-dropdown-search'].concat([config.searchInput?.class ?? 'form-control']),
+    //  style: {
+    //    width: '100%',
+    //    display: config.search ? 'block' : multiSelect.attributes.search?.value === 'true' ? 'block' : 'none'
+    //  },
+    //  placeholder: config.txtSearch
+    //});
+    //dropdownListWrapper.appendChild(search);
     div.appendChild(dropdownListWrapper);
     dropdownListWrapper.appendChild(dropdownList);
 
@@ -172,17 +171,17 @@ const MultiSelectDropdown = (params) => {
     };
     multiSelect.loadOptions();
 
-    search.addEventListener('input', () => {
-      dropdownList.querySelectorAll(':scope div:not(.multiselect-dropdown-all-selector)').forEach((div) => {
-        let innerText = div.querySelector('label').innerText.toLowerCase();
-        div.style.display = innerText.includes(search.value.toLowerCase()) ? 'flex' : 'none';
-      });
-    });
+    //search.addEventListener('input', () => {
+    //  dropdownList.querySelectorAll(':scope div:not(.multiselect-dropdown-all-selector)').forEach((div) => {
+    //    let innerText = div.querySelector('label').innerText.toLowerCase();
+    //    div.style.display = innerText.includes(search.value.toLowerCase()) ? 'flex' : 'none';
+    //  });
+    //});
 
     div.addEventListener('click', () => {
       div.dropdownListWrapper.style.display = 'block';
-      search.focus();
-      search.select();
+      //search.focus();
+      //search.select();
     });
 
     document.addEventListener('click', (e) => {
@@ -248,21 +247,21 @@ const MultiSelectDropdown = (params) => {
         //right: 0,
         background: 'var(--color-background)'
       },
-      '.multiselect-dropdown-search': {
-        padding: '5px 6px 6px 5px',
-        'border-top-left-radius': 'var(--border-radius--base)',
-        'border-top-right-radius': 'var(--border-radius--base)',
-        border: 'solid 1px transparent',
-        'border-bottom': 'solid 1px var(--color-border)',
-        'font-size': 'inherit'
-      },
-      '.multiselect-dropdown-search::placeholder': {
-        color: 'var(--color-text--placeholder)',
-        'font-size': '11px'
-      },
-      '.multiselect-dropdown-search:focus, .multiselect-dropdown-search:focus-visible': {
-        outline: 'none'
-      },
+      //'.multiselect-dropdown-search': {
+      //  padding: '5px 6px 6px 5px',
+      //  'border-top-left-radius': 'var(--border-radius--base)',
+      //  'border-top-right-radius': 'var(--border-radius--base)',
+      //  border: 'solid 1px transparent',
+      //  'border-bottom': 'solid 1px var(--color-border)',
+      //  'font-size': 'inherit'
+      //},
+      //'.multiselect-dropdown-search::placeholder': {
+      //  color: 'var(--color-text--placeholder)',
+      //  'font-size': '11px'
+      //},
+      //'.multiselect-dropdown-search:focus, .multiselect-dropdown-search:focus-visible': {
+      //  outline: 'none'
+      //},
       '.multiselect-dropdown-list': {
         'overflow-y': 'auto',
         'overflow-x': 'hidden',
