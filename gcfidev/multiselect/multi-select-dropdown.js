@@ -287,7 +287,7 @@ const MultiSelectDropdown = (params) => {
         'justify-content': 'flex-start',
         'column-gap': '6px',
         padding: '1px',
-        margin: '2px 6px 2px 6px',
+        margin: '1px 4px 1px 4px',
         transition: '100ms cubic-bezier(0.455, 0.03, 0.515, 0.955)'
       },
       '.multiselect-dropdown-list div:hover': {
