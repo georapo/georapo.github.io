@@ -236,14 +236,14 @@ const MultiSelectDropdown = (params) => {
         color: 'var(--color-border)'
       },
       '.multiselect-dropdown-list-wrapper': {
-        'z-index': 100,
+        'z-index': 200,
         'border-radius': 'var(--border-radius--base)',
         border: 'solid 1px var(--color-border)',
         display: 'none',
         margin: '-1px',
         position: 'absolute',
-        top: 0,
-        left: 0,
+        top: 70,
+        left: 800,
         //right: 0,
         background: 'var(--color-background)'
       },
