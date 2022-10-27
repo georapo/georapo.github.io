@@ -12,7 +12,6 @@ const MultiSelectDropdown = (params) => {
     maxWidth: '200px',
     maxHeight: '180px',
     borderRadius: 2,
-	max-items: 3,
     ...params
   };
 
@@ -115,7 +114,7 @@ const MultiSelectDropdown = (params) => {
 
         div.querySelectorAll('span.optext, span.placeholder').forEach((placeholder) => div.removeChild(placeholder));
         let selected = Array.from(multiSelect.selectedOptions);
-        if (selected.length > (multiSelect.attributes['max-items']?.value ?? 5)) {
+        if (selected.length > (multiSelect.attributes['max-items']?.value ?? 3)) {
           div.appendChild(
             newElement('span', {
               class: ['optext', 'maxselected'],
