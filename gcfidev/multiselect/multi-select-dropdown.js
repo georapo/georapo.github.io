@@ -211,7 +211,7 @@ const MultiSelectDropdown = (params) => {
         position: 'relative',
         display: 'inline-flex',
         'flex-wrap': 'wrap',
-        padding: '6px 36px 6px 6px',
+        padding: '1x 24x 1px 1px',
         gap: '6px',
         'border-radius': 'var(--border-radius--base)',
         border: 'solid 1px var(--color-border)',
@@ -304,7 +304,7 @@ const MultiSelectDropdown = (params) => {
         'align-items': 'center',
         'justify-content': 'flex-start',
         'column-gap': '6px',
-        padding: '1px',
+        padding: '0px',
         margin: '1px 4px 1px 4px',
         transition: '100ms cubic-bezier(0.455, 0.03, 0.515, 0.955)'
       },
