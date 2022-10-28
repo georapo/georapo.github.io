@@ -186,6 +186,7 @@ const MultiSelectDropdown = (params) => {
 
     div.addEventListener('click', () => {
       div.dropdownListWrapper.style.display = 'block';
+	  console.log('Valittuna tällä hetkellä (after click):' + multiSelect.selectedOptions.length);
       //search.focus();
       //search.select();
     });
@@ -216,7 +217,7 @@ const MultiSelectDropdown = (params) => {
         position: 'relative',
         display: 'inline-flex',
         'flex-wrap': 'wrap',
-        padding: '1x 24x 1px 1px',
+        padding: '0x 20x 0px 0px',
         gap: '6px',
         'border-radius': 'var(--border-radius--base)',
         border: 'solid 1px var(--color-border)',
@@ -239,7 +240,7 @@ const MultiSelectDropdown = (params) => {
       },
       'span.optext': {
         'background-color': 'var(--color-background--option)',
-        padding: '0 12px 2px 6px',
+        padding: '0 8px 1px 4px',
         cursor: 'default',
         '-webkit-user-select': 'none',
         '-moz-user-select': 'none',
