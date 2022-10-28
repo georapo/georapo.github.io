@@ -113,7 +113,7 @@ const MultiSelectDropdown = (params) => {
         //let tempSelectedList = document.getElementById('dropdownSelected');
 
         div.querySelectorAll('span.optext, span.placeholder').forEach((placeholder) => div.removeChild(placeholder));
-        let selected = Array.from(multiSelect.selectedOptions);
+        let selected = Array.from(multiSelect.selectedOptions);  console.log('Valittuna tällä hetkellä:' + multiSelect.selectedOptions.length);
         if (selected.length > (multiSelect.attributes['max-items']?.value ?? 3)) {
           div.appendChild(
             newElement('span', {
@@ -175,7 +175,7 @@ const MultiSelectDropdown = (params) => {
     };
     multiSelect.loadOptions();
 	
-	console.log('Valittuna tällä hetkellä:' + multiSelect.selectedOptions.length);
+	
 
     //search.addEventListener('input', () => {
     //  dropdownList.querySelectorAll(':scope div:not(.multiselect-dropdown-all-selector)').forEach((div) => {
