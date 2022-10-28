@@ -4,7 +4,7 @@ const MultiSelectDropdown = (params) => {
     hideX: false,
     useStyles: true,
     placeholder: 'Muu kartta...',
-    txtSelected: 'valittu',
+    txtSelected: 'ainestoa valittu',
     txtAll: 'Kaikki',
     txtRemove: 'Poista',
     txtSearch: 'Hae...',
@@ -126,6 +126,9 @@ const MultiSelectDropdown = (params) => {
           //  .querySelectorAll('span')
           //  .forEach((span, index) => index !== 0 && tempSelectedList.removeChild(span));
           //selected.map((option) => tempSelectedList.appendChild(newElement('span', { text: option.text })));
+		  
+		  
+		  
         } else {
           // For demo purposes, remove
           //tempSelectedList
@@ -171,6 +174,8 @@ const MultiSelectDropdown = (params) => {
       div.refresh();
     };
     multiSelect.loadOptions();
+	
+	console.log('Valittuna tällä hetkellä:' + multiSelect.selectedOptions.length);
 
     //search.addEventListener('input', () => {
     //  dropdownList.querySelectorAll(':scope div:not(.multiselect-dropdown-all-selector)').forEach((div) => {
@@ -305,7 +310,7 @@ const MultiSelectDropdown = (params) => {
         'justify-content': 'flex-start',
         'column-gap': '6px',
         padding: '0px',
-        margin: '1px 4px 1px 4px',
+        margin: '1px 2px 1px 2px',
         transition: '100ms cubic-bezier(0.455, 0.03, 0.515, 0.955)'
       },
       '.multiselect-dropdown-list div:hover': {
