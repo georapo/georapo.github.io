@@ -61,32 +61,32 @@ const MultiSelectDropdown = (params) => {
     multiSelect.loadOptions = () => {
       dropdownList.innerHTML = '';
 
-      if (config.selectAll || multiSelect.attributes['select-all']?.value === 'true') {
-        let optionElementAll = newElement('div', { class: 'multiselect-dropdown-all-selector' });
-        let optionCheckbox = newElement('input', { type: 'checkbox' });
-        optionElementAll.appendChild(optionCheckbox);
-        optionElementAll.appendChild(newElement('label', { text: config.txtAll }));
-
-        optionElementAll.addEventListener('click', () => {
-          optionElementAll.classList.toggle('checked');
-          optionElementAll.querySelector('input').checked = !optionElementAll.querySelector('input').checked;
-
-          let ch = optionElementAll.querySelector('input').checked;
-          dropdownList.querySelectorAll(':scope > div:not(.multiselect-dropdown-all-selector)').forEach((i) => {
-            if (i.style.display !== 'none') {
-              i.querySelector('input').checked = ch;
-              i.optEl.selected = ch;
-            }
-          });
-
-          multiSelect.dispatchEvent(new Event('change'));
-        });
-        optionCheckbox.addEventListener('click', () => {
-          optionCheckbox.checked = !optionCheckbox.checked;
-        });
-
-        dropdownList.appendChild(optionElementAll);
-      }
+     // if (config.selectAll || multiSelect.attributes['select-all']?.value === 'true') {
+     //   let optionElementAll = newElement('div', { class: 'multiselect-dropdown-all-selector' });
+     //   let optionCheckbox = newElement('input', { type: 'checkbox' });
+     //   optionElementAll.appendChild(optionCheckbox);
+     //   optionElementAll.appendChild(newElement('label', { text: config.txtAll }));
+     //
+     //   optionElementAll.addEventListener('click', () => {
+     //     optionElementAll.classList.toggle('checked');
+     //     optionElementAll.querySelector('input').checked = !optionElementAll.querySelector('input').checked;
+     //
+     //        let ch = optionElementAll.querySelector('input').checked;
+      //    dropdownList.querySelectorAll(':scope > div:not(.multiselect-dropdown-all-selector)').forEach((i) => {
+       //     if (i.style.display !== 'none') {
+        //      i.querySelector('input').checked = ch;
+        //      i.optEl.selected = ch;
+       //     }
+       //   });
+     //
+     //     multiSelect.dispatchEvent(new Event('change'));
+    //    });
+    //    optionCheckbox.addEventListener('click', () => {
+    //      optionCheckbox.checked = !optionCheckbox.checked;
+    //    });
+    //
+    //    dropdownList.appendChild(optionElementAll);
+   //   }
 
       Array.from(multiSelect.options).map((option) => {
         let optionElement = newElement('div', { class: option.selected ? 'checked' : '', srcElement: option });
@@ -120,7 +120,7 @@ const MultiSelectDropdown = (params) => {
 			console.log('Option: ' + option.value);
 	    };
         
-		if (selected.length > (multiSelect.attributes['max-items']?.value ?? 3)) {
+		if (selected.length > (multiSelect.attributes['max-items']?.value ?? 2)) {
           div.appendChild(
             newElement('span', {
               class: ['optext', 'maxselected'],
