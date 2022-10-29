@@ -5,9 +5,9 @@ const MultiSelectDropdown = (params) => {
     useStyles: true,
     placeholder: 'Muu kartta...',
     txtSelected: 'ainestoa valittu',
-    txtAll: 'Kaikki',
-    txtRemove: 'Poista',
-    txtSearch: 'Hae...',
+    //txtAll: 'Kaikki',
+    //txtRemove: 'Poista',
+    //txtSearch: 'Hae...',
     minWidth: '160px',
     maxWidth: '200px',
     maxHeight: '180px',
@@ -113,8 +113,14 @@ const MultiSelectDropdown = (params) => {
         //let tempSelectedList = document.getElementById('dropdownSelected');
 
         div.querySelectorAll('span.optext, span.placeholder').forEach((placeholder) => div.removeChild(placeholder));
-        let selected = Array.from(multiSelect.selectedOptions);  console.log('Valittuna tällä hetkellä:' + multiSelect.selectedOptions.length);
-        if (selected.length > (multiSelect.attributes['max-items']?.value ?? 3)) {
+        let selected = Array.from(multiSelect.selectedOptions);  
+		
+		console.log('Valittuna tällä hetkellä:' + selected.length);
+		selected.map((option) => {
+			console.log('Option: ' + option.value);
+	    };
+        
+		if (selected.length > (multiSelect.attributes['max-items']?.value ?? 3)) {
           div.appendChild(
             newElement('span', {
               class: ['optext', 'maxselected'],
@@ -186,7 +192,11 @@ const MultiSelectDropdown = (params) => {
 
     div.addEventListener('click', () => {
       div.dropdownListWrapper.style.display = 'block';
+	  
 	  console.log('Valittuna tällä hetkellä (after click):' + multiSelect.selectedOptions.length);
+	  multiSelect.map((option) => {
+			console.log('Option: ' + option.value);
+	  };
       //search.focus();
       //search.select();
     });
