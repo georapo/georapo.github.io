@@ -118,7 +118,7 @@ const MultiSelectDropdown = (params) => {
 		console.log('Valittuna tällä hetkellä:' + selected.length);
 		selected.map((option) => {
 			console.log('Option: ' + option.value);
-	    };
+	    });
         
 		if (selected.length > (multiSelect.attributes['max-items']?.value ?? 2)) {
           div.appendChild(
@@ -196,7 +196,7 @@ const MultiSelectDropdown = (params) => {
 	  console.log('Valittuna tällä hetkellä (after click):' + multiSelect.selectedOptions.length);
 	  multiSelect.map((option) => {
 			console.log('Option: ' + option.value);
-	  };
+	  });
       //search.focus();
       //search.select();
     });
