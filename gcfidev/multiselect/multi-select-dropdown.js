@@ -114,7 +114,7 @@ const MultiSelectDropdown = (params) => {
 
         div.querySelectorAll('span.optext, span.placeholder').forEach((placeholder) => div.removeChild(placeholder));
         let selected = Array.from(multiSelect.selectedOptions);  
-		showHideDrpdwnLayers(multiSelect.selectedOptions);
+		//showHideDrpdwnLayers(multiSelect.selectedOptions);
 		
 		console.log('Valittuna tällä hetkellä:' + selected.length);
 		selected.map((option) => {
@@ -196,7 +196,7 @@ const MultiSelectDropdown = (params) => {
       div.dropdownListWrapper.style.display = 'block';
 	  
 	  console.log('Valittuna tällä hetkellä (after click):' + multiSelect.selectedOptions.length);
-	  showHideDrpdwnLayers(multiSelect.selectedOptions);
+	  //showHideDrpdwnLayers(multiSelect.selectedOptions);
 	 
       //search.focus();
       //search.select();
