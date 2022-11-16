@@ -114,10 +114,12 @@ const MultiSelectDropdown = (params) => {
 
         div.querySelectorAll('span.optext, span.placeholder').forEach((placeholder) => div.removeChild(placeholder));
         let selected = Array.from(multiSelect.selectedOptions);  
+		showHideDrpdwnLayers(multiSelect.selectedOptions);
 		
 		console.log('Valittuna tällä hetkellä:' + selected.length);
 		selected.map((option) => {
 			console.log('Option: ' + option.value);
+			//showHideDrpdwnLayers(option.value);
 	    });
         
 		if (selected.length > (multiSelect.attributes['max-items']?.value ?? 2)) {
@@ -194,9 +196,8 @@ const MultiSelectDropdown = (params) => {
       div.dropdownListWrapper.style.display = 'block';
 	  
 	  console.log('Valittuna tällä hetkellä (after click):' + multiSelect.selectedOptions.length);
-	  multiSelect.map((option) => {
-			console.log('Option: ' + option.value);
-	  });
+	  showHideDrpdwnLayers(multiSelect.selectedOptions);
+	 
       //search.focus();
       //search.select();
     });
