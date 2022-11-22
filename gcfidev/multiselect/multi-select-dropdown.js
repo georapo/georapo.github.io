@@ -154,7 +154,7 @@ const MultiSelectDropdown = (params) => {
                   title: config.txtRemove,
                   onclick: (e) => {
                     span.srcElement.optionElement.dispatchEvent(new Event('click'));
-                    div.refresh();
+                    div.refresh();  showHideDrpdwnLayers(); 
                     e.stopPropagation();
                   }
                 })
@@ -177,7 +177,7 @@ const MultiSelectDropdown = (params) => {
         }
       };
       div.refresh();
-	  		showHideDrpdwnLayers(); <!-- GCFI -->
+	  		
     };
     multiSelect.loadOptions();
 	
