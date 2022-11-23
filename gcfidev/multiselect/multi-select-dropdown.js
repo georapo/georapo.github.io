@@ -1,3 +1,6 @@
+// 
+// Credits and is based on: https://github.com/admirhodzic/multiselect-dropdown
+//
 const MultiSelectDropdown = (params) => {
   let config = {
     search: false,
@@ -5,9 +8,6 @@ const MultiSelectDropdown = (params) => {
     useStyles: true,
     placeholder: 'Muu kartta...',
     txtSelected: 'ainestoa valittu',
-    //txtAll: 'Kaikki',
-    //txtRemove: 'Poista',
-    //txtSearch: 'Hae...',
     minWidth: '160px',
     maxWidth: '200px',
     maxHeight: '180px',
@@ -41,52 +41,15 @@ const MultiSelectDropdown = (params) => {
 
   document.querySelectorAll('select[multiple]').forEach((multiSelect) => {
     let div = newElement('div', { class: 'multiselect-dropdown' });
-	//div.id = 'dropdownKartat';
-    multiSelect.style.display = 'none';
+   multiSelect.style.display = 'none';
     multiSelect.parentNode.insertBefore(div, multiSelect.nextSibling);
     let dropdownListWrapper = newElement('div', { class: 'multiselect-dropdown-list-wrapper' });
     let dropdownList = newElement('div', { class: 'multiselect-dropdown-list' });
-    //let search = newElement('input', {
-    //  class: ['multiselect-dropdown-search'].concat([config.searchInput?.class ?? 'form-control']),
-    //  style: {
-    //    width: '100%',
-    //    display: config.search ? 'block' : multiSelect.attributes.search?.value === 'true' ? 'block' : 'none'
-    //  },
-    //  placeholder: config.txtSearch
-    //});
-    //dropdownListWrapper.appendChild(search);
     div.appendChild(dropdownListWrapper);
     dropdownListWrapper.appendChild(dropdownList);
 
     multiSelect.loadOptions = () => {
       dropdownList.innerHTML = '';
-
-     // if (config.selectAll || multiSelect.attributes['select-all']?.value === 'true') {
-     //   let optionElementAll = newElement('div', { class: 'multiselect-dropdown-all-selector' });
-     //   let optionCheckbox = newElement('input', { type: 'checkbox' });
-     //   optionElementAll.appendChild(optionCheckbox);
-     //   optionElementAll.appendChild(newElement('label', { text: config.txtAll }));
-     //
-     //   optionElementAll.addEventListener('click', () => {
-     //     optionElementAll.classList.toggle('checked');
-     //     optionElementAll.querySelector('input').checked = !optionElementAll.querySelector('input').checked;
-     //
-     //        let ch = optionElementAll.querySelector('input').checked;
-      //    dropdownList.querySelectorAll(':scope > div:not(.multiselect-dropdown-all-selector)').forEach((i) => {
-       //     if (i.style.display !== 'none') {
-        //      i.querySelector('input').checked = ch;
-        //      i.optEl.selected = ch;
-       //     }
-       //   });
-     //
-     //     multiSelect.dispatchEvent(new Event('change'));
-    //    });
-    //    optionCheckbox.addEventListener('click', () => {
-    //      optionCheckbox.checked = !optionCheckbox.checked;
-    //    });
-    //
-    //    dropdownList.appendChild(optionElementAll);
-   //   }
 
       Array.from(multiSelect.options).map((option) => {
         let optionElement = newElement('div', { class: option.selected ? 'checked' : '', srcElement: option });
@@ -109,16 +72,10 @@ const MultiSelectDropdown = (params) => {
       div.dropdownListWrapper = dropdownListWrapper;
 
       div.refresh = () => {
-        // For demo purposes, remove
-        //let tempSelectedList = document.getElementById('dropdownSelected');
 
         div.querySelectorAll('span.optext, span.placeholder').forEach((placeholder) => div.removeChild(placeholder));
         let selected = Array.from(multiSelect.selectedOptions);  
-		
-
-		//console.log('Valittuna tällä hetkellä:' + selected.length);
-	
-        
+		        
 		if (selected.length > (multiSelect.attributes['max-items']?.value ?? 2)) {
           div.appendChild(
             newElement('span', {
@@ -126,19 +83,8 @@ const MultiSelectDropdown = (params) => {
               text: selected.length + ' ' + config.txtSelected
             })
           );
-          // For demo purposes, remove
-          //tempSelectedList
-          //  .querySelectorAll('span')
-          //  .forEach((span, index) => index !== 0 && tempSelectedList.removeChild(span));
-          //selected.map((option) => tempSelectedList.appendChild(newElement('span', { text: option.text })));
-		  
-		  
 		  
         } else {
-          // For demo purposes, remove
-          //tempSelectedList
-          //  .querySelectorAll('span')
-          //  .forEach((span, index) => index !== 0 && tempSelectedList.removeChild(span));
 
           selected.map((option) => {
             let span = newElement('span', {
@@ -161,8 +107,6 @@ const MultiSelectDropdown = (params) => {
               );
             }
             div.appendChild(span);
-            // For demo purposes, remove
-            // tempSelectedList.appendChild(newElement('span', { text: option.text }));
           });
         }
         if (multiSelect.selectedOptions?.length === 0) {
@@ -172,8 +116,6 @@ const MultiSelectDropdown = (params) => {
               text: multiSelect.attributes?.placeholder?.value ?? config.placeholder
             })
           );
-          // For demo purposes, remove
-          // tempSelectedList.appendChild(newElement('span', { text: 'n/a' }));
         }
       };
       div.refresh();
@@ -181,23 +123,12 @@ const MultiSelectDropdown = (params) => {
     };
     multiSelect.loadOptions();
 	
-	
-
-    //search.addEventListener('input', () => {
-    //  dropdownList.querySelectorAll(':scope div:not(.multiselect-dropdown-all-selector)').forEach((div) => {
-    //    let innerText = div.querySelector('label').innerText.toLowerCase();
-    //    div.style.display = innerText.includes(search.value.toLowerCase()) ? 'flex' : 'none';
-    //  });
-    //});
 
     div.addEventListener('click', () => {
       div.dropdownListWrapper.style.display = 'block';
 	  
-	  //console.log('Valittuna tällä hetkellä (after click):' + multiSelect.selectedOptions.length);
-	  showHideDrpdwnLayers(); <!-- GCFI -->
+	  showHideDrpdwnLayers(); 
 	 
-      //search.focus();
-      //search.select();
     });
 
     document.addEventListener('click', (e) => {
@@ -281,21 +212,6 @@ const MultiSelectDropdown = (params) => {
         right: 0,
         background: 'var(--color-background)'
       },
-      //'.multiselect-dropdown-search': {
-      //  padding: '5px 6px 6px 5px',
-      //  'border-top-left-radius': 'var(--border-radius--base)',
-      //  'border-top-right-radius': 'var(--border-radius--base)',
-      //  border: 'solid 1px transparent',
-      //  'border-bottom': 'solid 1px var(--color-border)',
-      //  'font-size': 'inherit'
-      //},
-      //'.multiselect-dropdown-search::placeholder': {
-      //  color: 'var(--color-text--placeholder)',
-      //  'font-size': '11px'
-      //},
-      //'.multiselect-dropdown-search:focus, .multiselect-dropdown-search:focus-visible': {
-      //  outline: 'none'
-      //},
       '.multiselect-dropdown-list': {
         'overflow-y': 'auto',
         'overflow-x': 'hidden',
