@@ -4,7 +4,8 @@ kantakartatDefs = [
 ['Helsinki', 2756797, 8379567, 2815220, 8471882, 'https://kartta.hel.fi/ws/geoserver/avoindata/wms?', 'avoindata:Kantakartta', '3857', '1.3.0'],
 ['Vantaa', 2754528, 8451886, 2804662, 8489725, 'https://gis.vantaa.fi/geoserver/wms?', 'gis:kantakartta', '3857', '1.3.0'],
 ['Espoo', 2725041, 8411363, 2768861, 8483987, 'https://kartat.espoo.fi/teklaogcweb/wms.ashx?', 'Karttayhdistelma', '3857', '1.1.1'],
-['Tampere', 2616737, 8722086, 2688569, 8818975, 'https://georaster.tampere.fi/geoserver/ows?', 'kantakartta_EPSG_3067', '3067', '1.3.0'],
+//['Tampere', 2616737, 8722086, 2688569, 8818975, 'https://georaster.tampere.fi/geoserver/ows?', 'kantakartta_EPSG_3067', '3067', '1.3.0'],
+['Tampere', 2616737, 8722086, 2688569, 8818975, 'https://georaster.tampere.fi/geoserver/ows?', 'virastokartta_vari_EPSG_3067', '3067', '1.3.0'],
 ['Jyväskylä', 2748894, 8695819, 3004531, 9124998, 'https://kartta.jkl.fi/TeklaOgcWeb/WMS.ashx?', 'Maastokartta', '3857', '1.1.1'], // extent taitaa olla liian iso. cto
 ['Riihimäki', 2729518, 8542240, 2772192, 8583880, 'https://kartta.riihimaki.fi/teklaogcweb/wms.ashx?', 'Kantakartta', '3857', '1.1.1'],
 ['Joensuu', 3288203, 8914638, 3449809, 9124998, 'https://kartta.jns.fi/teklaogcweb/WMS.ashx?', 'Kantakartta', '3137', '1.1.1'],
