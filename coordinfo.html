@@ -45,7 +45,9 @@ body
           document.getElementById("gosubmit").click();
         } 
       })
-	  navigator.virtualKeyboard.show();
+	  if ("virtualKeyboard" in navigator) {
+	    navigator.virtualKeyboard.show();
+	  }
     }
 </script>
 </head>
