@@ -33,26 +33,26 @@ body
 	function goToPage_gcfi() {
 	        window.location = "https://www.geocache.fi/caches/cachetieto.php?wp=GC" + parsePage();
  	}
+	
+	function focustothis() {
+
+      var input = document.getElementById("page");
+      input.focus();
+    
+      input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();     // Cancel the default action, if needed
+          document.getElementById("gosubmit").click();
+        } 
+      })
+    }
 </script>
 </head>
-<body>
-<script>
-window.onload = function() {
-  var input = document.getElementById("page");
-  input.focus();
-    
-  input.addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {
-      event.preventDefault();     // Cancel the default action, if needed
-      document.getElementById("gosubmit").click();
-    } 
-  });
-};
- 
-</script>
+
+<body onload="focustothis()">
 
 <div id="main_body">
- <label>coord.info/GC </label><input type="text" id="page" size="10" style="height:30px;" autofocus: true; />
+ <label>coord.info/GC </label><input type="text" id="page" name="page" size="10" style="height:30px; autofocus: true;" />
  <input id="gosubmit" type="submit" value=">>> Go! >>>" style="height:30px;" onclick="goToPage_gccom();" />
  <br><br>
  
