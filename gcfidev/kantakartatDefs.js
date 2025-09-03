@@ -30,7 +30,7 @@ kantakartatDefs = [
 ['Huittinen', 2432262, 8592887, 2633832, 8774682, 'https://paikkatieto.karttatiimi.fi/huittinen/wms?', 'huittinen_kantakartta', '3877', '1.3.0'],
 ['Turku', 2458289, 8469305, 2511373, 8569112, 'https://opaskartta.turku.fi/TeklaOGCWeb/WMS.ashx?', 'Maastokartta', '3857', '1.1.1'],
 ['Salo', 2525105, 8396710, 2650988, 8535915, 'https://kartta.salo.fi/TeklaOGCWeb/wms.ashx?', 'Maastokartta', '3857', '1.1.1'],  // tausta läpinäkymätön 
-['Imatra', 3187670, 8645476, 3267510, 8686147, 'https://kartta.imatra.fi/imatra_ows/?', 'kantakartta_wms3', '3067', '1.3.0']
+['Imatra', 3194600, 8644700, 3231820, 8686370, 'https://kartta.imatra.fi/imatra_ows/?', 'kantakartta_wms3', '3067', '1.3.0']
 ];
 
 ortokartatDefs = [
