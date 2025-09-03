@@ -27,7 +27,7 @@ kantakartatDefs = [
 ['Seinäjoki', 2480078, 8929397, 2612948, 9125655,'https://kartat.seinajoki.fi/teklaogcweb/wms.ashx?', 'Kantakartta', '3857', '1.1.1'], // tausta läpinäkymätön
 ['Hanko', 2530243, 8340329, 2596257, 8389016, 'https://map.hanko.fi/wms/ows.ashx?', 'pohjakartta_mapset', '3878', '1.3.0'],  // tsekkaa extent- louhi ows. sama kuin porvoo
 ['Uusikaupunki', 2338555, 8503407, 2407759, 8647388, 'https://kartta.uki.fi/TeklaOGCWeb/WMS.ashx?', 'KantakartanMaastotiedot', '3857', '1.1.1'], 
-['Huittinen', 2432262, 8592887, 2633832, 8774682, 'https://paikkatieto.karttatiimi.fi/huittinen/wms?', 'huittinen_kantakkartta', '3877', '1.3.0'],
+['Huittinen', 2432262, 8592887, 2633832, 8774682, 'https://paikkatieto.karttatiimi.fi/geoserver/huittinen/ows?', 'huittinen_kantakkartta', '3877', '1.3.0'],
 ['Turku', 2458289, 8469305, 2511373, 8569112, 'https://opaskartta.turku.fi/TeklaOGCWeb/WMS.ashx?', 'Maastokartta', '3857', '1.1.1'],
 ['Salo', 2525105, 8396710, 2650988, 8535915, 'https://kartta.salo.fi/TeklaOGCWeb/wms.ashx?', 'Maastokartta', '3857', '1.1.1'],  // tausta läpinäkymätön 
 ['Imatra', 3194600, 8644700, 3231820, 8686370, 'https://kartta.imatra.fi/imatra_ows/?', 'kantakartta_wms3', '3067', '1.3.0']
