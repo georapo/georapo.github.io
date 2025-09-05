@@ -190,17 +190,16 @@ function installKantakartat() {
          //var b64 = getBase64Image(event.tile.M.currentSrc);
 
 	 
-			 
-      });
+			
 		
 	    kkLayers = layer.getLayers(); 
 	    kkLayers.push(ll);  
+      }
     }
-  }
-});
+  });
   
   installOrtokartat();
-//}
+}
 
 // getBase64Image.js: https://gist.github.com/colxi/c9ab898aa063e0943d4fae1840b982d8
 // get an image blob from url using fetch
