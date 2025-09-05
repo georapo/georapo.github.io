@@ -9,7 +9,7 @@ kantakartatDefs = [
 ['Tampere', 2616737, 8722086, 2688569, 8818975, 'https://georaster.tampere.fi/geoserver/ows?', 'virastokartta_vari_EPSG_3067', '3067', '1.3.0'],
 ['Jyväskylä', 2748894, 8695819, 3004531, 9124998, 'https://kartta.jkl.fi/TeklaOgcWeb/WMS.ashx?', 'Maastokartta', '3857', '1.1.1'], // extent taitaa olla liian iso. cto
 ['Riihimäki', 2729518, 8542240, 2772192, 8583880, 'https://kartta.riihimaki.fi/teklaogcweb/wms.ashx?', 'Kantakartta', '3857', '1.1.1'],
-['Joensuu', 3288203, 8914638, 3449809, 9124998, 'https://kartta.jns.fi/teklaogcweb/WMS.ashx?', 'Kantakartta', '3137', '1.1.1'],
+//['Joensuu', 3288203, 8914638, 3449809, 9124998, 'https://kartta.jns.fi/teklaogcweb/WMS.ashx?', 'Kantakartta', '3137', '1.1.1'], //vaatii nykyään autentikoinnin
 ['Kirkkonummi', 2705744, 8389025, 2744039, 8467686, 'https://paikkatieto.kirkkonummi.fi/server/services/kartat/Kirkkonummi_kantakartta/MapServer/WmsServer', '1,2,4,6,8,10,12,13,15,16,18,19,21,23,25,26,28,30,31,39,52,53,55,57,58,60,61,64,66,70,72', 'CRS:84', '1.3.0'],
 ['Nurmijärvi', 2730176, 8475729, 2780548, 8534705, 'https://kartta.nurmijarvi.fi/TeklaOGCWeb/WMS.ashx?', 'Kantakartta', '3137', '1.1.1'],
 ['Kuopio', 2984475, 8952216, 3229378, 9233902, 'https://ws.kuopio.fi/wms?', 'kantakartta', '3873', '1.1.1'],
