@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Sijaintikohde</title>
+    <title>GEOCACHE AR</title>
     <style>
         * {
             margin: 0;
@@ -199,7 +199,7 @@
         <!-- Info overlay -->
         <div id="info-overlay" class="hidden">
             <div id="info-header">
-                📍 AR Sijaintikohde
+                📍 GEOCACHE AR 
             </div>
             <div id="info-details">
                 <div id="location-info">Haetaan sijaintia...</div>
@@ -212,7 +212,7 @@
         <!-- Start screen -->
         <div id="start-screen">
             <div style="font-size: 64px;">📷</div>
-            <h1>GEOCACHE.FI AR</h1>
+            <h1>GEOCACHE AR</h1>
             <p>Näe geokätkön sijainti ympärilläsi lisätyn todellisuuden avulla</p>
             <button id="start-button">
                 🧭 Käynnistä AR
@@ -250,12 +250,22 @@
         let userLocation = null;
         let deviceOrientation = { alpha: 0, beta: 0, gamma: 0 };
         let animationFrameId = null;
+		
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const coords = urlParams.get('c').split(",");
+		const gccode = urlParams.get('g');
+		const gctype = urlParams.get('t');
+		
 
         // Kohteen koordinaatit (Helsingin tuomiokirkko esimerkkinä)
         const targetLocation = {
-            lat: 60.1708,
-            lng: 24.9522,
-            name: "Kohde"
+            //lat: 60.1708,
+			lat: coords[0],
+            //lng: 24.9522,
+			lng: coords[1],
+            //name: "Kohde"
+			name: gccode
         };
 
         // Päivitä kohteen tiedot
