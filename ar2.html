@@ -253,7 +253,7 @@
 	
         function toDegreesMinutes(coord) {
            const degrees = Math.floor(coord);
-           const minutes = (Math.abs(coord - degrees) * 60).toFixed(3);
+           const minutes = (Math.abs(coord - degrees) * 60).toFixed(3).padStart(6, '0');
            return `${degrees}° ${minutes}`;
         }
 	
