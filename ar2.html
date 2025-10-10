@@ -364,7 +364,7 @@
         function updateLocationInfo() {
             if (!userLocation) return;
             document.getElementById('location-info').textContent = 
-                `Sijainti: ${toDegreesMinutes(userLocation.lat)}, ${toDegreesMinutes(userLocation.lng)}`;
+                `Oma sijainti: ${toDegreesMinutes(userLocation.lat)}, ${toDegreesMinutes(userLocation.lng)}`;
 				//`Sijainti: ${userLocation.lat.toFixed(6)}, ${userLocation.lng.toFixed(6)}`;
             document.getElementById('accuracy-info').textContent = 
                 `Tarkkuus: ±${userLocation.accuracy.toFixed(0)}m`;
