@@ -373,8 +373,11 @@
         // Kuuntele orientaatiota
         function startOrientationTracking() {
             window.addEventListener('deviceorientation', (event) => {
+                // Käännetään alpha-arvo, koska laitteen kääntö oikealle 
+                // tarkoittaa että maailma näyttää liikkuvan vasemmalle
+                const rawAlpha = event.alpha || 0;
                 deviceOrientation = {
-                    alpha: event.alpha || 0,
+                    alpha: (360 - rawAlpha) % 360, // Käännetään suunta
                     beta: event.beta || 0,
                     gamma: event.gamma || 0
                 };
@@ -450,7 +453,7 @@
             const fov = 45;
             if (Math.abs(angleDiff) < fov) {
                 // Laske kohteen sijainti canvasilla
-                const x = canvas.width / 2 + (angleDiff / fov) * (canvas.width / 2);
+                const x = canvas.width / 2 - (angleDiff / fov) * (canvas.width / 2);
                 const y = canvas.height / 2;
 
                 // Piirry punainen ympyrä
@@ -460,12 +463,12 @@
                 ctx.fill();
 
                 // Piirry kohteen nimi
-                ctx.fillStyle = 'white';
-                ctx.font = 'bold 16px Arial';
-                ctx.textAlign = 'center';
-                ctx.shadowColor = 'black';
-                ctx.shadowBlur = 4;
-                ctx.fillText(targetLocation.name, x, y - 30);
+                //ctx.fillStyle = 'white';
+                //ctx.font = 'bold 16px Arial';
+                //ctx.textAlign = 'center';
+                //ctx.shadowColor = 'black';
+                //ctx.shadowBlur = 4;
+                //ctx.fillText(targetLocation.name, x, y - 30);
                 
                 // Piirry etäisyys
                 ctx.fillText(`${distance.toFixed(0)}m`, x, y + 45);
