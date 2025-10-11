@@ -370,7 +370,7 @@
                 `Tarkkuus: ±${userLocation.accuracy.toFixed(0)}m`;
         }
 
-        // Kuuntele orientaatiota
+         // Kuuntele orientaatiota
         function startOrientationTracking() {
             window.addEventListener('deviceorientation', (event) => {
                 deviceOrientation = {
@@ -378,10 +378,13 @@
                     beta: event.beta || 0,
                     gamma: event.gamma || 0
                 };
+                // Näytetään suunta käänteisesti käyttäjälle
+                const displayHeading = (360 - deviceOrientation.alpha) % 360;
                 document.getElementById('heading-info').textContent = 
-                    `Suunta: ${deviceOrientation.alpha.toFixed(0)}°`;
+                    `Suunta: ${displayHeading.toFixed(0)}°`;
             });
         }
+
         // Laske etäisyys (Haversine)
         function calculateDistance(lat1, lon1, lat2, lon2) {
             const R = 6371e3;
