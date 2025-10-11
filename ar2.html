@@ -373,11 +373,8 @@
         // Kuuntele orientaatiota
         function startOrientationTracking() {
             window.addEventListener('deviceorientation', (event) => {
-                // Käännetään alpha-arvo, koska laitteen kääntö oikealle 
-                // tarkoittaa että maailma näyttää liikkuvan vasemmalle
-                const rawAlpha = event.alpha || 0;
                 deviceOrientation = {
-                    alpha: (360 - rawAlpha) % 360, // Käännetään suunta
+                    alpha: event.alpha || 0,
                     beta: event.beta || 0,
                     gamma: event.gamma || 0
                 };
@@ -385,7 +382,6 @@
                     `Suunta: ${deviceOrientation.alpha.toFixed(0)}°`;
             });
         }
-
         // Laske etäisyys (Haversine)
         function calculateDistance(lat1, lon1, lat2, lon2) {
             const R = 6371e3;
