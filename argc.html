@@ -253,18 +253,49 @@
         let deviceOrientation = { alpha: 0, beta: 0, gamma: 0 };
         let animationFrameId = null;
 
+function toDegreesMinutes(coord) {
+           const degrees = Math.floor(coord);
+           const minutes = (Math.abs(coord - degrees) * 60).toFixed(3).padStart(6, '0');
+           return `${degrees}° ${minutes}`;
+        }
+		
+		function fromDegreesMinutes(dmString) {
+          // Erotellaan asteet ja minuutit pisteen perusteella
+          // esim. "60.10.248" → ["60", "10", "248"]
+          const parts = dmString.split('.');
+
+          const degrees = parseInt(parts[0], 10);
+          // Liitetään loput pisteen jälkeiset osat yhteen (jos niitä on useita)
+          const minutes = parseFloat(parts.slice(1).join('.'));
+
+          // Muutetaan desimaaliasteiksi
+          return degrees + (minutes / 60);
+        }
+	
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const coords = urlParams.get('c').split(",");
+		const gccode = urlParams.get('g');
+		const gctype = urlParams.get('t');
+		
+		const c1 = (coords[0].split('.').length == 3 ? fromDegreesMinutes(coords[0]) : coords[0]);
+		const c2 = (coords[1].split('.').length == 3 ? fromDegreesMinutes(coords[1]) : coords[1]);
+
+		//sisäsesti laskuissa koordinaatit hallitaan dd.dddd, mutta esitettäessä käyttöliittymässä 'DD MM.mmm'
+		
         // Kohteen koordinaatit (Helsingin tuomiokirkko esimerkkinä)
         const targetLocation = {
-            lat: 60.1708,
-            lng: 24.9522,
-            name: "Kohde"
+			lat: parseFloat(c1),  //lat: 60.1708,
+			lng: parseFloat(c2),  //lng: 24.9522,
+			name: gccode  //name: "Kohde"
         };
+
 
         // Päivitä kohteen tiedot
         document.getElementById('target-name').textContent = targetLocation.name;
         document.getElementById('target-coords').textContent = 
-            `${targetLocation.lat.toFixed(6)}, ${targetLocation.lng.toFixed(6)}`;
-
+            `${toDegreesMinutes(targetLocation.lat)}, ${toDegreesMinutes(targetLocation.lng)}`;
+			
         // Näytä virheviesti
         function showError(message) {
             errorMessage.textContent = message;
@@ -358,7 +389,9 @@
         function updateLocationInfo() {
             if (!userLocation) return;
             document.getElementById('location-info').textContent = 
-                `Sijainti: ${userLocation.lat.toFixed(6)}, ${userLocation.lng.toFixed(6)}`;
+                `Oma sijainti: ${toDegreesMinutes(userLocation.lat.toFixed(6))}, ${toDegreesMinutes(userLocation.lng.toFixed(6))}`;
+				
+				
             document.getElementById('accuracy-info').textContent = 
                 `Tarkkuus: ±${userLocation.accuracy.toFixed(0)}m`;
             
