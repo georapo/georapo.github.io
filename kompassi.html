@@ -3,18 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
-<title>AR-kohdepiste</title>
+<title>AR-kohde (korjattu)</title>
 <style>
-  html, body { margin:0; height:100%; overflow:hidden; background:black; }
-  video {
-    position:fixed; inset:0;
-    object-fit:cover; width:100%; height:100%;
-    z-index:0;
-  }
+  html,body {margin:0; height:100%; background:black; overflow:hidden;}
+  video {position:fixed; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;}
   #dot {
     position:fixed;
     width:20px; height:20px;
-    background:red; border-radius:50%;
+    border-radius:50%;
+    background:red;
     box-shadow:0 0 15px 5px rgba(255,0,0,0.6);
     transform:translate(-50%,-50%);
     z-index:2;
@@ -22,7 +19,7 @@
   }
   #status {
     position:fixed; bottom:10px; left:10px;
-    color:#fff; font-family:sans-serif; font-size:13px;
+    color:white; font-family:sans-serif; font-size:13px;
     z-index:3; text-shadow:0 0 5px black;
   }
 </style>
@@ -31,58 +28,54 @@
 
 <video id="camera" autoplay playsinline></video>
 <div id="dot"></div>
-<div id="status">Käynnistyy…</div>
+<div id="status">Käynnistyy...</div>
 
 <script>
-/* --- Perusasetukset --- */
-const FOV_H = 60; // vaakasuuntainen näkökenttä-aste (arvio)
-const FOV_V = 40; // pystysuuntainen näkökenttä
 const dot = document.getElementById('dot');
 const statusEl = document.getElementById('status');
 const video = document.getElementById('camera');
 
-// Esimerkkikohde (Helsinki)
-let target = { lat: 60.192059, lon: 24.945831 };
+// arvioitu näkökenttä kameralle (asteina)
+const FOV_H = 60;
+const FOV_V = 40;
 
+// kohde (WGS84)
+let target = { lat: 60.192059, lon: 24.945831 }; // Helsinki
 let pos = null;
-let heading = null;
-let pitch = 0, roll = 0;
 
-/* --- Matematiikka --- */
+// laitteen asento
+let alpha=0, beta=0, gamma=0, heading=null;
+
+const toRad = d => d * Math.PI/180;
+const toDeg = r => r * 180/Math.PI;
 const R = 6371000;
-const toRad = d => d * Math.PI / 180;
-const toDeg = r => r * 180 / Math.PI;
 
-function bearing(lat1, lon1, lat2, lon2) {
-  const φ1 = toRad(lat1), φ2 = toRad(lat2), Δλ = toRad(lon2 - lon1);
-  const y = Math.sin(Δλ) * Math.cos(φ2);
-  const x = Math.cos(φ1)*Math.sin(φ2) - Math.sin(φ1)*Math.cos(φ2)*Math.cos(Δλ);
-  return (toDeg(Math.atan2(y,x)) + 360) % 360;
+// haversine + bearing
+function bearing(lat1, lon1, lat2, lon2){
+  const φ1=toRad(lat1), φ2=toRad(lat2), Δλ=toRad(lon2-lon1);
+  const y=Math.sin(Δλ)*Math.cos(φ2);
+  const x=Math.cos(φ1)*Math.sin(φ2)-Math.sin(φ1)*Math.cos(φ2)*Math.cos(Δλ);
+  return (toDeg(Math.atan2(y,x))+360)%360;
+}
+function distance(lat1, lon1, lat2, lon2){
+  const φ1=toRad(lat1), φ2=toRad(lat2);
+  const dφ=φ2-φ1, dλ=toRad(lon2-lon1);
+  const a=Math.sin(dφ/2)**2+Math.cos(φ1)*Math.cos(φ2)*Math.sin(dλ/2)**2;
+  return 2*R*Math.asin(Math.sqrt(a));
 }
 
-function distance(lat1, lon1, lat2, lon2) {
-  const φ1 = toRad(lat1), φ2 = toRad(lat2);
-  const dφ = φ2 - φ1, dλ = toRad(lon2 - lon1);
-  const a = Math.sin(dφ/2)**2 + Math.cos(φ1)*Math.cos(φ2)*Math.sin(dλ/2)**2;
-  return 2 * R * Math.asin(Math.sqrt(a));
-}
-
-/* --- Kamera --- */
+// --- Kameran käynnistys ---
 async function startCamera(){
   try {
     const stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}}});
     video.srcObject = stream;
-  } catch (e) {
-    statusEl.textContent = "Kamera ei auennut: " + e.message;
+  } catch(err) {
+    statusEl.textContent = "Kamera ei auennut: "+err.message;
   }
 }
 
-/* --- Sijainti --- */
+// --- GPS ---
 function initGeo(){
-  if (!navigator.geolocation) {
-    statusEl.textContent = "Geolokaatio ei tuettu";
-    return;
-  }
   navigator.geolocation.watchPosition(p=>{
     pos = {lat:p.coords.latitude, lon:p.coords.longitude};
   }, e=>{
@@ -90,81 +83,72 @@ function initGeo(){
   }, {enableHighAccuracy:true, maximumAge:1000});
 }
 
-/* --- Suunta ja kallistus --- */
+// --- Laitteen asento ---
 function onOrientation(e){
-  const screenAngle = screen.orientation?.angle || 0;
-
-  const iosHeading = e.webkitCompassHeading;
-  const useIOS = typeof iosHeading === 'number';
-
-  // Kompassisuunta
-  heading = useIOS ? iosHeading : (360 - e.alpha + screenAngle) % 360;
-
-  // Normalisoi pitch & roll eri orientaatioissa
-  switch(screenAngle){
-    case 0:   // portrait
-      pitch = e.beta; roll = e.gamma;
-      break;
-    case 90:  // landscape right
-      pitch = e.gamma; roll = -e.beta;
-      break;
-    case 180: // upside down
-      pitch = -e.beta; roll = -e.gamma;
-      break;
-    case 270: // landscape left
-      pitch = -e.gamma; roll = e.beta;
-      break;
-  }
+  alpha = e.alpha || 0;
+  beta  = e.beta  || 0;
+  gamma = e.gamma || 0;
+  heading = e.webkitCompassHeading ?? (360 - alpha);
 }
 
-/* --- Pisteen sijoitus --- */
+// --- 3D muunnos ---
+function eulerToForwardVector(alpha, beta, gamma){
+  // muunna laitteen suuntavektori (eteenpäin) maailmakoordinaattiin
+  const a = toRad(alpha);
+  const b = toRad(beta);
+  const g = toRad(gamma);
+  // standardimuunnos (Z-X'-Y'') Euler-kulmista
+  const x = Math.cos(b)*Math.sin(a) - Math.sin(b)*Math.sin(g)*Math.cos(a);
+  const y = Math.sin(b)*Math.cos(g);
+  const z = Math.cos(b)*Math.cos(a) + Math.sin(b)*Math.sin(g)*Math.sin(a);
+  return {x, y, z};
+}
+
+// --- Täplän laskenta ---
 function project(){
-  if (!pos || heading === null) return;
+  if(!pos || heading===null) return;
 
-  const bear = bearing(pos.lat, pos.lon, target.lat, target.lon);
-  const dist = distance(pos.lat, pos.lon, target.lat, target.lon);
-  const rel = ((bear - heading + 540) % 360) - 180; // -180..180
-  const pitchAdj = -pitch;
+  const bear = bearing(pos.lat,pos.lon,target.lat,target.lon);
+  const dist = distance(pos.lat,pos.lon,target.lat,target.lon);
+  const azDiff = ((bear - heading + 540)%360) - 180; // vaakakulmaero
 
-  const halfH = FOV_H / 2;
-  const halfV = FOV_V / 2;
+  // arvioidaan kohteen korkeus (y) – ilman korkeuseroa
+  const pitch = beta - 90; // laite 90° kun pystyasennossa -> 0 = horisontti
+  const halfH = FOV_H/2;
+  const halfV = FOV_V/2;
 
-  if (Math.abs(rel) < halfH && Math.abs(pitchAdj) < halfV) {
-    // kohde on kameran näkymässä
-    const x = (rel / halfH / 2 + 0.5) * window.innerWidth;
-    const y = (0.5 - pitchAdj / halfV / 2) * window.innerHeight;
-    dot.style.left = x + "px";
-    dot.style.top = y + "px";
+  if(Math.abs(azDiff)<halfH && Math.abs(pitch)<halfV){
+    const x = (azDiff/halfH/2 + 0.5) * window.innerWidth;
+    const y = (0.5 - pitch/halfV/2) * window.innerHeight;
+    dot.style.left = x+"px";
+    dot.style.top = y+"px";
     dot.style.display = "block";
   } else {
     dot.style.display = "none";
   }
 
-  statusEl.textContent = `Etäisyys: ${dist.toFixed(0)} m  | Suunta: ${bear.toFixed(0)}°`;
+  statusEl.textContent = `Etäisyys: ${dist.toFixed(0)} m | Suunta: ${bear.toFixed(0)}°`;
 }
 
-/* --- Orientation-luvat --- */
+// --- Orientation-lupa (iOS) ---
 async function initOrientation(){
-  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-    try {
+  if(typeof DeviceOrientationEvent.requestPermission==='function'){
+    try{
       const r = await DeviceOrientationEvent.requestPermission();
-      if (r !== 'granted') {
-        statusEl.textContent = "Kompassin lupa estetty";
+      if(r!=='granted'){
+        statusEl.textContent="Kompassin lupa estetty";
         return;
       }
-    } catch (err) {
-      statusEl.textContent = "Luvan pyynnössä virhe";
-      return;
-    }
+    }catch(err){statusEl.textContent="Luvan pyynnössä virhe";return;}
   }
   window.addEventListener('deviceorientation', onOrientation);
 }
 
-/* --- Käynnistä kaikki --- */
+// --- Käynnistys ---
 startCamera();
 initGeo();
 initOrientation();
-setInterval(project, 150);
+setInterval(project,150);
 </script>
 </body>
 </html>
