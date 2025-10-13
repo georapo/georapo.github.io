@@ -341,10 +341,13 @@
                     beta: event.beta || 0,     // Kallistus eteen/taakse (-180 - 180)
                     gamma: event.gamma || 0    // Kallistus sivulle (-90 - 90)
                 };
-                
+                const heading = (360 - deviceOrientation.alpha) % 360;
+				
                 // Näytetään suoraan alpha-arvo (0° = pohjoinen, 90° = itä jne.)
-                document.getElementById('heading-info').textContent = 
-                    `Suunta: ${deviceOrientation.alpha.toFixed(0)}° | Beta: ${deviceOrientation.beta.toFixed(0)}° | Gamma: ${deviceOrientation.gamma.toFixed(0)}°`;
+               // document.getElementById('heading-info').textContent = 
+               //     `Suunta: ${deviceOrientation.alpha.toFixed(0)}° | Beta: ${deviceOrientation.beta.toFixed(0)}° | Gamma: ${deviceOrientation.gamma.toFixed(0)}°`;
+					document.getElementById('heading-info').textContent = 
+                    `Suunta: ${heading.toFixed(0)}° | Beta: ${deviceOrientation.beta.toFixed(0)}° | Gamma: ${deviceOrientation.gamma.toFixed(0)}°`;
             });
         }
 
