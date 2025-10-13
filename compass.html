@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kompassisuunta</title>
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    background: #f0f0f0;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #arrow {
+    width: 150px;
+    height: 150px;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Red_triangle.svg/240px-Red_triangle.svg.png') no-repeat center;
+    background-size: contain;
+    transform-origin: 50% 80%;
+    transition: transform 0.2s ease-out;
+  }
+  #heading {
+    font-size: 2em;
+    margin-top: 20px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 0.8em 1.2em;
+    border: none;
+    border-radius: 8px;
+    background: #007aff;
+    color: white;
+    font-size: 1em;
+  }
+</style>
+</head>
+<body>
+
+<div id="arrow"></div>
+<div id="heading">–</div>
+<button id="startBtn">Käynnistä kompassi</button>
+
+<script>
+function getCompassHeading(alpha, beta, gamma, screenOrientation) {
+  const _deg2rad = Math.PI / 180;
+  const _rad2deg = 180 / Math.PI;
+
+  const _alpha = alpha * _deg2rad;
+  const _beta = beta * _deg2rad;
+  const _gamma = gamma * _deg2rad;
+
+  const cA = Math.cos(_alpha), sA = Math.sin(_alpha);
+  const cB = Math.cos(_beta), sB = Math.sin(_beta);
+  const cG = Math.cos(_gamma), sG = Math.sin(_gamma);
+
+  const x = -cA * sG - sA * sB * cG;
+  const y = -sA * sG + cA * sB * cG;
+
+  let heading = Math.atan2(x, y) * _rad2deg;
+
+  heading += screenOrientation || window.screen.orientation?.angle || 0;
+  heading = (heading + 360) % 360;
+
+  return heading;
+}
+
+function handleOrientation(event) {
+  const { alpha, beta, gamma } = event;
+  const orientation = window.screen.orientation?.angle || 0;
+
+  const heading = getCompassHeading(alpha, beta, gamma, orientation);
+  document.getElementById("heading").textContent = heading.toFixed(0) + "°";
+  document.getElementById("arrow").style.transform = `rotate(${heading}deg)`;
+}
+
+function startCompass() {
+  if (typeof DeviceOrientationEvent.requestPermission === "function") {
+    DeviceOrientationEvent.requestPermission().then(response => {
+      if (response === "granted") {
+        window.addEventListener("deviceorientation", handleOrientation, true);
+      } else {
+        alert("Kompassilupaa ei myönnetty.");
+      }
+    }).catch(console.error);
+  } else {
+    window.addEventListener("deviceorientation", handleOrientation, true);
+  }
+}
+
+document.getElementById("startBtn").addEventListener("click", startCompass);
+</script>
+
+</body>
+</html>
