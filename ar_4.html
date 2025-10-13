@@ -136,7 +136,7 @@ function handleDeviceOrientationAbsolute(e){
   }
   if (heading !== null){
     lastHeading = heading;
-	statusEl.textContent += ' — Suunta: {heading}°';
+	statusEl.textContent += ' — Suunta: ${heading}°';
     updateOverlay();
   }
 }
