@@ -2,10 +2,7 @@
 <html lang="fi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AR Sijaintikohde</title>
     <style>
         * {
@@ -340,14 +337,16 @@
         function startOrientationTracking() {
             window.addEventListener('deviceorientation', (event) => {
                 deviceOrientation = {
-                    alpha: event.alpha || 0,
-                    beta: event.beta || 0,
-                    gamma: event.gamma || 0
+                    alpha: event.alpha || 0,   // Kompassi
+                    beta: event.beta || 0,     // Kallistus eteen/taakse (-180 - 180)
+                    gamma: event.gamma || 0    // Kallistus sivulle (-90 - 90)
                 };
-                // Näytetään suunta käänteisesti käyttäjälle
+                
+                // Landscape-moodissa käytetään gammaa suunnan määritykseen
+                // kun puhelin on pystyasennossa kuin ikkunana
                 const displayHeading = (360 - deviceOrientation.alpha) % 360;
                 document.getElementById('heading-info').textContent = 
-                    `Suunta: ${displayHeading.toFixed(0)}°`;
+                    `Suunta: ${displayHeading.toFixed(0)}° | Beta: ${deviceOrientation.beta.toFixed(0)}° | Gamma: ${deviceOrientation.gamma.toFixed(0)}°`;
             });
         }
 
@@ -409,37 +408,60 @@
                 targetLocation.lng
             );
 
-            // Tarkista onko kohde näkyvissä
+            // Laske kohteen korkeus/korkeuskulma (yksinkertaistettu)
+            // Oletetaan että kohde on maassa, katsotaan vaakasuorassa
+            const elevationAngle = 0; // Voidaan laajentaa myöhemmin
+
+            // Tarkista horisontaalinen suunta (käytetään alphaa kompassina)
             const deviceHeading = deviceOrientation.alpha;
             let angleDiff = bearing - deviceHeading;
             if (angleDiff > 180) angleDiff -= 360;
             if (angleDiff < -180) angleDiff += 360;
 
-            const fov = 45;
-            if (Math.abs(angleDiff) < fov) {
-                // Laske kohteen sijainti canvasilla
-                // Käännetään x-akseli, koska kun käännät puhelinta oikealle,
-                // kohteen pitää näyttää liikkuvan vasemmalle
-                const x = canvas.width / 2 - (angleDiff / fov) * (canvas.width / 2);
-                const y = canvas.height / 2;
-
-                // Piirry punainen ympyrä
-                ctx.fillStyle = 'rgba(255, 0, 0, 0.7)';
-                ctx.beginPath();
-                ctx.arc(x, y, 20, 0, 2 * Math.PI);
-                ctx.fill();
-
-                // Piirry kohteen nimi
-                ctx.fillStyle = 'white';
-                ctx.font = 'bold 16px Arial';
-                ctx.textAlign = 'center';
-                ctx.shadowColor = 'black';
-                ctx.shadowBlur = 4;
-                ctx.fillText(targetLocation.name, x, y - 30);
+            // Pystysuuntainen kulma (beta kertoo puhelimen kallistuksen)
+            // Beta: 0 = pysty, 90 = vaaka eteenpäin, -90 = vaaka taaksepäin
+            // Kun puhelin on pystyasennossa (beta ~0-20), näytetään kohde
+            const verticalAngle = deviceOrientation.beta;
+            
+            // FOV (field of view) - näkökenttä
+            const horizontalFOV = 60; // Vaakasuuntainen näkökenttä
+            const verticalFOV = 45;   // Pystysuuntainen näkökenttä
+            
+            // Tarkista onko kohde näkyvissä horisontaalisesti
+            if (Math.abs(angleDiff) < horizontalFOV / 2) {
+                // Laske kohteen X-sijainti (horisontaalinen)
+                const x = canvas.width / 2 - (angleDiff / (horizontalFOV / 2)) * (canvas.width / 2);
                 
-                // Piirry etäisyys
-                ctx.fillText(`${distance.toFixed(0)}m`, x, y + 45);
-                ctx.shadowBlur = 0;
+                // Laske kohteen Y-sijainti (vertikaalinen)
+                // Kun beta on ~0-20 (puhelin pystyasennossa), kohde näkyy keskellä
+                // Jos beta kasvaa (kallistat eteenpäin), kohde siirtyy ylös
+                const verticalOffset = (verticalAngle - 10) / verticalFOV; // 10° on "normaali" katselukulma
+                const y = canvas.height / 2 - verticalOffset * canvas.height;
+
+                // Piirry vain jos kohde on näkyvissä myös vertikaalisesti
+                if (y > -50 && y < canvas.height + 50) {
+                    // Piirry punainen ympyrä
+                    ctx.fillStyle = 'rgba(255, 0, 0, 0.7)';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 20, 0, 2 * Math.PI);
+                    ctx.fill();
+
+                    // Piirry kohteen nimi
+                    ctx.fillStyle = 'white';
+                    ctx.font = 'bold 16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.shadowColor = 'black';
+                    ctx.shadowBlur = 4;
+                    ctx.fillText(targetLocation.name, x, y - 30);
+                    
+                    // Piirry etäisyys
+                    ctx.fillText(`${distance.toFixed(0)}m`, x, y + 45);
+                    
+                    // Piirry suuntakulma (debug)
+                    ctx.font = '12px Arial';
+                    ctx.fillText(`${bearing.toFixed(0)}°`, x, y + 65);
+                    ctx.shadowBlur = 0;
+                }
             }
 
             animationFrameId = requestAnimationFrame(drawAR);
