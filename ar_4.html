@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
+<title>AR-navigointi (vanilla JS)</title>
+<style>
+  html,body { height:100%; margin:0; font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial; background:#000; color:#fff; }
+  #camera { position:fixed; inset:0; object-fit:cover; width:100%; height:100%; z-index:0; }
+  #overlay { position:fixed; inset:0; z-index:2; pointer-events:none; display:flex; align-items:flex-end; justify-content:center; padding:20px; }
+  .panel { pointer-events:auto; background:rgba(0,0,0,0.4); padding:12px; border-radius:12px; backdrop-filter:blur(4px); text-align:center;}
+  #arrow { width:120px; height:120px; transition: transform 0.12s linear; }
+  #distance { font-size:18px; margin-top:8px; }
+  #controls { position:fixed; top:12px; left:12px; z-index:3; }
+  input[type="text"]{ width:190px; padding:6px; border-radius:6px; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.03); color:#fff;}
+  button{ margin-left:8px; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.06); color:#fff;}
+  #status{ position:fixed; bottom:20px; left:20px; z-index:4; font-size:13px; opacity:0.9;}
+</style>
+</head>
+<body>
+
+<video id="camera" autoplay playsinline></video>
+
+<div id="controls">
+  <div class="panel">
+    <div>
+      Kohde (WGS84 DD.ddddd):<br/>
+      <input id="targetLat" type="text" placeholder="lat (esim. 60.192059)" />
+      <input id="targetLon" type="text" placeholder="lon (esim. 24.945831)" />
+      <button id="setTarget">Aseta</button>
+    </div>
+  </div>
+</div>
+
+<div id="overlay">
+  <div class="panel">
+    <!-- SVG arrow that we will rotate -->
+    <svg id="arrow" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(50,50)">
+        <path d="M0,-40 L10,0 L4,0 L4,40 L-4,40 L-4,0 L-10,0 Z" fill="white" opacity="0.95"/>
+        <circle r="6" fill="rgba(0,0,0,0.4)"/>
+      </g>
+    </svg>
+    <div id="distance">-- m</div>
+  </div>
+</div>
+
+<div id="status">Odottamassa lupia / sijaintia...</div>
+
+<script>
+/* --- Utility: muunnokset ja geolaskelmat --- */
+const R = 6371000; // maapallon säde metreinä
+
+function toRad(d){ return d * Math.PI / 180; }
+function toDeg(r){ return r * 180 / Math.PI; }
+
+// Haversine-etäisyys (metreinä)
+function distanceMeters(lat1, lon1, lat2, lon2){
+  const φ1 = toRad(lat1), φ2 = toRad(lat2);
+  const Δφ = toRad(lat2 - lat1);
+  const Δλ = toRad(lon2 - lon1);
+  const a = Math.sin(Δφ/2)**2 + Math.cos(φ1)*Math.cos(φ2)*Math.sin(Δλ/2)**2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
+// Alkuperäinen bearing (kompassisuunta) radiaaneina + palauttaa 0..360 astetta
+function bearingDeg(lat1, lon1, lat2, lon2){
+  const φ1 = toRad(lat1), φ2 = toRad(lat2);
+  const λ1 = toRad(lon1), λ2 = toRad(lon2);
+  const y = Math.sin(λ2-λ1) * Math.cos(φ2);
+  const x = Math.cos(φ1)*Math.sin(φ2) - Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
+  let θ = toDeg(Math.atan2(y,x)); // -180..180
+  θ = (θ + 360) % 360;
+  return θ;
+}
+
+/* --- DOM --- */
+const video = document.getElementById('camera');
+const arrow = document.getElementById('arrow');
+const distanceEl = document.getElementById('distance');
+const statusEl = document.getElementById('status');
+const setBtn = document.getElementById('setTarget');
+const targetLatInput = document.getElementById('targetLat');
+const targetLonInput = document.getElementById('targetLon');
+
+let target = null; // {lat, lon}
+let lastHeading = null; // 0..360 - laitteen kompassisuunta (mistä päin laite osoittaa)
+let lastPosition = null; // {lat, lon}
+
+/* --- Camera --- */
+async function startCamera(){
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } }});
+    video.srcObject = stream;
+  }catch(e){
+    // fallback: ilman exact -> joissain laitteissa ei toimi
+    try{
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }});
+      video.srcObject = stream;
+    }catch(err){
+      console.error("Kamera ei auennut:", err);
+      statusEl.textContent = "Kameran avaus epäonnistui. Salli kamera ja yritä uudelleen.";
+    }
+  }
+}
+
+/* --- Sijainti --- */
+function initGeolocation(){
+  if(!('geolocation' in navigator)){
+    statusEl.textContent = "Selaimesi ei tue geolokaatiota.";
+    return;
+  }
+  navigator.geolocation.watchPosition(pos=>{
+    const coords = pos.coords;
+    lastPosition = { lat: coords.latitude, lon: coords.longitude };
+    statusEl.textContent = `Sijainti: ${coords.latitude.toFixed(6)}, ${coords.longitude.toFixed(6)} — tarkkuus ${coords.accuracy} m`;
+    updateOverlay();
+  }, err=>{
+    console.error(err);
+    statusEl.textContent = "Sijainnin lukeminen epäonnistui: " + err.message;
+  }, { enableHighAccuracy: true, maximumAge: 1000, timeout: 5000 });
+}
+
+/* --- Suunta/kompassi --- */
+function handleDeviceOrientationAbsolute(e){
+  // modernit selaimet antavat e.alpha (0..360) suhteessa maantieteelliseen pohjoiseen kun absolute=true
+  // tarvitaan testausta eri laitteilla; iOS saattaa antaa webkitCompassHeading
+  let heading = null;
+  if (e.absolute && typeof e.alpha === 'number') {
+    // e.alpha is device rotation around Z-axis, but mapping to compass depends on device orientation.
+    // Use this as starting point; we may need to adjust by screen orientation in real app.
+    heading = (360 - e.alpha) % 360; // convert to compass bearing
+  } else if (typeof e.webkitCompassHeading === 'number'){
+    heading = e.webkitCompassHeading; // iOS Safari
+  }
+  if (heading !== null){
+    lastHeading = heading;
+    updateOverlay();
+  }
+}
+
+async function initOrientation(){
+  // iOS 13+ requires user gesture and explicit permission
+  if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
+    try{
+      const perm = await DeviceOrientationEvent.requestPermission(); // must be called in user gesture
+      if (perm === 'granted'){
+        window.addEventListener('deviceorientation', handleDeviceOrientationAbsolute, true);
+      } else {
+        statusEl.textContent = 'Kompassin lupa estetty — suunta ei päivity.';
+      }
+    }catch(err){
+      console.warn(err);
+      statusEl.textContent = 'Kompassin pyynnössä virhe.';
+    }
+  } else {
+    // muut selaimet
+    window.addEventListener('deviceorientationabsolute' in window ? 'deviceorientationabsolute' : 'deviceorientation', handleDeviceOrientationAbsolute, true);
+  }
+}
+
+/* --- Päivitä nuoli ja etäisyys --- */
+function updateOverlay(){
+  if(!target || !lastPosition) return;
+  // laske bearing käyttäjän sijainnista kohteeseen
+  const b = bearingDeg(lastPosition.lat, lastPosition.lon, target.lat, target.lon); // 0..360 = kierros, missä 0=north
+  const d = distanceMeters(lastPosition.lat, lastPosition.lon, target.lat, target.lon);
+  distanceEl.textContent = (d >= 1000) ? (d/1000).toFixed(2) + ' km' : Math.round(d) + ' m';
+
+  if (lastHeading === null){
+    // jos ei kompassia, osoita suoraan ylös (voisimme käyttää gps-suuntaa mutta se vaatii liikettä)
+    arrow.style.transform = `rotate(${b}deg)`;
+  } else {
+    // haluamme näyttää nuolen suhteessa näytön eteenpäin - eli eron (kohteen bearing - laitteen heading)
+    // jos laite osoittaa heading H ja kohde on bearing B, nuolen ympäri pyörähdys = (B - H)
+    const relative = (b - lastHeading + 540) % 360 - 180; // normalized to -180..180
+    arrow.style.transform = `rotate(${relative}deg)`;
+  }
+}
+
+/* --- Aseta kohdepainike --- */
+setBtn.addEventListener('click', ()=>{
+  const lat = parseFloat(targetLatInput.value);
+  const lon = parseFloat(targetLonInput.value);
+  if (!isFinite(lat) || !isFinite(lon)){
+    alert('Anna kelvollinen lat ja lon (DD.ddddd muodossa).');
+    return;
+  }
+  target = { lat, lon };
+  statusEl.textContent = `Kohde asetettu: ${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+  updateOverlay();
+});
+
+/* --- Aloita kaikki --- */
+async function startAll(){
+  startCamera();
+  initGeolocation();
+  await initOrientation();
+}
+
+// pyydetään DeviceOrientation-lupa tarvittaessa (iOS vaatii user gesture)
+document.addEventListener('click', async function onFirstClick(){
+  // Poistetaan tämä event listener - vain ensimmäinen click tarvitaan lupiin
+  document.removeEventListener('click', onFirstClick);
+  try{
+    // jos iOS: pyydetään lupaa
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
+      // kokeile pyytää lupaa
+      await DeviceOrientationEvent.requestPermission();
+    }
+  }catch(e){/*ei hätää*/}
+  startAll();
+});
+
+// vaihtoehto: käynnistä heti jos haluat ilman click-optimointia (voi epäonnistua iOS:ssa)
+// startAll();
+</script>
+
+</body>
+</html>
