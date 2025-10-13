@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kompassisuunta – toimii kaikissa asennoissa</title>
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  #arrow {
+    width: 150px;
+    height: 150px;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Red_triangle.svg/240px-Red_triangle.svg.png') no-repeat center;
+    background-size: contain;
+    transform-origin: 50% 80%;
+    transition: transform 0.2s ease-out;
+  }
+  #heading {
+    font-size: 2em;
+    margin-top: 20px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 0.8em 1.2em;
+    border: none;
+    border-radius: 8px;
+    background: #007aff;
+    color: white;
+    font-size: 1em;
+  }
+</style>
+</head>
+<body>
+
+<div id="arrow"></div>
+<div id="heading">–</div>
+<button id="startBtn">Käynnistä kompassi</button>
+
+<script>
+function normalizeAngle(a) {
+  return (a % 360 + 360) % 360;
+}
+
+function getCompassHeading(alpha, beta, gamma) {
+  const deg2rad = Math.PI / 180;
+  const rad2deg = 180 / Math.PI;
+
+  const _x = beta * deg2rad;
+  const _y = gamma * deg2rad;
+  const _z = alpha * deg2rad;
+
+  const cX = Math.cos(_x), cY = Math.cos(_y), cZ = Math.cos(_z);
+  const sX = Math.sin(_x), sY = Math.sin(_y), sZ = Math.sin(_z);
+
+  // perusrotaatiomatriisi (W3C-specifikaatio)
+  const Vx = -cZ * sY - sZ * sX * cY;
+  const Vy = -sZ * sY + cZ * sX * cY;
+  const heading = Math.atan2(Vx, Vy) * rad2deg;
+  return normalizeAngle(heading);
+}
+
+function getScreenAdjustedHeading(alpha, beta, gamma) {
+  let heading = getCompassHeading(alpha, beta, gamma);
+  const orientation = window.screen.orientation?.angle || window.orientation || 0;
+
+  // Korjaus eri orientaatioihin
+  switch (orientation) {
+    case 90:  // Landscape-left
+      heading += 90;
+      break;
+    case -90: // Landscape-right (iOS käyttää -90)
+    case 270: // Landscape-right (Android)
+      heading -= 90;
+      break;
+    case 180: // Ylösalaisin portrait
+      heading += 180;
+      break;
+    default:
+      break;
+  }
+
+  return normalizeAngle(heading);
+}
+
+function handleOrientation(event) {
+  const { alpha, beta, gamma } = event;
+  const heading = getScreenAdjustedHeading(alpha, beta, gamma);
+
+  document.getElementById("heading").textContent = heading.toFixed(0) + "°";
+  document.getElementById("arrow").style.transform = `rotate(${heading}deg)`;
+}
+
+function startCompass() {
+  if (typeof DeviceOrientationEvent.requestPermission === "function") {
+    DeviceOrientationEvent.requestPermission().then(response => {
+      if (response === "granted") {
+        window.addEventListener("deviceorientation", handleOrientation, true);
+      } else {
+        alert("Kompassilupaa ei myönnetty.");
+      }
+    }).catch(console.error);
+  } else {
+    window.addEventListener("deviceorientation", handleOrientation, true);
+  }
+}
+
+document.getElementById("startBtn").addEventListener("click", startCompass);
+</script>
+
+</body>
+</html>
