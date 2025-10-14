@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Sijaintikohde</title>
+    <title>GEOKÄTKÖILY AR</title>
     <style>
         * {
             margin: 0;
@@ -148,8 +148,9 @@
 
         .instructions {
             margin-top: 32px;
-            color: #999;
-            font-size: 14px;
+            color: white;
+            font-size: 20px;
+			font-weight: bold;
             max-width: 400px;
         }
 
@@ -258,7 +259,7 @@
         let deviceOrientation = { alpha: 0, beta: 0, gamma: 0 };
         let animationFrameId = null;
 
-function toDegreesMinutes(coord) {
+        function toDegreesMinutes(coord) {
            const degrees = Math.floor(coord);
            const minutes = (Math.abs(coord - degrees) * 60).toFixed(3).padStart(6, '0');
            return `${degrees}° ${minutes}`;
