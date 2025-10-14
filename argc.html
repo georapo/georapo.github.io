@@ -252,7 +252,8 @@
         const errorMessage = document.getElementById('error-message');
         const fullscreenButton = document.getElementById('fullscreen-button');
         const container = document.getElementById('container');
-
+		
+		
         let userLocation = null;
         let previousLocation = null;
         let movementHeading = null; // GPS-pohjainen kulkusuunta
@@ -296,7 +297,19 @@
 			name: gccode  //name: "Kohde"
         };
 
+        // Lataa kohde-ikoni
+        const targetIcon = new Image();
+        targetIcon.src = 'https://www.geocache.fi/images/'+gctype+'.gif';
+        let iconLoaded = false;
+        targetIcon.onload = () => {
+            iconLoaded = true;
+        };
+        targetIcon.onerror = () => {
+            console.error('Ikonin lataus epäonnistui');
+        };
 
+		
+		
         // Päivitä kohteen tiedot
         document.getElementById('target-name').textContent = targetLocation.name;
         document.getElementById('target-coords').textContent = 
@@ -501,11 +514,24 @@
                 // Y-sijainti keskellä (voidaan laajentaa korkeudella myöhemmin)
                 const y = canvas.height / 2;
 
-                // Piirry punainen ympyrä
-                ctx.fillStyle = 'rgba(255, 0, 0, 0.7)';
-                ctx.beginPath();
-                ctx.arc(x, y, 20, 0, 2 * Math.PI);
-                ctx.fill();
+                // Piirry ikoni tai punainen ympyrä (fallback)
+                if (iconLoaded) {
+                    // Piirry PNG-ikoni
+                    const iconSize = 40; // Ikonin koko pikseleinä
+                    ctx.drawImage(
+                        targetIcon,
+                        x - iconSize / 2,  // Keskitä X
+                        y - iconSize / 2,  // Keskitä Y
+                        iconSize,
+                        iconSize
+                    );
+                } else {
+                    // Fallback: punainen ympyrä jos ikoni ei ole latautunut
+                    ctx.fillStyle = 'rgba(255, 0, 0, 0.7)';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 20, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
 
                 // Piirry kohteen nimi
                 ctx.fillStyle = 'white';
