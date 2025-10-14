@@ -15,8 +15,18 @@
             font-family: Arial, sans-serif;
             overflow: hidden;
             background: #000;
+			/* Salli näytön kierto */
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+		
+        @media screen and (orientation: portrait) {
+            /* Portrait-asento */
         }
 
+        @media screen and (orientation: landscape) {
+            /* Landscape-asento */
+        }
         #container {
             position: relative;
             width: 100vw;
@@ -466,7 +476,7 @@
 
         // Piirry AR-näkymä
         function drawAR() {
-            if (!userLocation || movementHeading === null) {
+            if (!userLocation) {
                 animationFrameId = requestAnimationFrame(drawAR);
                 return;
             }
@@ -492,10 +502,21 @@
                 targetLocation.lng
             );
 
-            // Laske suhteellinen kulma kohteeseen kulkusuunnasta
-            // movementHeading = mihin suuntaan kuljet
-            // targetBearing = missä suunnassa kohde on
-            let relativeBearing = targetBearing - movementHeading;
+            // Määritä käyttäjän suunta:
+            // Jos GPS-kulkusuunta on saatavilla ja liikut, käytä sitä
+            // Muuten käytä kompassia (device orientation alpha)
+            let userHeading;
+            if (movementHeading !== null) {
+                // Hybridimalli: GPS-suunta + kompassin korjaus
+                // Jos käännät puhelinta GPS-suunnasta, kompassi huomaa sen
+                userHeading = deviceOrientation.alpha;
+            } else {
+                // Ei liikettä, käytä pelkkää kompassia
+                userHeading = deviceOrientation.alpha;
+            }
+
+            // Laske suhteellinen kulma kohteeseen
+            let relativeBearing = targetBearing - userHeading;
             if (relativeBearing > 180) relativeBearing -= 360;
             if (relativeBearing < -180) relativeBearing += 360;
 
@@ -546,7 +567,8 @@
                 
                 // Piirry suhteellinen kulma (debug)
                 ctx.font = '12px Arial';
-                ctx.fillText(`${relativeBearing.toFixed(0)}° (rel)`, x, y + 65);
+                const headingSource = movementHeading !== null ? 'GPS+Compass' : 'Compass';
+                ctx.fillText(`${relativeBearing.toFixed(0)}° (${headingSource})`, x, y + 65);
                 ctx.shadowBlur = 0;
             }
 
@@ -557,14 +579,22 @@
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 // Siirry fullscreeniin
+                const options = {
+                    navigationUI: "hide"
+                };
                 if (container.requestFullscreen) {
-                    container.requestFullscreen();
+                    container.requestFullscreen(options);
                 } else if (container.webkitRequestFullscreen) { // Safari
                     container.webkitRequestFullscreen();
                 } else if (container.mozRequestFullScreen) { // Firefox
                     container.mozRequestFullScreen();
                 } else if (container.msRequestFullscreen) { // IE/Edge
                     container.msRequestFullscreen();
+                }
+                
+                // Lukitse näytön kierto pois (salli automaattinen kierto)
+                if (screen.orientation && screen.orientation.unlock) {
+                    screen.orientation.unlock();
                 }
             } else {
                 // Poistu fullscreenistä
@@ -615,14 +645,26 @@
 
             // Siirry automaattisesti fullscreeniin
             try {
+                const options = {
+                    navigationUI: "hide"
+                };
                 if (container.requestFullscreen) {
-                    await container.requestFullscreen();
+                    await container.requestFullscreen(options);
                 } else if (container.webkitRequestFullscreen) {
                     await container.webkitRequestFullscreen();
                 } else if (container.mozRequestFullScreen) {
                     await container.mozRequestFullScreen();
                 } else if (container.msRequestFullscreen) {
                     await container.msRequestFullscreen();
+                }
+                
+                // Salli näytön automaattinen kierto
+                if (screen.orientation && screen.orientation.unlock) {
+                    try {
+                        await screen.orientation.unlock();
+                    } catch (e) {
+                        console.log('Screen orientation unlock ei tuettu');
+                    }
                 }
             } catch (err) {
                 console.log('Fullscreen ei onnistunut:', err);
