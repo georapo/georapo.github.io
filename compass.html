@@ -188,7 +188,7 @@
 
           console.log(`CompassAngles - After Fix: azimuth: ${this.frm(this.mOrientation[0])}, pitch: ${this.frm(this.mOrientation[1])}, roll: ${this.frm(this.mOrientation[2])}`);
 		  
-		  document.getElementById("InfoTxt").textContent = `CompassAngles - After Fix: azimuth: ${this.frm(this.mOrientation[0])}, pitch: ${this.frm(this.mOrientation[1])}, roll: ${this.frm(this.mOrientation[2])}`;
+		  document.getElementById("InfoTxt").textContent += `CompassAngles - After Fix: azimuth: ${this.frm(this.mOrientation[0])}, pitch: ${this.frm(this.mOrientation[1])}, roll: ${this.frm(this.mOrientation[2])}`;
 
           this.azimuth = this.mOrientation[0];
           this.pitch = this.mOrientation[1];
