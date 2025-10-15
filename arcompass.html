@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="fi">
+<meta charset="utf-8"/>
+<title>Digital AR Compass</title>
+<style>
+  body, html { height:100%; margin:0; font-family:system-ui,Segoe UI,Roboto; background:#000; color:#fff;}
+  #camera { position:fixed; inset:0; background:#111; }
+  video#cam { width:100%; height:100%; object-fit:cover; transform:scaleX(-1); } /* peilaa kamerakuvaa */
+  #hud { position:fixed; left:10px; top:10px; z-index:20; background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; }
+  #arrow { width:64px; height:64px; display:block; transform-origin:center center; transition: transform 0.05s linear; }
+  #info { margin-top:8px; font-size:14px; }
+</style>
+<body>
+  <div id="camera">
+    <video id="cam" autoplay playsinline muted></video>
+  </div>
+
+  <div id="hud">
+    <img id="arrow" src="data:image/svg+xml;utf8,
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+        <polygon points='50,5 95,95 50,75 5,95' fill='white'/>
+      </svg>"/>
+    <div id="info">
+      <div id="dist">Etäisyys: — m</div>
+      <div id="bearing">Kohteen suunta: —°</div>
+      <div id="azimuth">Puhelimen katselusuunta: —°</div>
+    </div>
+  </div>
+
+<script>
+// --- CONFIG: laita tähän kohteen koordinaatit (WGS84) ---
+const target = { lat: 60.192059, lon: 24.945831 }; // esimerkki: Helsinki
+
+// --- HELPERS: matematiikka ---
+const DEG2RAD = Math.PI/180;
+const RAD2DEG = 180/Math.PI;
+function toRad(d){return d*DEG2RAD;}
+function toDeg(r){return r*RAD2DEG;}
+
+// Haversine distance (metreinä)
+function haversineDistance(lat1, lon1, lat2, lon2){
+  const R = 6371000; // m
+  const dLat = toRad(lat2-lat1);
+  const dLon = toRad(lon2-lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+  const c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R*c;
+}
+
+// Initial bearing from point A to B (degrees clockwise from north)
+function initialBearing(lat1, lon1, lat2, lon2){
+  const φ1 = toRad(lat1), φ2 = toRad(lat2);
+  const λ1 = toRad(lon1), λ2 = toRad(lon2);
+  const y = Math.sin(λ2-λ1)*Math.cos(φ2);
+  const x = Math.cos(φ1)*Math.sin(φ2) - Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
+  let θ = Math.atan2(y,x);
+  θ = (toDeg(θ) + 360) % 360; // bearing from north? currently from east==0; adjust below
+  // Above θ is clockwise from east; convert to clockwise from north:
+  // clockwise_from_north = (90 - θ_from_math) mod 360  -> simpler compute using atan2(east,north)
+  // But because we computed using sin(lon2-lon1)*cosφ2 as y and x as above,
+  // many references give: bearing = (atan2(y, x) * 180/PI + 360) % 360
+  // That result is bearing clockwise from north. So return θ.
+  return θ;
+}
+
+// NORMALIZE 0..360
+function norm360(a){ return ((a % 360) + 360) % 360; }
+
+// --- Quaternion helpers ---
+function quatConjugate(q){ return {w:q.w, x:-q.x, y:-q.y, z:-q.z}; }
+function quatMultiply(a,b){
+  return {
+    w: a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,
+    x: a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,
+    y: a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,
+    z: a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w
+  };
+}
+function rotateVectorByQuat(v, q){
+  // v: {x,y,z}, q: {w,x,y,z}
+  const qv = {w:0, x:v.x, y:v.y, z:v.z};
+  const qc = quatConjugate(q);
+  const tmp = quatMultiply(q, qv);
+  const res = quatMultiply(tmp, qc);
+  return { x: res.x, y: res.y, z: res.z };
+}
+
+// Convert DOMScreen orientation angle (degrees) to a quaternion that rotates device coordinates to account for screen rotation
+function screenRotationQuat(angleDeg){
+  // rotation about Z axis by -angleDeg (because screen rotation rotates coordinate frame)
+  const a = toRad(-angleDeg/2);
+  return { w: Math.cos(a), x:0, y:0, z: Math.sin(a) };
+}
+
+// Multiply two quaternions easily
+// (provided above as quatMultiply)
+
+// --- DEVICE ORIENTATION: prefer AbsoluteOrientationSensor ---
+let orientationQuat = {w:1,x:0,y:0,z:0}; // device -> world quaternion (best-effort)
+let haveOrientation = false;
+
+async function startOrientation(){
+  if ('AbsoluteOrientationSensor' in window){
+    try {
+      const sensor = new AbsoluteOrientationSensor({frequency:60, referenceFrame:'device'});
+      sensor.addEventListener('reading', () => {
+        const q = sensor.quaternion; // [x,y,z,w]
+        orientationQuat = {w: q[3], x:q[0], y:q[1], z:q[2]};
+        haveOrientation = true;
+      });
+      sensor.addEventListener('error', ev => {
+        console.warn('Orientation sensor error', ev);
+      });
+      sensor.start();
+      return;
+    } catch(e){
+      console.warn('AbsoluteOrientationSensor failed:', e);
+    }
+  }
+
+  // Fallback: DeviceOrientationEvent -> build quaternion from alpha/beta/gamma
+  function handleDevOrient(e){
+    // On iOS, must first call DeviceOrientationEvent.requestPermission() from user gesture.
+    if (e.absolute === false && e.alpha === null) return;
+    const alpha = e.alpha ? toRad(e.alpha) : 0; // Z
+    const beta  = e.beta  ? toRad(e.beta)  : 0; // X
+    const gamma = e.gamma ? toRad(e.gamma) : 0; // Y
+
+    // Convert Z-X'-Y'' (alpha, beta, gamma) intrinsic Tait-Bryan -> quaternion
+    // Using standard conversion from deviceorientation spec
+    const c1 = Math.cos(alpha/2), s1 = Math.sin(alpha/2);
+    const c2 = Math.cos(beta/2),  s2 = Math.sin(beta/2);
+    const c3 = Math.cos(gamma/2), s3 = Math.sin(gamma/2);
+
+    // q = qz * qx * qy  (order matters)
+    const w = c1*c2*c3 - s1*s2*s3;
+    const x = c1*s2*c3 + s1*c2*s3;
+    const y = c1*c2*s3 + s1*s2*c3;
+    const z = s1*c2*c3 - c1*s2*s3;
+    orientationQuat = {w:x? (w):w, x:x, y:y, z:z}; // use computed values
+    haveOrientation = true;
+  }
+
+  if ('DeviceOrientationEvent' in window){
+    // iOS needs permission
+    if (typeof DeviceOrientationEvent.requestPermission === 'function'){
+      // don't call automatically; request when user interacts - try to request immediately
+      DeviceOrientationEvent.requestPermission().then(perm => {
+        if (perm === 'granted') window.addEventListener('deviceorientation', handleDevOrient);
+      }).catch(err => {
+        console.warn('DeviceOrientation permission request failed', err);
+      });
+    } else {
+      window.addEventListener('deviceorientation', handleDevOrient);
+    }
+  }
+}
+
+// --- CAMERA START (getUserMedia) ---
+async function startCamera(){
+  try {
+    const vid = document.getElementById('cam');
+    const stream = await navigator.mediaDevices.getUserMedia({video:{ facingMode:'environment' }, audio:false});
+    vid.srcObject = stream;
+  } catch(e){ console.warn('Camera error', e); }
+}
+
+// --- MAIN: sijainti & päivitykset ---
+let currentPos = null;
+function startGeolocation(){
+  if (!('geolocation' in navigator)) { alert('Geolocation ei saatavilla'); return; }
+  navigator.geolocation.watchPosition(pos => {
+    currentPos = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+  }, err => {
+    console.warn('geolocation error', err);
+  }, { enableHighAccuracy:true, maximumAge:1000, timeout:5000 });
+}
+
+function getScreenAngle(){
+  // use Screen Orientation API if available, fallback to window.orientation
+  if (screen.orientation && typeof screen.orientation.angle === 'number') return screen.orientation.angle;
+  if (typeof window.orientation === 'number') return window.orientation;
+  return 0;
+}
+
+function updateHUD(){
+  const distEl = document.getElementById('dist');
+  const bearingEl = document.getElementById('bearing');
+  const azEl = document.getElementById('azimuth');
+  const arrow = document.getElementById('arrow');
+
+  if (!currentPos || !haveOrientation){
+    requestAnimationFrame(updateHUD);
+    return;
+  }
+
+  // 1) distance & geodetic bearing to target
+  const dist = haversineDistance(currentPos.lat, currentPos.lon, target.lat, target.lon);
+  const geoBearing = initialBearing(currentPos.lat, currentPos.lon, target.lat, target.lon); // deg from north (0..360)
+  distEl.textContent = `Etäisyys: ${dist<1000 ? Math.round(dist) + ' m' : (dist/1000).toFixed(2)+' km'}`;
+  bearingEl.textContent = `Kohteen suunta: ${geoBearing.toFixed(1)}°`;
+
+  // 2) compute camera forward vector in world coords
+  // Define camera forward in device coordinates:
+  // For typical phone held with back camera pointing away from user:
+  // device coordinate convention (following spec): X right, Y up, Z out of the screen toward user.
+  // Camera forward (looking out the back camera) is often -Z in device coordinates. Because we mirrored video, may invert, but producing relative direction works.
+  const deviceForward = { x: 0, y: 0, z: -1 }; // camera looks towards -Z (out of screen)
+  // apply orientation quaternion to get world forward
+  // orientationQuat transforms device -> world (best-effort). If sensor uses opposite convention, you may need conjugate - test on device.
+  const screenAngle = getScreenAngle(); // 0, 90, 180, 270
+  const screenQ = screenRotationQuat(screenAngle);
+  // compose: apply screen rotation first to device vector (rotate device coordinate to account screen rotation),
+  // then apply orientation quaternion to get world vector.
+  // That means rotate deviceForward by screenQ, then by orientationQuat.
+  const v_afterScreen = rotateVectorByQuat(deviceForward, screenQ);
+  const worldForward = rotateVectorByQuat(v_afterScreen, orientationQuat);
+
+  // Project worldForward to horizontal plane (ignore up/down)
+  const fx = worldForward.x; // east component
+  const fy = worldForward.y; // north component
+  // if both ~0 (phone pointing straight up/down), heading undefined; handle gracefully
+  let azimuthDeg = null;
+  if (Math.hypot(fx, fy) < 1e-6){
+    azimuthDeg = null;
+    azEl.textContent = `Puhelimen katselusuunta: —° (liian jyrkässä kulmassa)`;
+  } else {
+    // heading = atan2(east, north) => 0° = north, increasing clockwise
+    let headingRad = Math.atan2(fx, fy);
+    let headingDeg = norm360(toDeg(headingRad));
+    azimuthDeg = headingDeg;
+    azEl.textContent = `Puhelimen katselusuunta: ${headingDeg.toFixed(1)}°`;
+  }
+
+  // 3) Compute relative bearing from phone view to target (i.e., how many degrees to rotate arrow)
+  // Want angle (clockwise) to turn from phone forward to pointing at target.
+  // relative = (geoBearing - azimuthDeg) normalized to [-180,180]
+  let relative = 0;
+  if (azimuthDeg === null){
+    relative = 0;
+  } else {
+    let diff = geoBearing - azimuthDeg;
+    diff = ((diff + 540) % 360) - 180; // normalize to [-180,180]
+    relative = diff;
+  }
+
+  // Rotate arrow image: negative because CSS rotate uses clockwise positive?
+  arrow.style.transform = `rotate(${relative}deg)`;
+
+  requestAnimationFrame(updateHUD);
+}
+
+// start everything
+(async function init(){
+  await startCamera();
+  startGeolocation();
+  await startOrientation();
+  updateHUD();
+})();
+</script>
+</body>
+</html>
