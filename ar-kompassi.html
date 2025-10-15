@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="fi">
+<meta charset="utf-8"/>
+<title>AR-kompassi</title>
+<style>
+  html,body {margin:0;height:100%;overflow:hidden;background:#000;color:#fff;font-family:system-ui;}
+  #cam {position:fixed;inset:0;object-fit:cover;transform:scaleX(-1);}
+  #hud {position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+        background:rgba(0,0,0,0.5);border-radius:12px;padding:10px 16px;text-align:center;z-index:10;}
+  #arrow {width:80px;height:80px;display:block;margin:0 auto;transition:transform 0.05s linear;}
+  #info {font-size:14px;margin-top:8px;text-align:center;}
+  #debug {position:fixed;bottom:0;left:0;width:100%;font-size:12px;text-align:center;
+          background:rgba(0,0,0,0.7);color:#0f0;padding:4px;white-space:pre-wrap;}
+  canvas {position:fixed;inset:0;pointer-events:none;}
+  button#permitBtn {position:fixed;top:10px;left:50%;transform:translateX(-50%);
+                    z-index:20;padding:10px 20px;font-size:16px;border:none;border-radius:10px;}
+</style>
+<body>
+
+<video id="cam" autoplay playsinline muted></video>
+
+<div id="hud">
+  <img id="arrow" src="data:image/svg+xml;utf8,
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+      <polygon points='50,5 95,95 50,75 5,95' fill='white'/>
+    </svg>"/>
+  <div id="info">
+    <div id="dist">Etäisyys: —</div>
+    <div id="bearing">Kohteen suunta: —°</div>
+    <div id="azimuth">Puhelimen katselusuunta: —°</div>
+  </div>
+</div>
+
+<div id="debug"></div>
+<button id="permitBtn">Salli liikesensori</button>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.164.0/build/three.min.js"></script>
+<script>
+/* === YLEISET APUTOIMINNOT === */
+const toRad = d => d*Math.PI/180;
+const toDeg = r => r*180/Math.PI;
+const norm360 = a => (a%360+360)%360;
+function haversineDistance(lat1,lon1,lat2,lon2){
+  const R=6371000;const φ1=toRad(lat1),φ2=toRad(lat2),dφ=toRad(lat2-lat1),dλ=toRad(lon2-lon1);
+  return 2*R*Math.asin(Math.sqrt(Math.sin(dφ/2)**2+Math.cos(φ1)*Math.cos(φ2)*Math.sin(dλ/2)**2));
+}
+function initialBearing(lat1,lon1,lat2,lon2){
+  const φ1=toRad(lat1),φ2=toRad(lat2),Δλ=toRad(lon2-lon1);
+  const y=Math.sin(Δλ)*Math.cos(φ2);
+  const x=Math.cos(φ1)*Math.sin(φ2)-Math.sin(φ1)*Math.cos(φ2)*Math.cos(Δλ);
+  return norm360(toDeg(Math.atan2(y,x)));
+}
+function rotateVectorByQuat(v,q){
+  const x=v.x,y=v.y,z=v.z;
+  const qx=q.x,qy=q.y,qz=q.z,qw=q.w;
+  const ix= qw*x + qy*z - qz*y;
+  const iy= qw*y + qz*x - qx*z;
+  const iz= qw*z + qx*y - qy*x;
+  const iw= -qx*x - qy*y - qz*z;
+  return {
+    x: ix*qw + iw*-qx + iy*-qz - iz*-qy,
+    y: iy*qw + iw*-qy + iz*-qx - ix*-qz,
+    z: iz*qw + iw*-qz + ix*-qy - iy*-qx
+  };
+}
+function screenRotationQuat(deg){const q=new THREE.Quaternion();q.setFromAxisAngle(new THREE.Vector3(0,0,1),toRad(deg));return q;}
+function getScreenAngle(){
+  if (window.screen.orientation && typeof window.screen.orientation.angle==='number') return window.screen.orientation.angle;
+  return window.orientation||0;
+}
+
+/* === GLOBAALIT MUUTTUJAT === */
+let currentPos=null;
+let haveOrientation=false;
+let orientationQuat=new THREE.Quaternion();
+const target={lat:60.1699,lon:24.9384}; // Esimerkkikohde: Helsinki
+let show3D=false;
+let pitchDeg=0;
+
+/* === DEBUG === */
+const debugEl=document.getElementById('debug');
+function debug(msg){debugEl.textContent=msg;}
+
+/* === KAMERA === */
+navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}})
+  .then(s=>{cam.srcObject=s;}).catch(e=>debug("Kameravirhe: "+e));
+
+/* === GPS === */
+if (navigator.geolocation){
+  navigator.geolocation.watchPosition(pos=>{
+    currentPos={lat:pos.coords.latitude,lon:pos.coords.longitude};
+  },err=>debug("GPS virhe: "+err.message),{enableHighAccuracy:true});
+}
+
+/* === THREE.JS: luodaan 3D-nuoli === */
+const scene=new THREE.Scene();
+const camera3d=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,100);
+const renderer=new THREE.WebGLRenderer({alpha:true});
+renderer.setSize(window.innerWidth,window.innerHeight);
+document.body.appendChild(renderer.domElement);
+const shaftGeom=new THREE.CylinderGeometry(0.05,0.05,1,8);
+const headGeom=new THREE.ConeGeometry(0.1,0.3,12);
+const shaftMat=new THREE.MeshBasicMaterial({color:0xffffff});
+const headMat=new THREE.MeshBasicMaterial({color:0xff0000});
+const shaft=new THREE.Mesh(shaftGeom,shaftMat);
+const head=new THREE.Mesh(headGeom,headMat);
+head.position.y=0.65;
+scene.add(shaft);scene.add(head);
+camera3d.position.z=3;
+renderer.domElement.style.opacity=0; // piilotetaan, kunnes tarve
+
+/* === ORIENTAATIO === */
+document.getElementById('permitBtn').onclick=async ()=>{
+  if (typeof DeviceOrientationEvent.requestPermission==='function'){
+    const res=await DeviceOrientationEvent.requestPermission();
+    if (res!=='granted'){debug("Käyttö estetty");return;}
+  }
+  window.addEventListener('deviceorientation',handleOrientation,true);
+  document.getElementById('permitBtn').style.display='none';
+};
+function handleOrientation(ev){
+  if (ev.absolute===false && ev.alpha===null) return;
+  const q=new THREE.Quaternion().setFromEuler(
+    new THREE.Euler(toRad(ev.beta),toRad(ev.alpha),-toRad(ev.gamma),'YXZ')
+  );
+  orientationQuat.copy(q);
+  haveOrientation=true;
+}
+
+/* === PÄIVITYSSILMUKKA === */
+const arrow2d=document.getElementById('arrow');
+
+function updateHUD(){
+  requestAnimationFrame(updateHUD);
+  if (!currentPos || !haveOrientation) return;
+
+  const dist=haversineDistance(currentPos.lat,currentPos.lon,target.lat,target.lon);
+  const bearing=initialBearing(currentPos.lat,currentPos.lon,target.lat,target.lon);
+  document.getElementById('dist').textContent=`Etäisyys: ${dist<1000?Math.round(dist)+' m':(dist/1000).toFixed(2)+' km'}`;
+  document.getElementById('bearing').textContent=`Kohteen suunta: ${bearing.toFixed(1)}°`;
+
+  const R=6371000;
+  const φ1=toRad(currentPos.lat),λ1=toRad(currentPos.lon);
+  const φ2=toRad(target.lat),λ2=toRad(target.lon);
+  const dφ=φ2-φ1,dλ=λ2-λ1;
+  const east=R*Math.cos(φ1)*dλ;
+  const north=R*dφ;
+  const enu=new THREE.Vector3(east,north,0).normalize();
+
+  const forward=rotateVectorByQuat({x:0,y:0,z:-1},orientationQuat);
+  const worldForward=new THREE.Vector3(forward.x,forward.y,forward.z).normalize();
+  const pitch=Math.asin(-worldForward.z);
+  pitchDeg=toDeg(pitch);
+  show3D=pitchDeg>45;
+  arrow2d.style.opacity=show3D?0:1;
+  renderer.domElement.style.opacity=show3D?1:0;
+
+  if (show3D){
+    const quatToTarget=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),enu);
+    shaft.quaternion.copy(quatToTarget);
+    head.quaternion.copy(quatToTarget);
+    head.position.y=0.65;
+    head.position.applyQuaternion(quatToTarget);
+    renderer.render(scene,camera3d);
+  }
+
+  document.getElementById('azimuth').textContent=`Pitch: ${pitchDeg.toFixed(1)}°, OrientQuat z:${orientationQuat.z.toFixed(2)}`;
+  debug(`GPS: ${currentPos.lat.toFixed(5)},${currentPos.lon.toFixed(5)}\nKohde: ${target.lat},${target.lon}`);
+}
+updateHUD();
+</script>
+</body>
+</html>
