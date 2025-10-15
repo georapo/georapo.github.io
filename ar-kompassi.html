@@ -38,7 +38,7 @@
   <div id="info">
     <div id="dist">Etäisyys: —</div>
     <div id="bearing">Kohteen suunta: —°</div>
-    <div id="azimuth">Puhelimen kallistus: —°</div>
+    <div id="azimuth">Kallistus: —°</div>
   </div>
 </div>
 
@@ -119,24 +119,39 @@ scene.add(shaft);scene.add(head);
 camera3d.position.z=3;
 renderer.domElement.style.opacity=0;
 
-/* === Liikesensori-lupa === */
+/* === Liikesensori-lupa (korjattu versio) === */
 document.getElementById('permitBtn').onclick = async () => {
   const overlay=document.getElementById('permissionScreen');
   try {
-    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-      const res=await DeviceOrientationEvent.requestPermission();
-      if (res!=='granted'){
-        debug("Liikesensori estetty selaimen asetuksissa.");
-        overlay.querySelector('div').innerHTML="❌ Et antanut lupaa liikesensoreihin.<br/>Tarkista selaimen asetukset ja päivitä sivu.";
-        return;
-      }
+    let granted=false;
+
+    // iOS Safari tarvitsee erillisen pyynnön
+    if (typeof DeviceOrientationEvent?.requestPermission === 'function') {
+      const res1=await DeviceOrientationEvent.requestPermission().catch(()=> 'denied');
+      const res2=(typeof DeviceMotionEvent?.requestPermission==='function')
+        ? await DeviceMotionEvent.requestPermission().catch(()=> 'denied')
+        : 'granted';
+      granted=(res1==='granted'||res2==='granted');
+    } else {
+      // Androidissa ei yleensä tarvita pyyntöä
+      granted=true;
     }
+
+    if (!granted){
+      debug("❌ Liikesensori estetty selaimen asetuksissa.");
+      overlay.querySelector('div').innerHTML="❌ Et antanut lupaa liikesensoreihin.<br/>Tarkista selaimen asetukset ja päivitä sivu.";
+      return;
+    }
+
+    // Lupa ok
     window.addEventListener('deviceorientation', handleOrientation, true);
     overlay.style.display='none';
+    debug("✅ Liikesensori sallittu, kuuntelu käynnissä.");
   } catch(e){
-    debug("Virhe pyydettäessä lupaa: "+e);
+    debug("Virhe liikesensorilupaa pyydettäessä: "+e);
   }
 };
+
 function handleOrientation(ev){
   if (ev.absolute===false && ev.alpha===null) return;
   const q=new THREE.Quaternion().setFromEuler(
