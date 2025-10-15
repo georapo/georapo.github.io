@@ -12,8 +12,19 @@
   #debug {position:fixed;bottom:0;left:0;width:100%;font-size:12px;text-align:center;
           background:rgba(0,0,0,0.7);color:#0f0;padding:4px;white-space:pre-wrap;}
   canvas {position:fixed;inset:0;pointer-events:none;}
-  button#permitBtn {position:fixed;top:10px;left:50%;transform:translateX(-50%);
-                    z-index:20;padding:10px 20px;font-size:16px;border:none;border-radius:10px;}
+
+  /* Aloitusruutu */
+  #permissionScreen {
+    position:fixed;inset:0;
+    background:rgba(0,0,0,0.85);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;z-index:50;color:#fff;font-size:18px;padding:20px;
+  }
+  #permissionScreen button {
+    margin-top:20px;padding:12px 24px;font-size:18px;border:none;border-radius:12px;
+    background:#0a84ff;color:#fff;font-weight:600;
+  }
+  #permissionScreen button:active {background:#0068d6;}
 </style>
 <body>
 
@@ -27,16 +38,22 @@
   <div id="info">
     <div id="dist">Etäisyys: —</div>
     <div id="bearing">Kohteen suunta: —°</div>
-    <div id="azimuth">Puhelimen katselusuunta: —°</div>
+    <div id="azimuth">Puhelimen kallistus: —°</div>
   </div>
 </div>
 
 <div id="debug"></div>
-<button id="permitBtn">Salli liikesensori</button>
+
+<!-- Aloitusruutu -->
+<div id="permissionScreen">
+  <div>📱 Tämä sovellus tarvitsee pääsyn liikesensoreihin (kompassi) ja kameraan.<br/>
+  <small>(iOS: selaimesi kysyy luvan “Allow access to motion and orientation?”)</small></div>
+  <button id="permitBtn">Salli liikesensori</button>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.164.0/build/three.min.js"></script>
 <script>
-/* === YLEISET APUTOIMINNOT === */
+/* === Aputoiminnot === */
 const toRad = d => d*Math.PI/180;
 const toDeg = r => r*180/Math.PI;
 const norm360 = a => (a%360+360)%360;
@@ -63,25 +80,18 @@ function rotateVectorByQuat(v,q){
     z: iz*qw + iw*-qz + ix*-qy - iy*-qx
   };
 }
-function screenRotationQuat(deg){const q=new THREE.Quaternion();q.setFromAxisAngle(new THREE.Vector3(0,0,1),toRad(deg));return q;}
-function getScreenAngle(){
-  if (window.screen.orientation && typeof window.screen.orientation.angle==='number') return window.screen.orientation.angle;
-  return window.orientation||0;
-}
 
-/* === GLOBAALIT MUUTTUJAT === */
+/* === Tilamuuttujat === */
 let currentPos=null;
 let haveOrientation=false;
 let orientationQuat=new THREE.Quaternion();
-const target={lat:60.1699,lon:24.9384}; // Esimerkkikohde: Helsinki
 let show3D=false;
 let pitchDeg=0;
-
-/* === DEBUG === */
+const target={lat:60.1699,lon:24.9384}; // Helsinki
 const debugEl=document.getElementById('debug');
 function debug(msg){debugEl.textContent=msg;}
 
-/* === KAMERA === */
+/* === Kamera === */
 navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}})
   .then(s=>{cam.srcObject=s;}).catch(e=>debug("Kameravirhe: "+e));
 
@@ -92,7 +102,7 @@ if (navigator.geolocation){
   },err=>debug("GPS virhe: "+err.message),{enableHighAccuracy:true});
 }
 
-/* === THREE.JS: luodaan 3D-nuoli === */
+/* === THREE.js: 3D-nuoli === */
 const scene=new THREE.Scene();
 const camera3d=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,100);
 const renderer=new THREE.WebGLRenderer({alpha:true});
@@ -107,16 +117,25 @@ const head=new THREE.Mesh(headGeom,headMat);
 head.position.y=0.65;
 scene.add(shaft);scene.add(head);
 camera3d.position.z=3;
-renderer.domElement.style.opacity=0; // piilotetaan, kunnes tarve
+renderer.domElement.style.opacity=0;
 
-/* === ORIENTAATIO === */
-document.getElementById('permitBtn').onclick=async ()=>{
-  if (typeof DeviceOrientationEvent.requestPermission==='function'){
-    const res=await DeviceOrientationEvent.requestPermission();
-    if (res!=='granted'){debug("Käyttö estetty");return;}
+/* === Liikesensori-lupa === */
+document.getElementById('permitBtn').onclick = async () => {
+  const overlay=document.getElementById('permissionScreen');
+  try {
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      const res=await DeviceOrientationEvent.requestPermission();
+      if (res!=='granted'){
+        debug("Liikesensori estetty selaimen asetuksissa.");
+        overlay.querySelector('div').innerHTML="❌ Et antanut lupaa liikesensoreihin.<br/>Tarkista selaimen asetukset ja päivitä sivu.";
+        return;
+      }
+    }
+    window.addEventListener('deviceorientation', handleOrientation, true);
+    overlay.style.display='none';
+  } catch(e){
+    debug("Virhe pyydettäessä lupaa: "+e);
   }
-  window.addEventListener('deviceorientation',handleOrientation,true);
-  document.getElementById('permitBtn').style.display='none';
 };
 function handleOrientation(ev){
   if (ev.absolute===false && ev.alpha===null) return;
@@ -127,9 +146,8 @@ function handleOrientation(ev){
   haveOrientation=true;
 }
 
-/* === PÄIVITYSSILMUKKA === */
+/* === Päivityssilmukka === */
 const arrow2d=document.getElementById('arrow');
-
 function updateHUD(){
   requestAnimationFrame(updateHUD);
   if (!currentPos || !haveOrientation) return;
@@ -159,13 +177,11 @@ function updateHUD(){
     const quatToTarget=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),enu);
     shaft.quaternion.copy(quatToTarget);
     head.quaternion.copy(quatToTarget);
-    head.position.y=0.65;
-    head.position.applyQuaternion(quatToTarget);
     renderer.render(scene,camera3d);
   }
 
-  document.getElementById('azimuth').textContent=`Pitch: ${pitchDeg.toFixed(1)}°, OrientQuat z:${orientationQuat.z.toFixed(2)}`;
-  debug(`GPS: ${currentPos.lat.toFixed(5)},${currentPos.lon.toFixed(5)}\nKohde: ${target.lat},${target.lon}`);
+  document.getElementById('azimuth').textContent=`Kallistus: ${pitchDeg.toFixed(1)}°`;
+  debug(`GPS: ${currentPos.lat.toFixed(5)}, ${currentPos.lon.toFixed(5)}\nOrientQuat z:${orientationQuat.z.toFixed(2)}`);
 }
 updateHUD();
 </script>
