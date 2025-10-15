@@ -1,98 +1,475 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Kompassisuunta</title>
-<style>
-  body {
-    font-family: system-ui, sans-serif;
-    background: #f0f0f0;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  #arrow {
-    width: 150px;
-    height: 150px;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Red_triangle.svg/240px-Red_triangle.svg.png') no-repeat center;
-    background-size: contain;
-    transform-origin: 50% 80%;
-    transition: transform 0.2s ease-out;
-  }
-  #heading {
-    font-size: 2em;
-    margin-top: 20px;
-  }
-  button {
-    margin-top: 20px;
-    padding: 0.8em 1.2em;
-    border: none;
-    border-radius: 8px;
-    background: #007aff;
-    color: white;
-    font-size: 1em;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compass Fix</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .info-container {
+      background: white;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .sensor-value {
+      font-size: 16px;
+      margin: 10px 0;
+      font-family: monospace;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+    .status {
+      color: #666;
+      font-size: 14px;
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Compass Fix</h1>
+    
+    <div class="info-container">
+      <div id="tvInfo" class="sensor-value status">Initializing...</div>
+    </div>
+    
+    <div class="info-container">
+      <div id="tvAzimuth" class="sensor-value">Azim: --</div>
+      <div id="tvPitch" class="sensor-value">Pitch: --</div>
+      <div id="tvRoll" class="sensor-value">Roll: --</div>
+      <div id="tvInclination" class="sensor-value">Incl: --</div>
+    </div>
+  </div>
 
-<div id="arrow"></div>
-<div id="heading">–</div>
-<button id="startBtn">Käynnistä kompassi</button>
-
-<script>
-function getCompassHeading(alpha, beta, gamma, screenOrientation) {
-  const _deg2rad = Math.PI / 180;
-  const _rad2deg = 180 / Math.PI;
-
-  const _alpha = alpha * _deg2rad;
-  const _beta = beta * _deg2rad;
-  const _gamma = gamma * _deg2rad;
-
-  const cA = Math.cos(_alpha), sA = Math.sin(_alpha);
-  const cB = Math.cos(_beta), sB = Math.sin(_beta);
-  const cG = Math.cos(_gamma), sG = Math.sin(_gamma);
-
-  const x = -cA * sG - sA * sB * cG;
-  const y = -sA * sG + cA * sB * cG;
-
-  let heading = Math.atan2(x, y) * _rad2deg;
-
-  heading += screenOrientation || window.screen.orientation?.angle || 0;
-  heading = (heading + 360) % 360;
-
-  return heading;
-}
-
-function handleOrientation(event) {
-  const { alpha, beta, gamma } = event;
-  const orientation = window.screen.orientation?.angle || 0;
-
-  const heading = getCompassHeading(alpha, beta, gamma, orientation);
-  document.getElementById("heading").textContent = heading.toFixed(0) + "°";
-  document.getElementById("arrow").style.transform = `rotate(${heading}deg)`;
-}
-
-function startCompass() {
-  if (typeof DeviceOrientationEvent.requestPermission === "function") {
-    DeviceOrientationEvent.requestPermission().then(response => {
-      if (response === "granted") {
-        window.addEventListener("deviceorientation", handleOrientation, true);
-      } else {
-        alert("Kompassilupaa ei myönnetty.");
+  <script>
+    // MagneticOrientationRendererText class
+    class MagneticOrientationRendererText {
+      constructor(tvAzimuth, tvPitch, tvRoll, tvInclination) {
+        this.tvAzimuth = tvAzimuth;
+        this.tvPitch = tvPitch;
+        this.tvRoll = tvRoll;
+        this.tvInclination = tvInclination;
       }
-    }).catch(console.error);
-  } else {
-    window.addEventListener("deviceorientation", handleOrientation, true);
-  }
-}
 
-document.getElementById("startBtn").addEventListener("click", startCompass);
-</script>
+      formatNumber(value) {
+        return value >= 0 
+          ? '+' + value.toFixed(1) 
+          : value.toFixed(1);
+      }
 
+      setRotationValues(azimuth, pitch, roll, inclination) {
+        if (this.tvAzimuth) {
+          this.tvAzimuth.textContent = `Azim: ${this.formatNumber(azimuth)} -to North, if device is on the ground`;
+        }
+        if (this.tvPitch) {
+          this.tvPitch.textContent = `Pitch: ${this.formatNumber(pitch)}`;
+        }
+        if (this.tvRoll) {
+          this.tvRoll.textContent = `Roll: ${this.formatNumber(roll)}`;
+        }
+        if (this.tvInclination) {
+          this.tvInclination.textContent = `Incl: ${inclination.toFixed(1)}`;
+        }
+      }
+    }
+
+    // AccelerometerAndMagnetometerListener class
+    class AccelerometerAndMagnetometerListener {
+      constructor(screenRotation, renderer) {
+        this.TAG = "AccelerometerAndMagnetometerListener";
+        this.mScreenRotation = screenRotation;
+        this.renderer = renderer;
+
+        this.mGravity = [0, 0, 0];
+        this.mGeomagnetic = [0, 0, 0];
+        this.mGravityUsed = false;
+        this.mGeomagneticUsed = false;
+
+        this.azimuth = 0;
+        this.pitch = 0;
+        this.roll = 0;
+        this.inclination = 0;
+        this.alpha = 0.09;
+        this.useLowPassFilter = false;
+
+        this.mOrientation = null;
+
+        this.i = 0;
+        this.iLimit = 1;
+      }
+
+      setScreenRotation(screenRotation) {
+        this.mScreenRotation = screenRotation;
+      }
+
+      frm(sensorValue) {
+        return sensorValue >= 0 
+          ? '+' + sensorValue.toFixed(1) 
+          : sensorValue.toFixed(1);
+      }
+
+      onSensorChanged(accelerometerData, magnetometerData) {
+        if (accelerometerData) {
+          this.mGravityUsed = false;
+          
+          if (!this.useLowPassFilter) {
+            this.mGravity[0] = this.alpha * accelerometerData.x + (1 - this.alpha) * this.mGravity[0];
+            this.mGravity[1] = this.alpha * accelerometerData.y + (1 - this.alpha) * this.mGravity[1];
+            this.mGravity[2] = this.alpha * accelerometerData.z + (1 - this.alpha) * this.mGravity[2];
+          } else {
+            this.mGravity = [accelerometerData.x, accelerometerData.y, accelerometerData.z];
+          }
+        }
+
+        if (magnetometerData) {
+          this.mGeomagneticUsed = false;
+          
+          if (this.useLowPassFilter) {
+            this.mGeomagnetic[0] = this.alpha * magnetometerData.alpha + (1 - this.alpha) * this.mGeomagnetic[0];
+            this.mGeomagnetic[1] = this.alpha * magnetometerData.beta + (1 - this.alpha) * this.mGeomagnetic[1];
+            this.mGeomagnetic[2] = this.alpha * magnetometerData.gamma + (1 - this.alpha) * this.mGeomagnetic[2];
+          } else {
+            this.mGeomagnetic = [magnetometerData.alpha, magnetometerData.beta, magnetometerData.gamma];
+          }
+        }
+
+        if (!this.mGravityUsed && !this.mGeomagneticUsed) {
+          const result = this.getRotationMatrix(this.mGravity, this.mGeomagnetic);
+          
+          if (result.success) {
+            this.mOrientation = this.getOrientation(result.R);
+            this.inclination = this.getInclination(result.I);
+
+            this.mGravityUsed = true;
+            this.mGeomagneticUsed = true;
+            this.i++;
+          }
+        }
+
+        if (this.i === this.iLimit) {
+          this.i = 0;
+
+          console.log(`CompassAngles - Before Fix: azimuth: ${this.frm(this.mOrientation[0])}, pitch: ${this.frm(this.mOrientation[1])}, roll: ${this.frm(this.mOrientation[2])}`);
+
+          switch (this.mScreenRotation) {
+            case 0:
+              this.fixRotation0(this.mOrientation);
+              break;
+            case 1:
+              this.fixRotation90(this.mOrientation);
+              break;
+            case 2:
+              this.fixRotation180(this.mOrientation);
+              break;
+            case 3:
+              this.fixRotation270(this.mOrientation);
+              break;
+            default:
+              console.error(`SurfaceRemap - don't know the mScreenRotation value: ${this.mScreenRotation}`);
+              break;
+          }
+
+          console.log(`CompassAngles - After Fix: azimuth: ${this.frm(this.mOrientation[0])}, pitch: ${this.frm(this.mOrientation[1])}, roll: ${this.frm(this.mOrientation[2])}`);
+
+          this.azimuth = this.mOrientation[0];
+          this.pitch = this.mOrientation[1];
+          this.roll = this.mOrientation[2];
+
+          this.renderer.setRotationValues(this.azimuth, this.pitch, this.roll, this.inclination);
+        }
+      }
+
+      getRotationMatrix(gravity, geomagnetic) {
+        const R = new Array(9).fill(0);
+        const I = new Array(9).fill(0);
+
+        const Ax = gravity[0];
+        const Ay = gravity[1];
+        const Az = gravity[2];
+
+        const normA = Math.sqrt(Ax * Ax + Ay * Ay + Az * Az);
+        if (normA < 0.0001) {
+          return { success: false };
+        }
+
+        const Ex = geomagnetic[0];
+        const Ey = geomagnetic[1];
+        const Ez = geomagnetic[2];
+
+        const Hx = Ey * Az - Ez * Ay;
+        const Hy = Ez * Ax - Ex * Az;
+        const Hz = Ex * Ay - Ey * Ax;
+
+        const normH = Math.sqrt(Hx * Hx + Hy * Hy + Hz * Hz);
+        if (normH < 0.1) {
+          return { success: false };
+        }
+
+        const invH = 1.0 / normH;
+        const Mx = Hx * invH;
+        const My = Hy * invH;
+        const Mz = Hz * invH;
+
+        const invA = 1.0 / normA;
+        const Gx = Ax * invA;
+        const Gy = Ay * invA;
+        const Gz = Az * invA;
+
+        const Yx = My * Gz - Mz * Gy;
+        const Yy = Mz * Gx - Mx * Gz;
+        const Yz = Mx * Gy - My * Gx;
+
+        R[0] = Mx; R[1] = Yx; R[2] = Gx;
+        R[3] = My; R[4] = Yy; R[5] = Gy;
+        R[6] = Mz; R[7] = Yz; R[8] = Gz;
+
+        I[0] = 1; I[1] = 0; I[2] = 0;
+        I[3] = 0; I[4] = 1; I[5] = 0;
+        I[6] = 0; I[7] = 0; I[8] = 1;
+
+        return { success: true, R: R, I: I };
+      }
+
+      getOrientation(R) {
+        const orientation = [0, 0, 0];
+        orientation[0] = Math.atan2(R[1], R[4]);
+        orientation[1] = Math.asin(-R[7]);
+        orientation[2] = Math.atan2(-R[6], R[8]);
+        return orientation;
+      }
+
+      getInclination(I) {
+        return Math.atan2(I[5], I[4]);
+      }
+
+      fixRotation0(orientation) {
+        orientation[1] = -orientation[1];
+      }
+
+      fixRotation90(orientation) {
+        orientation[0] += Math.PI / 2;
+        const tmpOldPitch = orientation[1];
+        orientation[1] = -orientation[2];
+        orientation[2] = -tmpOldPitch;
+      }
+
+      fixRotation180(orientation) {
+        orientation[0] = orientation[0] > 0 
+          ? orientation[0] - Math.PI 
+          : orientation[0] + Math.PI;
+        orientation[2] = -orientation[2];
+      }
+
+      fixRotation270(orientation) {
+        orientation[0] -= Math.PI / 2;
+        const tmpOldPitch = orientation[1];
+        orientation[1] = orientation[2];
+        orientation[2] = tmpOldPitch;
+      }
+    }
+
+    // MainActivity class
+    class MainActivity {
+      constructor() {
+        this.TAG = "MainActivity";
+        this.SENSOR_DELAY = 200;
+        
+        this.sensorListener = null;
+        this.accelerometerData = null;
+        this.magnetometerData = null;
+        this.isRunning = false;
+        
+        this.tvInfo = null;
+        this.tvAzimuth = null;
+        this.tvPitch = null;
+        this.tvRoll = null;
+        this.tvInclination = null;
+        this.renderer = null;
+      }
+
+      onCreate() {
+        this.tvInfo = document.getElementById('tvInfo');
+        this.tvAzimuth = document.getElementById('tvAzimuth');
+        this.tvPitch = document.getElementById('tvPitch');
+        this.tvRoll = document.getElementById('tvRoll');
+        this.tvInclination = document.getElementById('tvInclination');
+
+        if (!window.DeviceOrientationEvent && !window.DeviceMotionEvent) {
+          this.createSensorListDialog();
+          return;
+        }
+
+        const screenRotation = this.getScreenRotation();
+        this.tvInfo.textContent = `initial screenRotation: ${screenRotation * 90} degree`;
+        console.log(`${this.TAG}: initial screenRotation: ${screenRotation * 90} degree`);
+
+        this.renderer = new MagneticOrientationRendererText(
+          this.tvAzimuth,
+          this.tvPitch,
+          this.tvRoll,
+          this.tvInclination
+        );
+
+        this.sensorListener = new AccelerometerAndMagnetometerListener(
+          screenRotation,
+          this.renderer
+        );
+
+        window.addEventListener('orientationchange', () => this.onConfigurationChanged());
+        
+        console.log(`${this.TAG}: max heap: ${this.getMaxMemory()} MB`);
+      }
+
+      getScreenRotation() {
+        if (window.screen && window.screen.orientation) {
+          const angle = window.screen.orientation.angle;
+          return angle / 90;
+        }
+        return 0;
+      }
+
+      getMaxMemory() {
+        if (performance && performance.memory) {
+          return Math.round(performance.memory.jsHeapSizeLimit / 1024 / 1024);
+        }
+        return "Unknown";
+      }
+
+      onConfigurationChanged() {
+        const screenRotation = this.getScreenRotation();
+        console.log(`${this.TAG}: onConfigurationChanged(): screenRotation: ${screenRotation * 90} degree`);
+        
+        this.tvInfo.textContent = `screenRotation: ${screenRotation * 90} degree`;
+        if (this.sensorListener) {
+          this.sensorListener.setScreenRotation(screenRotation);
+        }
+      }
+
+      onResume() {
+        console.log(`${this.TAG}: onResume()`);
+        this.isRunning = true;
+
+        if (typeof DeviceMotionEvent !== 'undefined' && 
+            typeof DeviceOrientationEvent !== 'undefined') {
+          this.registerSensorListeners();
+        } else {
+          this.createSensorListDialog();
+        }
+      }
+
+      registerSensorListeners() {
+        window.addEventListener('devicemotion', (event) => {
+          if (this.isRunning && event.accelerationIncludingGravity) {
+            this.accelerometerData = event.accelerationIncludingGravity;
+            this.updateOrientation();
+          }
+        });
+
+        if (DeviceOrientationEvent.requestPermission) {
+          DeviceOrientationEvent.requestPermission()
+            .then(permissionState => {
+              if (permissionState === 'granted') {
+                this.addOrientationListener();
+              } else {
+                this.createRestartDialog();
+              }
+            })
+            .catch(() => this.createRestartDialog());
+        } else {
+          this.addOrientationListener();
+        }
+      }
+
+      addOrientationListener() {
+        window.addEventListener('deviceorientationabsolute', (event) => {
+          if (this.isRunning) {
+            this.magnetometerData = {
+              alpha: event.alpha,
+              beta: event.beta,
+              gamma: event.gamma,
+              absolute: event.absolute
+            };
+            this.updateOrientation();
+          }
+        });
+      }
+
+      updateOrientation() {
+        if (this.accelerometerData && this.magnetometerData && this.sensorListener) {
+          this.sensorListener.onSensorChanged(
+            this.accelerometerData,
+            this.magnetometerData
+          );
+        }
+      }
+
+      onPause() {
+        console.log(`${this.TAG}: onPause()`);
+        this.isRunning = false;
+      }
+
+      createSensorListDialog() {
+        let sensorList = "Available sensors:\n";
+        let sensorCount = 0;
+
+        if (typeof DeviceMotionEvent !== 'undefined') {
+          sensorList += "DeviceMotion (Accelerometer) - available\n";
+          sensorCount++;
+        }
+        
+        if (typeof DeviceOrientationEvent !== 'undefined') {
+          sensorList += "DeviceOrientation (Magnetometer/Gyro) - available\n";
+          sensorCount++;
+        }
+
+        console.error(`${this.TAG}: ${sensorList}`);
+        
+        const message = `Accelerometer + Magnetometer needed.\nYou have ${sensorCount} sensors:\n${sensorList}`;
+        
+        alert(`Missing a required sensor!\n\n${message}`);
+      }
+
+      createRestartDialog() {
+        const message = "Can't listen sensors\nTry restart browser or check permissions...";
+        alert(`Can't listen required sensors!\n\n${message}`);
+      }
+
+      start() {
+        this.onCreate();
+        this.onResume();
+      }
+
+      stop() {
+        this.onPause();
+      }
+    }
+
+    // Initialize app when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      const app = new MainActivity();
+      app.start();
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          app.onPause();
+        } else {
+          app.onResume();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
