@@ -6,9 +6,33 @@
   body, html { height:100%; margin:0; font-family:system-ui,Segoe UI,Roboto; background:#000; color:#fff;}
   #camera { position:fixed; inset:0; background:#111; }
   video#cam { width:100%; height:100%; object-fit:cover; transform:scaleX(-1); } /* peilaa kamerakuvaa */
-  #hud { position:fixed; left:10px; top:10px; z-index:20; background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; }
-  #arrow { width:64px; height:64px; display:block; transform-origin:center center; transition: transform 0.05s linear; }
-  #info { margin-top:8px; font-size:14px; }
+
+  /* HUD container nyt alareunassa keskellä */
+  #hud {                                   /* CHANGED */
+    position:fixed;
+    bottom:20px;                          /* siirretään alalaitaan */
+    left:50%;                             /* keskelle vaakasuunnassa */
+    transform:translateX(-50%);
+    z-index:20;
+    background:rgba(0,0,0,0.4);
+    padding:10px 16px;
+    border-radius:12px;
+    text-align:center;                    /* CHANGED */
+  }
+
+  #arrow {
+    width:80px; height:80px;              /* hieman isompi */
+    display:block;
+    margin:0 auto;
+    transform-origin:center center;
+    transition: transform 0.05s linear;
+  }
+
+  #info {
+    margin-top:8px;
+    font-size:14px;
+    text-align:center;
+  }
 </style>
 <body>
   <div id="camera">
