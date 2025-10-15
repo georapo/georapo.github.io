@@ -234,74 +234,46 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 // override updateHUD to add 3D arrow logic
 const arrow2d = document.getElementById('arrow2d');
 function updateHUD(){
-  const distEl = document.getElementById('dist');
-  const bearingEl = document.getElementById('bearing');
-  const azEl = document.getElementById('azimuth');
+  requestAnimationFrame(updateHUD);  // varmista jatkuva päivitys
 
-  if (!currentPos || !haveOrientation){
-    requestAnimationFrame(updateHUD);
-    return;
-  }
+  if (!currentPos || !haveOrientation) return;
 
-  // 1) Etäisyys ja bearing
+  // 1) Etäisyys ja suunta kohteeseen
   const dist = haversineDistance(currentPos.lat, currentPos.lon, target.lat, target.lon);
-  const geoBearing = initialBearing(currentPos.lat, currentPos.lon, target.lat, target.lon);
-  distEl.textContent = `Etäisyys: ${dist<1000 ? Math.round(dist)+' m' : (dist/1000).toFixed(2)+' km'}`;
-  bearingEl.textContent = `Kohteen suunta: ${geoBearing.toFixed(1)}°`;
+  const bearing = initialBearing(currentPos.lat, currentPos.lon, target.lat, target.lon);
+  document.getElementById('dist').textContent = `${Math.round(dist)} m`;
+  document.getElementById('bearing').textContent = `${bearing.toFixed(1)}°`;
 
-  // 2) Laske paikallinen kohdevektori (ENU)
+  // 2) ENU-vektori (kohteen suunta käyttäjän sijaintiin nähden)
   const R = 6371000;
   const φ1 = toRad(currentPos.lat), λ1 = toRad(currentPos.lon);
   const φ2 = toRad(target.lat), λ2 = toRad(target.lon);
-  const dφ = φ2 - φ1;
-  const dλ = λ2 - λ1;
-
-  // likimääräinen ENU-vektori (pienillä etäisyyksillä)
-  const east  = R * Math.cos(φ1) * dλ;
+  const dφ = φ2 - φ1, dλ = λ2 - λ1;
+  const east = R * Math.cos(φ1) * dλ;
   const north = R * dφ;
-  const up    = 0;
-  const enu = new THREE.Vector3(east, north, up).normalize(); // kohteen suunta
+  const enu = new THREE.Vector3(east, north, 0).normalize();
 
-  // 3) Hae kameran forward-vektori maailmassa
-  const deviceForward = {x:0,y:0,z:-1};
-  const screenQ = screenRotationQuat(getScreenAngle());
-  const v_afterScreen = rotateVectorByQuat(deviceForward, screenQ);
-  const worldForward = rotateVectorByQuat(v_afterScreen, orientationQuat);
+  // 3) Kamera (puhelin) osoitussuunta
+  const forward = rotateVectorByQuat({x:0,y:0,z:-1}, orientationQuat);
+  const worldForward = new THREE.Vector3(forward.x, forward.y, forward.z).normalize();
 
-  const fx = worldForward.x, fy = worldForward.y, fz = worldForward.z;
-  const horizLen = Math.hypot(fx, fy);
-  let azimuthDeg = null;
-  if (horizLen < 1e-6) {
-    azimuthDeg = null;
-    azEl.textContent = `Puhelimen katselusuunta: —°`;
-  } else {
-    const headingRad = Math.atan2(fx, fy);
-    azimuthDeg = norm360(toDeg(headingRad));
-    azEl.textContent = `Puhelimen katselusuunta: ${azimuthDeg.toFixed(1)}°`;
-  }
-
-  // 4) Kallistuskulma (pitch) ja tila
-  pitchDeg = toDeg(Math.asin(-worldForward.z));
-  show3D = pitchDeg > 45;
+  // 4) Laske kallistus (pitch)
+  const pitch = toDeg(Math.asin(-worldForward.z));
+  const show3D = pitch > 45;
   arrow2d.style.opacity = show3D ? 0 : 1;
 
-  // 5) 3D-nuolen oikea kolmiulotteinen suunta
-  if (show3D) {
-    // kamera osoittaa worldForward-vektoriin, kohdevektori on enu
-    // tehdään Three.js-vektorit
-    const targetVec = new THREE.Vector3(enu.x, enu.y, enu.z).normalize();
-    const cameraDir = new THREE.Vector3(worldForward.x, worldForward.y, worldForward.z).normalize();
-
-    // lasketaan tarvittava kierto, jolla z-akseli (nuolen suunta) osoittaa targetiin
+  if (show3D){
+    // 5) Nuolen 3D-orientaatio: osoita kohteen suuntaan
     const quatToTarget = new THREE.Quaternion().setFromUnitVectors(
-      new THREE.Vector3(0,1,0), // nuolen lok. Y-akseli (ylös)
-      targetVec
+      new THREE.Vector3(0,1,0), // nuolen oma “ylös”
+      enu
     );
     shaft.quaternion.copy(quatToTarget);
-  }
 
-  if (show3D) renderer.render(scene, camera3d);
-  requestAnimationFrame(updateHUD);
+    // 6) Pyöritetään hieman elävästi (leijunta)
+    shaft.rotation.z += 0.01;
+    renderer.render(scene, camera3d);
+  }
 }
 
 // start everything
