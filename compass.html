@@ -51,6 +51,8 @@
       <div id="tvPitch" class="sensor-value">Pitch: --</div>
       <div id="tvRoll" class="sensor-value">Roll: --</div>
       <div id="tvInclination" class="sensor-value">Incl: --</div>
+	  <div id="InfoTxt" class="sensor-value">Info: --</div>
+	  
     </div>
   </div>
 
@@ -163,6 +165,8 @@
           this.i = 0;
 
           console.log(`CompassAngles - Before Fix: azimuth: ${this.frm(this.mOrientation[0])}, pitch: ${this.frm(this.mOrientation[1])}, roll: ${this.frm(this.mOrientation[2])}`);
+		  
+		  document.getElementById("InfoTxt").textContent = `CompassAngles - Before Fix: azimuth: ${this.frm(this.mOrientation[0])}, pitch: ${this.frm(this.mOrientation[1])}, roll: ${this.frm(this.mOrientation[2])}`;
 
           switch (this.mScreenRotation) {
             case 0:
@@ -183,6 +187,8 @@
           }
 
           console.log(`CompassAngles - After Fix: azimuth: ${this.frm(this.mOrientation[0])}, pitch: ${this.frm(this.mOrientation[1])}, roll: ${this.frm(this.mOrientation[2])}`);
+		  
+		  document.getElementById("InfoTxt").textContent = `CompassAngles - After Fix: azimuth: ${this.frm(this.mOrientation[0])}, pitch: ${this.frm(this.mOrientation[1])}, roll: ${this.frm(this.mOrientation[2])}`;
 
           this.azimuth = this.mOrientation[0];
           this.pitch = this.mOrientation[1];
