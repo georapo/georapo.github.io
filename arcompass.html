@@ -243,22 +243,35 @@ function updateHUD(){
     return;
   }
 
+  // 1) Etäisyys ja bearing
   const dist = haversineDistance(currentPos.lat, currentPos.lon, target.lat, target.lon);
   const geoBearing = initialBearing(currentPos.lat, currentPos.lon, target.lat, target.lon);
   distEl.textContent = `Etäisyys: ${dist<1000 ? Math.round(dist)+' m' : (dist/1000).toFixed(2)+' km'}`;
   bearingEl.textContent = `Kohteen suunta: ${geoBearing.toFixed(1)}°`;
 
+  // 2) Laske paikallinen kohdevektori (ENU)
+  const R = 6371000;
+  const φ1 = toRad(currentPos.lat), λ1 = toRad(currentPos.lon);
+  const φ2 = toRad(target.lat), λ2 = toRad(target.lon);
+  const dφ = φ2 - φ1;
+  const dλ = λ2 - λ1;
+
+  // likimääräinen ENU-vektori (pienillä etäisyyksillä)
+  const east  = R * Math.cos(φ1) * dλ;
+  const north = R * dφ;
+  const up    = 0;
+  const enu = new THREE.Vector3(east, north, up).normalize(); // kohteen suunta
+
+  // 3) Hae kameran forward-vektori maailmassa
   const deviceForward = {x:0,y:0,z:-1};
   const screenQ = screenRotationQuat(getScreenAngle());
   const v_afterScreen = rotateVectorByQuat(deviceForward, screenQ);
   const worldForward = rotateVectorByQuat(v_afterScreen, orientationQuat);
 
-  const fx = worldForward.x;
-  const fy = worldForward.y;
-  const fz = worldForward.z;
+  const fx = worldForward.x, fy = worldForward.y, fz = worldForward.z;
   const horizLen = Math.hypot(fx, fy);
   let azimuthDeg = null;
-  if (horizLen < 1e-6){
+  if (horizLen < 1e-6) {
     azimuthDeg = null;
     azEl.textContent = `Puhelimen katselusuunta: —°`;
   } else {
@@ -267,34 +280,29 @@ function updateHUD(){
     azEl.textContent = `Puhelimen katselusuunta: ${azimuthDeg.toFixed(1)}°`;
   }
 
-  // laske kallistuskulma (pitch) worldForward.z:sta
-  pitchDeg = toDeg(Math.asin(-worldForward.z)); // 0=horisontti, +90=ylös
-  show3D = pitchDeg > 45; // jos laite pystyssä, käytetään 3D-nuolta
+  // 4) Kallistuskulma (pitch) ja tila
+  pitchDeg = toDeg(Math.asin(-worldForward.z));
+  show3D = pitchDeg > 45;
+  arrow2d.style.opacity = show3D ? 0 : 1;
 
-  // 2D-nuolen päivitys
-  let relative = 0;
-  if (azimuthDeg != null){
-    let diff = geoBearing - azimuthDeg;
-    diff = ((diff + 540) % 360) - 180;
-    relative = diff;
+  // 5) 3D-nuolen oikea kolmiulotteinen suunta
+  if (show3D) {
+    // kamera osoittaa worldForward-vektoriin, kohdevektori on enu
+    // tehdään Three.js-vektorit
+    const targetVec = new THREE.Vector3(enu.x, enu.y, enu.z).normalize();
+    const cameraDir = new THREE.Vector3(worldForward.x, worldForward.y, worldForward.z).normalize();
+
+    // lasketaan tarvittava kierto, jolla z-akseli (nuolen suunta) osoittaa targetiin
+    const quatToTarget = new THREE.Quaternion().setFromUnitVectors(
+      new THREE.Vector3(0,1,0), // nuolen lok. Y-akseli (ylös)
+      targetVec
+    );
+    shaft.quaternion.copy(quatToTarget);
   }
-  arrow2d.style.transform = `rotate(${relative}deg)`;
-  arrow2d.style.opacity = show3D ? 0 : 1; // fade out 2D when 3D visible
 
-  // 3D-nuolen päivitys
-  if (show3D){
-    // Pyöritetään 3D-nuolta osoittamaan oikeaan suuntaan (bearing)
-    const yaw = toRad(-relative); // negatiivinen koska CSS-kääntö ja 3D-akselit eri
-    shaft.rotation.set(0, yaw, 0);
-  }
-
-  // renderöidään scene jos 3D-tila näkyvissä
-  renderer.setClearColor(0x000000, show3D?0:0); // täysin läpinäkyvä
   if (show3D) renderer.render(scene, camera3d);
-
   requestAnimationFrame(updateHUD);
 }
-
 
 // start everything
 (async function init(){
