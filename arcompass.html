@@ -3,44 +3,31 @@
 <meta charset="utf-8"/>
 <title>Digital AR Compass</title>
 <style>
-  body, html { height:100%; margin:0; font-family:system-ui,Segoe UI,Roboto; background:#000; color:#fff;}
-  #camera { position:fixed; inset:0; background:#111; }
-  video#cam { width:100%; height:100%; object-fit:cover; transform:scaleX(-1); } /* peilaa kamerakuvaa */
+  body, html { margin:0; height:100%; overflow:hidden; background:#000; color:#fff; font-family:system-ui,Segoe UI,Roboto;}
+  #camera { position:fixed; inset:0; }
+  video#cam { width:100%; height:100%; object-fit:cover; transform:scaleX(-1); }
 
-  /* HUD container nyt alareunassa keskellä */
-  #hud {                                   /* CHANGED */
-    position:fixed;
-    bottom:20px;                          /* siirretään alalaitaan */
-    left:50%;                             /* keskelle vaakasuunnassa */
-    transform:translateX(-50%);
-    z-index:20;
-    background:rgba(0,0,0,0.4);
-    padding:10px 16px;
-    border-radius:12px;
-    text-align:center;                    /* CHANGED */
+  #hud {
+    position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+    background:rgba(0,0,0,0.4); padding:10px 16px; border-radius:12px;
+    text-align:center; z-index:20;
   }
-
-  #arrow {
-    width:80px; height:80px;              /* hieman isompi */
-    display:block;
-    margin:0 auto;
+  #arrow2d {
+    width:80px; height:80px; display:block; margin:0 auto;
     transform-origin:center center;
-    transition: transform 0.05s linear;
+    transition:transform 0.05s linear, opacity 0.2s ease;
   }
+  #info { margin-top:8px; font-size:14px; }
 
-  #info {
-    margin-top:8px;
-    font-size:14px;
-    text-align:center;
-  }
+  canvas#three { position:fixed; inset:0; pointer-events:none; z-index:10; }
 </style>
 <body>
   <div id="camera">
     <video id="cam" autoplay playsinline muted></video>
   </div>
-
+  <canvas id="three"></canvas> <!-- THREEJS PART -->
   <div id="hud">
-    <img id="arrow" src="data:image/svg+xml;utf8,
+    <img id="arrow2d" src="data:image/svg+xml;utf8,
       <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
         <polygon points='50,5 95,95 50,75 5,95' fill='white'/>
       </svg>"/>
@@ -50,8 +37,9 @@
       <div id="azimuth">Puhelimen katselusuunta: —°</div>
     </div>
   </div>
+<script type="module">
+import * as THREE from 'https://unpkg.com/three@0.162.0/build/three.module.js';
 
-<script>
 // --- CONFIG: laita tähän kohteen koordinaatit (WGS84) ---
 const target = { lat: 60.192059, lon: 24.945831 }; // esimerkki: Helsinki
 
@@ -207,72 +195,106 @@ function getScreenAngle(){
   return 0;
 }
 
+/* --- THREEJS PART: setup 3D arrow --- */
+const threeCanvas = document.getElementById('three');
+const renderer = new THREE.WebGLRenderer({canvas:threeCanvas, alpha:true, antialias:true});
+const scene = new THREE.Scene();
+const camera3d = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.01, 100);
+camera3d.position.z = 2;
+
+// 3D-nuoli (sylinteri + kartio)
+const shaft = new THREE.Mesh(
+  new THREE.CylinderGeometry(0.02,0.02,0.8,16),
+  new THREE.MeshStandardMaterial({color:0xffffff, metalness:0.3, roughness:0.4})
+);
+const head = new THREE.Mesh(
+  new THREE.ConeGeometry(0.06,0.2,20),
+  new THREE.MeshStandardMaterial({color:0xff3333, metalness:0.1, roughness:0.3})
+);
+head.position.y = 0.5;
+shaft.add(head);
+scene.add(shaft);
+
+const light = new THREE.DirectionalLight(0xffffff,1);
+light.position.set(0,1,1);
+scene.add(light);
+
+// keep arrow visible flag
+let show3D = false;
+let pitchDeg = 0;
+
+window.addEventListener('resize', ()=>{
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera3d.aspect = window.innerWidth/window.innerHeight;
+  camera3d.updateProjectionMatrix();
+});
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+
+// override updateHUD to add 3D arrow logic
+const arrow2d = document.getElementById('arrow2d');
 function updateHUD(){
   const distEl = document.getElementById('dist');
   const bearingEl = document.getElementById('bearing');
   const azEl = document.getElementById('azimuth');
-  const arrow = document.getElementById('arrow');
 
   if (!currentPos || !haveOrientation){
     requestAnimationFrame(updateHUD);
     return;
   }
 
-  // 1) distance & geodetic bearing to target
   const dist = haversineDistance(currentPos.lat, currentPos.lon, target.lat, target.lon);
-  const geoBearing = initialBearing(currentPos.lat, currentPos.lon, target.lat, target.lon); // deg from north (0..360)
-  distEl.textContent = `Etäisyys: ${dist<1000 ? Math.round(dist) + ' m' : (dist/1000).toFixed(2)+' km'}`;
+  const geoBearing = initialBearing(currentPos.lat, currentPos.lon, target.lat, target.lon);
+  distEl.textContent = `Etäisyys: ${dist<1000 ? Math.round(dist)+' m' : (dist/1000).toFixed(2)+' km'}`;
   bearingEl.textContent = `Kohteen suunta: ${geoBearing.toFixed(1)}°`;
 
-  // 2) compute camera forward vector in world coords
-  // Define camera forward in device coordinates:
-  // For typical phone held with back camera pointing away from user:
-  // device coordinate convention (following spec): X right, Y up, Z out of the screen toward user.
-  // Camera forward (looking out the back camera) is often -Z in device coordinates. Because we mirrored video, may invert, but producing relative direction works.
-  const deviceForward = { x: 0, y: 0, z: -1 }; // camera looks towards -Z (out of screen)
-  // apply orientation quaternion to get world forward
-  // orientationQuat transforms device -> world (best-effort). If sensor uses opposite convention, you may need conjugate - test on device.
-  const screenAngle = getScreenAngle(); // 0, 90, 180, 270
-  const screenQ = screenRotationQuat(screenAngle);
-  // compose: apply screen rotation first to device vector (rotate device coordinate to account screen rotation),
-  // then apply orientation quaternion to get world vector.
-  // That means rotate deviceForward by screenQ, then by orientationQuat.
+  const deviceForward = {x:0,y:0,z:-1};
+  const screenQ = screenRotationQuat(getScreenAngle());
   const v_afterScreen = rotateVectorByQuat(deviceForward, screenQ);
   const worldForward = rotateVectorByQuat(v_afterScreen, orientationQuat);
 
-  // Project worldForward to horizontal plane (ignore up/down)
-  const fx = worldForward.x; // east component
-  const fy = worldForward.y; // north component
-  // if both ~0 (phone pointing straight up/down), heading undefined; handle gracefully
+  const fx = worldForward.x;
+  const fy = worldForward.y;
+  const fz = worldForward.z;
+  const horizLen = Math.hypot(fx, fy);
   let azimuthDeg = null;
-  if (Math.hypot(fx, fy) < 1e-6){
+  if (horizLen < 1e-6){
     azimuthDeg = null;
-    azEl.textContent = `Puhelimen katselusuunta: —° (liian jyrkässä kulmassa)`;
+    azEl.textContent = `Puhelimen katselusuunta: —°`;
   } else {
-    // heading = atan2(east, north) => 0° = north, increasing clockwise
-    let headingRad = Math.atan2(fx, fy);
-    let headingDeg = norm360(toDeg(headingRad));
-    azimuthDeg = headingDeg;
-    azEl.textContent = `Puhelimen katselusuunta: ${headingDeg.toFixed(1)}°`;
+    const headingRad = Math.atan2(fx, fy);
+    azimuthDeg = norm360(toDeg(headingRad));
+    azEl.textContent = `Puhelimen katselusuunta: ${azimuthDeg.toFixed(1)}°`;
   }
 
-  // 3) Compute relative bearing from phone view to target (i.e., how many degrees to rotate arrow)
-  // Want angle (clockwise) to turn from phone forward to pointing at target.
-  // relative = (geoBearing - azimuthDeg) normalized to [-180,180]
+  // laske kallistuskulma (pitch) worldForward.z:sta
+  pitchDeg = toDeg(Math.asin(-worldForward.z)); // 0=horisontti, +90=ylös
+  show3D = pitchDeg > 45; // jos laite pystyssä, käytetään 3D-nuolta
+
+  // 2D-nuolen päivitys
   let relative = 0;
-  if (azimuthDeg === null){
-    relative = 0;
-  } else {
+  if (azimuthDeg != null){
     let diff = geoBearing - azimuthDeg;
-    diff = ((diff + 540) % 360) - 180; // normalize to [-180,180]
+    diff = ((diff + 540) % 360) - 180;
     relative = diff;
   }
+  arrow2d.style.transform = `rotate(${relative}deg)`;
+  arrow2d.style.opacity = show3D ? 0 : 1; // fade out 2D when 3D visible
 
-  // Rotate arrow image: negative because CSS rotate uses clockwise positive?
-  arrow.style.transform = `rotate(${relative}deg)`;
+  // 3D-nuolen päivitys
+  if (show3D){
+    // Pyöritetään 3D-nuolta osoittamaan oikeaan suuntaan (bearing)
+    const yaw = toRad(-relative); // negatiivinen koska CSS-kääntö ja 3D-akselit eri
+    shaft.rotation.set(0, yaw, 0);
+  }
+
+  // renderöidään scene jos 3D-tila näkyvissä
+  renderer.setClearColor(0x000000, show3D?0:0); // täysin läpinäkyvä
+  if (show3D) renderer.render(scene, camera3d);
 
   requestAnimationFrame(updateHUD);
 }
+
 
 // start everything
 (async function init(){
