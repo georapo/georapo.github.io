@@ -34,10 +34,36 @@ body
 	        window.location = "https://www.geocache.fi/caches/cachetieto.php?wp=GC" + parsePage();
  	}
 	
-	function focustothis() {
+	async function focustothis() {
 
       var input = document.getElementById("page");
-      input.focus();
+      
+      try {
+        // Lue leikepöydän sisältö
+        const text = await navigator.clipboard.readText();
+        const trimmed = text.trim();
+
+        if (!trimmed) {
+          
+          return;
+        }
+
+        if (trimmed.length > 7) {
+          
+          return;
+        }
+
+        // Asetetaan arvo inputiin
+        input.value = trimmed;
+        
+        //input.focus();
+
+      } catch (err) {
+        console.warn('Clipboard-luku epäonnistui:', err);
+        
+      }
+    }
+
     
       input.addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
@@ -45,15 +71,25 @@ body
           document.getElementById("gosubmit").click();
         } 
       })
-	  if ("virtualKeyboard" in navigator) {
-	    navigator.virtualKeyboard.show();
-	  }
-	  input.click();
+	  //if ("virtualKeyboard" in navigator) {
+	  //  navigator.virtualKeyboard.show();
+	  //}
+	  
+	  input.focus();
+	  try {
+        // valitse loppu — tämä voi auttaa joissain selaimissa herättämään näppäimistön
+        const len = input.value.length;
+        input.setSelectionRange(len, len);
+      } catch (e) {}
+	  
     }
+	
+	document.addEventListener('DOMContentLoaded', focustothis);
 </script>
 </head>
 
-<body onload="focustothis()">
+<body>
+
 
 <div id="main_body">
  <label>coord.info/GC </label><input type="text" id="page" name="page" size="10" style="height:30px;" autofocus>
