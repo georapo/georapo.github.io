@@ -1,103 +1,175 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
-body
-{
-  background-image: url("bgimage.png");
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-#main_body
-{
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("bgimage.png");
+  background-size: cover;
+  background-position: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  touch-action: manipulation;
+}
+
+#main_body {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 200%;
-}​
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+#page {
+  width: 100%;
+  height: 50px;
+  font-size: 24px;
+  padding: 10px 15px;
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.button {
+  width: 100%;
+  height: 55px;
+  font-size: 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: all 0.2s;
+}
+
+#gosubmit {
+  background: #4CAF50;
+  color: white;
+}
+
+#gosubmit:active {
+  background: #45a049;
+  transform: scale(0.98);
+}
+
+#gosubmit_gcfi {
+  background: #2196F3;
+  color: white;
+}
+
+#gosubmit_gcfi:active {
+  background: #0b7dda;
+  transform: scale(0.98);
+}
+
+.clipboard-status {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  margin-top: 10px;
+  min-height: 20px;
+}
 </style>
-
-<script type="text/javascript">
-
-    function parsePage() {
-	    var page = document.getElementById('page').value.trim().toUpperCase();
-		page = page.startsWith("GC") ? page.substr(2) : page;
-	    return page;
-	}
-	
-    function goToPage_gccom() {
-          window.location = "http://coord.info/GC" + parsePage();
-    };
-	
-	function goToPage_gcfi() {
-	        window.location = "https://www.geocache.fi/caches/cachetieto.php?wp=GC" + parsePage();
- 	}
-	
-	async function focustothis() {
-
-      var input = document.getElementById("page");
-      
-      try {
-        // Lue leikepöydän sisältö
-        const text = await navigator.clipboard.readText();
-        const trimmed = text.trim();
-
-        if (!trimmed) {
-          
-          return;
-        }
-
-        if (trimmed.length > 7) {
-          
-          return;
-        }
-
-        // Asetetaan arvo inputiin
-        input.value = trimmed;
-        
-        //input.focus();
-
-      } catch (err) {
-        console.warn('Clipboard-luku epäonnistui:', err);
-        
-      }
-    }
-
-    
-      input.addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-          event.preventDefault();     // Cancel the default action, if needed
-          document.getElementById("gosubmit").click();
-        } 
-      })
-	  //if ("virtualKeyboard" in navigator) {
-	  //  navigator.virtualKeyboard.show();
-	  //}
-	  
-	  input.focus();
-	  try {
-        // valitse loppu — tämä voi auttaa joissain selaimissa herättämään näppäimistön
-        const len = input.value.length;
-        input.setSelectionRange(len, len);
-      } catch (e) {}
-	  
-    }
-	
-	document.addEventListener('DOMContentLoaded', focustothis);
-</script>
 </head>
-
 <body>
-
-
 <div id="main_body">
- <label>coord.info/GC </label><input type="text" id="page" name="page" size="10" style="height:30px;" autofocus>
- <input id="gosubmit" type="submit" value=">>> Go! >>>" style="height:30px;" onclick="goToPage_gccom();">
- <br><br>
- 
- <input id="gosubmit_gcfi" type="submit" value=" geocache.fi " style="height:30px;" onclick="goToPage_gcfi();" />
- 
+  <label>coord.info/GC</label>
+  <input type="text" id="page" name="page" inputmode="text" autocomplete="off" autocapitalize="characters">
+  <button id="gosubmit" class="button">>>> Go! >>></button>
+  <button id="gosubmit_gcfi" class="button">geocache.fi</button>
+  <div class="clipboard-status" id="status"></div>
 </div>
 
-</body></html>
+<script>
+function parsePage() {
+  let page = document.getElementById('page').value.trim().toUpperCase();
+  page = page.startsWith("GC") ? page.slice(2) : page;
+  return page;
+}
+
+function goToPage_gccom() {
+  const page = parsePage();
+  if (page) {
+    window.location = "https://coord.info/GC" + page;
+  }
+}
+
+function goToPage_gcfi() {
+  const page = parsePage();
+  if (page) {
+    window.location = "https://www.geocache.fi/caches/cachetieto.php?wp=GC" + page;
+  }
+}
+
+async function focustothis() {
+  const input = document.getElementById("page");
+  const status = document.getElementById("status");
+  
+  try {
+    const text = await navigator.clipboard.readText();
+    const trimmed = text.trim();
+    
+    if (trimmed && trimmed.length <= 10) {
+      input.value = trimmed;
+      status.textContent = "✓ Pasted from clipboard";
+      setTimeout(() => status.textContent = "", 2000);
+    }
+  } catch (err) {
+    console.log('Clipboard read not available');
+  }
+  
+  input.focus();
+  
+  setTimeout(() => {
+    input.focus();
+    const len = input.value.length;
+    input.setSelectionRange(len, len);
+  }, 100);
+}
+
+// Enter key support
+document.getElementById('page').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    goToPage_gccom();
+  }
+});
+
+// Button click handlers
+document.getElementById('gosubmit').addEventListener('click', goToPage_gccom);
+document.getElementById('gosubmit_gcfi').addEventListener('click', goToPage_gcfi);
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', focustothis);
+
+// Refocus when page becomes visible (for mobile browser switching)
+document.addEventListener('visibilitychange', function() {
+  if (!document.hidden) {
+    setTimeout(focustothis, 100);
+  }
+});
+</script>
+</body>
+</html>
