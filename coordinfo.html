@@ -97,7 +97,7 @@ label {
 
 <div id="main_body">
   <label>coord.info/GC</label>
-  <input type="text" id="page" name="page" inputmode="text" autocomplete="off" autocapitalize="characters" onfocus="focustothis()">
+  <input type="text" id="page" name="page" inputmode="text" autocomplete="off" autocapitalize="characters" onfocus="focustothis(); this.select();">
   <button id="gosubmit" class="button">Geocaching.com</button>
   <button id="gosubmit_gcfi" class="button">geocache.fi</button>
   <div class="clipboard-status" id="status"></div>
@@ -143,7 +143,7 @@ async function focustothis() {
       setTimeout(() => status.textContent = "", 2000);
   }
   
-  setTimeout(function () { input.select(); }, 100);
+  //setTimeout(function () { input.select(); }, 100);
   
   //input.focus();
   
@@ -172,7 +172,7 @@ document.getElementById('gosubmit').addEventListener('click', goToPage_gccom);
 document.getElementById('gosubmit_gcfi').addEventListener('click', goToPage_gcfi);
 
 // Initialize on page load
-document.addEventListener('DOMContentLoaded', setfocus);
+//document.addEventListener('DOMContentLoaded', setfocus);
 
 // Refocus when page becomes visible (for mobile browser switching)
 //document.addEventListener('visibilitychange', function() {
