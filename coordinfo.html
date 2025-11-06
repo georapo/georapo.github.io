@@ -93,11 +93,12 @@ label {
 }
 </style>
 </head>
-<body>
+<body onload="focustothis()">
+
 <div id="main_body">
   <label>coord.info/GC</label>
   <input type="text" id="page" name="page" inputmode="text" autocomplete="off" autocapitalize="characters">
-  <button id="gosubmit" class="button">>>> Go! >>></button>
+  <button id="gosubmit" class="button">Geocaching.com</button>
   <button id="gosubmit_gcfi" class="button">geocache.fi</button>
   <div class="clipboard-status" id="status"></div>
 </div>
@@ -123,7 +124,7 @@ function goToPage_gcfi() {
   }
 }
 
-async function focustothis() {
+function focustothis() {
   const input = document.getElementById("page");
   const status = document.getElementById("status");
   
@@ -131,14 +132,14 @@ async function focustothis() {
     const text = await navigator.clipboard.readText();
     const trimmed = text.trim();
     
-    if (trimmed && trimmed.length <= 10) {
+    if (trimmed && trimmed.length <= 7) {
       input.value = trimmed;
-      status.textContent = "✓ Pasted from clipboard";
+      status.textContent = "✓ Tuotu leikepöydältä";
       setTimeout(() => status.textContent = "", 2000);
     }
   } catch (err) {
     //console.log('Clipboard read not available');
-	  status.textContent = "Clipboard read not available";
+	  status.textContent = "Leikepöydältä ei löytynyt sisältöä";
       setTimeout(() => status.textContent = "", 2000);
   }
   
@@ -148,7 +149,7 @@ async function focustothis() {
     input.focus();
     const len = input.value.length;
     input.setSelectionRange(len, len);
-  }, 100);
+  }, 1000);
 }
 
 // Enter key support
@@ -169,7 +170,7 @@ document.addEventListener('DOMContentLoaded', focustothis);
 // Refocus when page becomes visible (for mobile browser switching)
 document.addEventListener('visibilitychange', function() {
   if (!document.hidden) {
-    setTimeout(focustothis, 100);
+    setTimeout(focustothis, 1000);
   }
 });
 </script>
