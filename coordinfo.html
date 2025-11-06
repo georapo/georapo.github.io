@@ -93,7 +93,7 @@ label {
 }
 </style>
 </head>
-<body onload="setfocus()">
+<body>
 
 <div id="main_body">
   <label>coord.info/GC</label>
@@ -143,6 +143,8 @@ async function focustothis() {
       setTimeout(() => status.textContent = "", 2000);
   }
   
+  setTimeout(function () { input.select(); }, 100);
+  
   //input.focus();
   
   //setTimeout(() => {
@@ -170,7 +172,7 @@ document.getElementById('gosubmit').addEventListener('click', goToPage_gccom);
 document.getElementById('gosubmit_gcfi').addEventListener('click', goToPage_gcfi);
 
 // Initialize on page load
-//document.addEventListener('DOMContentLoaded', focustothis);
+document.addEventListener('DOMContentLoaded', setfocus);
 
 // Refocus when page becomes visible (for mobile browser switching)
 //document.addEventListener('visibilitychange', function() {
