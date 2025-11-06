@@ -97,7 +97,7 @@ label {
 
 <div id="main_body">
   <label>coord.info/GC</label>
-  <input type="text" id="page" name="page" inputmode="text" autocomplete="off" autocapitalize="characters">
+  <input type="text" id="page" name="page" inputmode="text" autocomplete="off" autocapitalize="characters" onfocus="focustothis()">
   <button id="gosubmit" class="button">Geocaching.com</button>
   <button id="gosubmit_gcfi" class="button">geocache.fi</button>
   <div class="clipboard-status" id="status"></div>
@@ -143,13 +143,13 @@ async function focustothis() {
       setTimeout(() => status.textContent = "", 2000);
   }
   
-  input.focus();
+  //input.focus();
   
-  setTimeout(() => {
-    input.focus();
-    const len = input.value.length;
-    input.setSelectionRange(len, len);
-  }, 200);
+  //setTimeout(() => {
+  //  input.focus();
+  //  const len = input.value.length;
+  //  input.setSelectionRange(len, len);
+  //}, 200);
 }
 
 // Enter key support
