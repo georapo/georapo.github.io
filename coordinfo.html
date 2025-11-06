@@ -93,7 +93,7 @@ label {
 }
 </style>
 </head>
-<body onload="focustothis()">
+<body>
 
 <div id="main_body">
   <label>coord.info/GC</label>
@@ -149,7 +149,7 @@ function focustothis() {
     input.focus();
     const len = input.value.length;
     input.setSelectionRange(len, len);
-  }, 1000);
+  }, 200);
 }
 
 // Enter key support
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', focustothis);
 // Refocus when page becomes visible (for mobile browser switching)
 document.addEventListener('visibilitychange', function() {
   if (!document.hidden) {
-    setTimeout(focustothis, 1000);
+    setTimeout(focustothis, 200);
   }
 });
 </script>
