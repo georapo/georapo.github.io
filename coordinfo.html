@@ -93,7 +93,7 @@ label {
 }
 </style>
 </head>
-<body>
+<body onload="setfocus()">
 
 <div id="main_body">
   <label>coord.info/GC</label>
@@ -150,6 +150,11 @@ async function focustothis() {
   //  const len = input.value.length;
   //  input.setSelectionRange(len, len);
   //}, 200);
+}
+
+function setfocus() {
+   const input = document.getElementById("page");
+   input.focus();
 }
 
 // Enter key support
