@@ -105,7 +105,7 @@ function kantakarttaZoomlevelListener() {
     var dealWithKantakartat = (kantakarttaZoomLevel() && kantakarttaAvailable());
 	
     map.getLayers().forEach(function(layer) {  
-      if (isBaseLayer(layer)) layer.setOpacity(((dealWithKantakartat==1 && kantakarttaActivated()==1) ? 1-glbCurrentOpacity : ((document.getElementById("dim").checked) ? 0.4 : 1.0)));
+      if (isBaseLayer(layer)) layer.setOpacity(((dealWithKantakartat==1 && kantakarttaActivated()==1) ? 1-glbCurrentOpacity : ((document.getElementById("dim").checked) ? 0.35 : 1.0)));
     });	
 
     var kkCbx = document.getElementById('kantakartat');
