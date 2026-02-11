@@ -104,7 +104,7 @@ function kantakarttaZoomlevelListener() {
 	
     var dealWithKantakartat = (kantakarttaZoomLevel() && kantakarttaAvailable());
 	
-	let opacityLevels = [0.6, 0.4, 0.2, 1.0];
+	let opacityLevels = [1.0, 0.6, 0.4, 0.2];
     let dimLevel = parseInt(document.getElementById("dim").value);
     let opacity = opacityLevels[dimLevel];
 	
