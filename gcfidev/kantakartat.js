@@ -104,12 +104,10 @@ function kantakarttaZoomlevelListener() {
 	
     var dealWithKantakartat = (kantakarttaZoomLevel() && kantakarttaAvailable());
 	
-	if (!dealWithKantakartat) { 
-	  let opacityLevels = [1.0, 0.6, 0.4, 0.2];
+	  let opacityLevels = [0.6, 0.4, 0.2, 1.0];
       let dimLevel = parseInt(document.getElementById("dim").value);
       let opacity = opacityLevels[dimLevel];
-	  
-	}  
+	
 	
     map.getLayers().forEach(function(layer) {  
       if (isBaseLayer(layer)) layer.setOpacity(((dealWithKantakartat==1 && kantakarttaActivated()==1) ? 1-glbCurrentOpacity : opacity));
