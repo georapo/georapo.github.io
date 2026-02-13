@@ -104,7 +104,6 @@ function kantakarttaZoomlevelListener() {
 	
     var dealWithKantakartat = (kantakarttaZoomLevel() && kantakarttaAvailable());
 	
-
     var kkCbx = document.getElementById('kantakartat');
     if (dealWithKantakartat) {
       kkCbx.disabled = false;
@@ -114,12 +113,11 @@ function kantakarttaZoomlevelListener() {
 	  let opacityLevels = [1.0, 0.6, 0.4, 0.2];
       let dimLevel = parseInt(document.getElementById("dim").value);
       let opacity = opacityLevels[dimLevel];
-	  console.log("kantakarttaZoomlevelListener opacity: "+opacity);
+	  //console.log("kantakarttaZoomlevelListener opacity: "+opacity);
 	
       map.getLayers().forEach(function(layer) {  
         if (isBaseLayer(layer)) layer.setOpacity(((dealWithKantakartat==1 && kantakarttaActivated()==1) ? 1-glbCurrentOpacity : opacity));
       });	
-
 
 	} else {
       kkCbx.disabled = true;
