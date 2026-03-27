@@ -103,26 +103,29 @@ function swapKantakarttaWidgetColors(color) {
 function kantakarttaZoomlevelListener() {
 	
     var dealWithKantakartat = (kantakarttaZoomLevel() && kantakarttaAvailable());
+	var kkCbx = document.getElementById('kantakartat');
 	
-    var kkCbx = document.getElementById('kantakartat');
+	let opacityLevels = [1.0, 0.6, 0.4, 0.2];
+    let dimLevel = parseInt(document.getElementById("dim").value);
+    let opacity = opacityLevels[dimLevel];
+	
     if (dealWithKantakartat) {
       kkCbx.disabled = false;
       kkCbx.setAttribute('title', currentKunta);
       swapKantakarttaWidgetColors('black');
 
-	  let opacityLevels = [1.0, 0.6, 0.4, 0.2];
-      let dimLevel = parseInt(document.getElementById("dim").value);
-      let opacity = opacityLevels[dimLevel];
-	  //console.log("kantakarttaZoomlevelListener opacity: "+opacity);
-	
       map.getLayers().forEach(function(layer) {  
         if (isBaseLayer(layer)) layer.setOpacity(((dealWithKantakartat==1 && kantakarttaActivated()==1) ? 1-glbCurrentOpacity : opacity));
-      });	
+      });
 
 	} else {
       kkCbx.disabled = true;
       kkCbx.setAttribute('title', '');
       swapKantakarttaWidgetColors('grey');
+	  
+	  map.getLayers().forEach(function(layer) {  
+        if (isBaseLayer(layer)) layer.setOpacity(opacity);
+      });
     }
 	
 	/* jos orto valittuna selectlististä ja ollaan kuntaorto extentissä, niin otetaan ortogroup käyttöön */
