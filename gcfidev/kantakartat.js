@@ -103,9 +103,9 @@ function swapKantakarttaWidgetColors(color) {
 function kantakarttaZoomlevelListener() {
 	
     var dealWithKantakartat = (kantakarttaZoomLevel() && kantakarttaAvailable());
-	var kkCbx = document.getElementById('kantakartat');
+    var kkCbx = document.getElementById('kantakartat');
 	
-	let opacityLevels = [1.0, 0.6, 0.4, 0.2];
+    let opacityLevels = [1.0, 0.6, 0.4, 0.2];
     let dimLevel = parseInt(document.getElementById("dim").value);
     let opacity = opacityLevels[dimLevel];
 	
@@ -118,12 +118,12 @@ function kantakarttaZoomlevelListener() {
         if (isBaseLayer(layer)) layer.setOpacity(((dealWithKantakartat==1 && kantakarttaActivated()==1) ? 1-glbCurrentOpacity : opacity));
       });
 
-	} else {
+    } else {
       kkCbx.disabled = true;
       kkCbx.setAttribute('title', '');
       swapKantakarttaWidgetColors('grey');
 	  
-	  map.getLayers().forEach(function(layer) {  
+      map.getLayers().forEach(function(layer) {  
         if (isBaseLayer(layer)) layer.setOpacity(opacity);
       });
     }
