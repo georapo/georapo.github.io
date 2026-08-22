@@ -141,7 +141,7 @@ function kantakarttaZoomlevelListener() {
 const TRANSPARENT_PIXEL =
   'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBTAA7';
 
-function isBlankTile(img, threshold = 250) {
+function isBlankTile(img, threshold = 220) {
   const canvas = document.createElement('canvas');
   canvas.width = img.naturalWidth;
   canvas.height = img.naturalHeight;
