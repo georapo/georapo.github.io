@@ -234,7 +234,7 @@ function installKantakartat() {
 	    kkLayers.push(ll);  
       }
     }
-  };
+  });
   installOrtokartat();
 }
 
