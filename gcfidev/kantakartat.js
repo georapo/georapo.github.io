@@ -216,13 +216,14 @@ function installKantakartat() {
 			    tileLoadFunction: function (tile, src) {
                   const img = tile.getImage();
                   const loader = new Image();
-                  loader.crossOrigin = 'anonymous';
+                  //loader.crossOrigin = 'anonymous';
 
                   loader.onload = function () {
                     img.src = isBlankTile(loader) ? TRANSPARENT_PIXEL : src;
                   };
                   loader.onerror = function () {
-                    tile.setState(3); // ol.TileState.ERROR
+                    //tile.setState(3); // ol.TileState.ERROR
+					console.error('tilestate error');
                   };
                   loader.src = src;
                 },
