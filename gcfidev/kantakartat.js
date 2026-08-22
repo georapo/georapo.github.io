@@ -133,9 +133,42 @@ function kantakarttaZoomlevelListener() {
       map.getLayers().forEach(function(layer) {
         if (layer.get('id') == 'ORTOGROUP') layer.setVisible(dealWithKantakartat ? true : false);
       });
-    } 
-	
+    } 	
 }
+
+
+// Läpinäkyvä 1x1 GIF, näytetään "tyhjän" tilen sijaan
+const TRANSPARENT_PIXEL =
+  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBTAA7';
+
+function isBlankTile(img, threshold = 250) {
+  const canvas = document.createElement('canvas');
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0, 0);
+
+  let data;
+  try {
+    data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  } catch (e) {
+    // Canvas "tainted" -> CORS-ongelma, ei voida analysoida
+    console.warn('Ei voitu lukea tilen pikseleitä (CORS?)', e);
+    return false;
+  }
+
+  for (let i = 0; i < data.length; i += 4) {
+    const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
+    // jos löytyy edes yksi ei-valkoinen / ei-läpinäkyvä pikseli, tile ei ole tyhjä
+    if (a !== 0 && (r < threshold || g < threshold || b < threshold)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+
+
 
 function installOrtokartat() {
   var orLayers = []; 
@@ -152,20 +185,18 @@ function installOrtokartat() {
                 'VERSION': ortokartatDefs[i][8],
                 'FORMAT': 'image/png',
                 'TRANSPARENT': 'true',
-              }
-            }),
+			  }
+			}),
             maxResolution: 1.0,
 	    }); 
 	    orLayers = layer.getLayers(); 
 	    orLayers.push(ll);  
       }
-    }
+    }  
   });
 }
 
 function installKantakartat() {
-	
-	//var tyhjaimg="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAADHUlEQVR4nO3UMQEAIAzAMMC/5yFjRxMFvXpn5gBNbzsA2GMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEPYB58oE/VhFU1IAAAAASUVORK5CYII=";
 	
   var kkLayers = []; 
   map.getLayers().forEach(function(layer) {
@@ -181,68 +212,35 @@ function installKantakartat() {
                   'VERSION': kantakartatDefs[i][8],
                   'FORMAT': 'image/png',
                   'TRANSPARENT': 'true',
-                }
-            }),
-            maxResolution: 1.0,
-        }); 
-		
-		// yritetään päästä käsiksi, jos wms palauttaa haja-asutusalueilla tmv. vain tyhjän tilen
-		//ll.getSource().on('tileloadend', function(event) {
-        //     var currTileImg = getBase64Image(event.tile.M.currentSrc);
-			 
-		//	 if (currTileImg.toString() === tyhjaimg) {
-		//		   console.log("TYHJÄ TILE HAVAITTU ");
-		//	 } else {
-		//		 console.log(currTileImg);
-		//	 }
-			 
-         //var b64 = getBase64Image(event.tile.M.currentSrc);
+                },
+			    tileLoadFunction: function (tile, src) {
+                  const img = tile.getImage();
+                  const loader = new Image();
+                  loader.crossOrigin = 'anonymous';
 
-	 
-			
-		
+                  loader.onload = function () {
+                    img.src = isBlankTile(loader) ? TRANSPARENT_PIXEL : src;
+                  };
+                  loader.onerror = function () {
+                    tile.setState(3); // ol.TileState.ERROR
+                  };
+                  loader.src = src;
+                },
+            }),
+			maxResolution: 1.0,
+        });
+            		
 	    kkLayers = layer.getLayers(); 
 	    kkLayers.push(ll);  
       }
     }
-  });
-  
+  };
   installOrtokartat();
 }
 
-// getBase64Image.js: https://gist.github.com/colxi/c9ab898aa063e0943d4fae1840b982d8
-// get an image blob from url using fetch
-let getImageBlob = function(url){
-  return new Promise( async resolve=>{
-    let resposne = await fetch( url );
-    let blob = resposne.blob();
-    resolve( blob );
-  });
-};
 
-// convert a blob to base64
-let blobToBase64 = function(blob) {
-  return new Promise( resolve=>{
-    let reader = new FileReader();
-    reader.onload = function() {
-      let dataUrl = reader.result;
-      resolve(dataUrl);
-    };
-    reader.readAsDataURL(blob);
-  });
-}
-
-// combine the previous two functions to return a base64 encode image from url
-let getBase64Image = async function( url ){
-  let blob = await getImageBlob( url );
-  let base64 = await blobToBase64( blob );
-  return base64;
-}
-
-/* todo:
- 
+/* todo: 
  ohjeeseen mukana olevien kuntien js-autogenerointi 
- 
  */
  
 
