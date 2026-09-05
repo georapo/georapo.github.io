@@ -213,20 +213,20 @@ function installKantakartat() {
                   'FORMAT': 'image/png',
                   'TRANSPARENT': 'true',
                 },
-			    tileLoadFunction: function (tile, src) {
-                  const img = tile.getImage();
-                  const loader = new Image();
-                  loader.crossOrigin = 'anonymous';
+			    //tileLoadFunction: function (tile, src) {
+                //  const img = tile.getImage();
+                //  const loader = new Image();
+                //  loader.crossOrigin = 'anonymous';
 
-                  loader.onload = function () {
-                    img.src = isBlankTile(loader) ? TRANSPARENT_PIXEL : src;
-                  };
-                  loader.onerror = function () {
+                //  loader.onload = function () {
+                //    img.src = isBlankTile(loader) ? TRANSPARENT_PIXEL : src;
+                //  };
+                //  loader.onerror = function () {
                     //tile.setState(3); // ol.TileState.ERROR
-					console.error('tilestate error');
-                  };
-                  loader.src = src;
-                },
+				//	console.error('tilestate error');
+                //  };
+                //  loader.src = src;
+                //},
             }),
 			maxResolution: 1.0,
         });
