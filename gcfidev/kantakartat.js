@@ -53,10 +53,11 @@ function kantakarttaAvailable() {
 	//if (c[0] > kantakartatDefs[i][1] && c[0] < kantakartatDefs[i][3] && c[1] > kantakartatDefs[i][2] && c[1] < kantakartatDefs[i][4]) {
 	   if ( pointinpolygontest([c[0],c[1]], kuntarajat1000k[i][1]) ) {
 	       currentKunta += (currentKunta.length > 0 ? ', ' : '') + kuntarajat1000k[i][0];
-           ret = true;  
+           ret = true; 
+           break;		   
 	   }
-	}
   }
+  
   return ret;
 }
 
